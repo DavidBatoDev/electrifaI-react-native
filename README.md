@@ -25,10 +25,10 @@ Before you begin, make sure you have the following installed:
 - Go to SDK manager, check "Show Package Details", go to "Android 12.0 (S)" and install the following: Android SDK Platform 31, Intel x86 Atom_64 System Image
 - Go to SDK tools, check "Show Package Details" and install 31.0.0
 - Create a New User Variables with a variable name "ANDROID_HOME", for the variable value check in File Explorer:
-"C:\Users\<username>\AppData\Local\Android\Sdk"
+"C:\Users\your-username\AppData\Local\Android\Sdk"
 - to Confirm, open powershell type the command "Get-ChildItem -Path Env:\", Verify ANDROID_HOME has been added
-- Go to your envromental variables again select Path, click Edit, click New and paste this ""C:\Users\<username>\AppData\Local\Android\Sdk\platforms-tools""
+- Go to your envromental variables again, to System Variables select Path, click Edit, click New and paste this ""C:\Users\your-username\AppData\Local\Android\Sdk\platforms-tools""
 
 ## Development
 - for installing the package run "npm install"
-- for the development run "npm start" or "npm android"
+- for the development run "npm start" or "npm run android"
