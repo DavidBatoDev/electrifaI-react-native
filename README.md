@@ -13,7 +13,7 @@ Before you begin, make sure you have the following installed:
 ## Installation of prerequisites
 ### **Node.js (@latest)** 
 - use chocolatey to install the nodejs-lts version 
-- the nodejs bin folder from your program files in the environmental varialbles PATH
+- put the nodejs bin folder from your program files in the environmental varialbles PATH
 ### **Java Development Kit (@17)** 
 - go to https://www.oracle.com/java/technologies/downloads/#jdk17-windows if youre using windows
 - Download the x64 MSI installer, launch the installer and follow the default instructions given. 
