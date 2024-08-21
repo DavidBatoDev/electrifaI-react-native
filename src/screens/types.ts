@@ -1,31 +1,31 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-// Root stack navigator (main entry point)
+// Define the Root Stack Navigator parameter list
 export type RootStackParamList = {
-  Auth: undefined;
-  Main: undefined; // Main refers to your bottom tab navigator
+  Auth: any;
+  Main: any;
 };
 
-// Main tab navigator (nested within RootStack)
+// Define the Main Tab Navigator parameter list
 export type MainTabParamList = {
-  HomeStack: undefined; // HomeStack is the stack navigator within the tab
+  HomeStack: undefined;
   Profile: undefined;
   Tracking: undefined;
   Payments: undefined;
 };
 
-// Home stack navigator (nested within HomeStack tab)
+// Define the Home Stack Navigator parameter list
 export type HomeStackParamList = {
-  Home: undefined; // Home screen within HomeStack
-  Details: undefined; // Details screen within HomeStack
+  Home: undefined;
+  Details: undefined;
 };
 
-// Navigation prop type for root stack navigator
+// Navigation prop type for the Root Stack Navigator
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-// Navigation prop type for main tab navigator
+// Navigation prop type for the Main Tab Navigator
 export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
 
-// Navigation prop type for home stack navigator
+// Navigation prop type for the Home Stack Navigator
 export type HomeStackNavigationProp = NativeStackNavigationProp<HomeStackParamList>;
