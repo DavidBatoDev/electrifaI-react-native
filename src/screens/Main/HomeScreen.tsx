@@ -7,7 +7,7 @@ import { StyleSheet,
   TouchableOpacity
 } from 'react-native'
 
-import React from 'react'
+import {useState, useRef, useCallback, act} from 'react'
 import Card from '../../components/Card'
 
 const windowWidth = Dimensions.get('window').width;
@@ -38,8 +38,33 @@ const cardContents = [
   },
 ]
 
+const Dot = ({
+  active
+}) => {
+  return (
+    <View style={[styles.dot, {backgroundColor: active}]}>
+    </View>
+  )
+}
 
 const HomeScreen = () => {
+  // focused item on card flatlist
+  const [focusedItem, setFocusedItem] = useState(null);
+
+  const viewabilityConfig = useRef({
+    // will change depending on how much an element is displayed on screen
+    // 50% displayed on screen will trigger
+    itemVisiblePercentThreshold: 50, // Adjust as needed
+  }).current;
+
+  const onViewableItemsChanged = useCallback(({ viewableItems, changed }) => {
+  // This function is called when viewable items change
+    if (viewableItems.length > 0) {
+      // set id of element in focus
+      setFocusedItem(viewableItems[0].item.id)
+    }
+  }, []);
+
   return (
     <ScrollView style={styles.mainContentContainer}>
       <Text style={[styles.regularText, styles.paddingHorizontalSmall]}>Hey there,</Text>
@@ -63,7 +88,9 @@ const HomeScreen = () => {
         ItemSeparatorComponent={() => <View style={{width: 20}}></View>}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        // set key as id key value pair
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
+
         renderItem={({item}) => {
           return (
             <View style={{
@@ -81,6 +108,18 @@ const HomeScreen = () => {
         }}
         >
         </FlatList>
+        <View style={[styles.carouselNav]}>
+          <Dot
+          active={focusedItem == "1" ? "lightblue" : 'lightgrey'}
+          ></Dot>
+          <Dot
+          active={focusedItem == "2" ? "lightblue" : 'lightgrey'}
+          ></Dot>
+          <Dot
+          active={focusedItem == "3" ? "lightblue" : 'lightgrey'}
+          ></Dot>
+
+        </View>
       </View>
       <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Monthly Consumption</Text>
       <View style={[styles.monthlyConsumptionContainer, styles.paddingHorizontalSmall]}>
@@ -122,6 +161,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+  },
+  dot: {
+    height: 8,
+    width: 8,
+    borderRadius: 30,
+    backgroundColor: "lightgrey",
+  },
+  carouselNav: {
+    alignContent: "center",
+    justifyContent: 'center',
+    flexDirection: "row",
+    columnGap: 5,
+    marginBottom: 10,
   }
+
+
 
 })
