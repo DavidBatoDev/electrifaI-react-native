@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon library
 
 export default function ProfileScreen() {
-  // Assuming you won't use useSession anymore, so removing it.
   const user = {
     name: "Victoria Robertson",
     nickname: "Vicky",
@@ -20,7 +20,7 @@ export default function ProfileScreen() {
           <View style={styles.profilePhotoContainer}>
             <Image source={{ uri: user.profilePhoto }} style={styles.profilePhoto} />
           </View>
-          {/* Edit Profile Photo Text */}
+          {/* Edit Profile Photo Icon */}
           <TouchableOpacity style={styles.editButton}>
             <Text style={styles.editButtonText}>Edit Profile Photo</Text>
           </TouchableOpacity>
@@ -39,7 +39,9 @@ export default function ProfileScreen() {
           <Text><Text style={styles.label}>Occupation: </Text>{user.occupation}</Text>
         </View>
         <TouchableOpacity style={styles.editInfoButton}>
-          <Text style={styles.editInfoButtonText}>Edit</Text>
+          <Text>
+            <Icon name="edit" size={20} color="#00f" />
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.moreContainer}>
