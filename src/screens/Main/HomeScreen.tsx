@@ -13,21 +13,28 @@ import Card from '../../components/Card'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+
 const cardContents = [
   {
+  id: "1",
   title: "Avg. Daily Consumption",
+  subtitle: "Learn more about your daily consumption habits.",
   content: "5.67 kWh",
   subContent: "10:34 PM"
   },
   {
-  title: "Avg. Daily Consumption",
-  content: "5.67",
-  subContent: "10:34 PM"
+  id: "2",
+  title: "<title content>",
+  subtitle: "<subtitle>",
+  content: "<content/measurement>",
+  subContent: "<subcontent/time>"
   },
   {
-  title: "Avg. Daily Consumption",
-  content: "5.67",
-  subContent: "10:34 PM"
+  id: "3",
+  title: "<title content>",
+  subtitle: "<subtitle>",
+  content: "<content/measurement>",
+  subContent: "<subcontent/time>"
   },
 ]
 
@@ -56,14 +63,17 @@ const HomeScreen = () => {
         ItemSeparatorComponent={() => <View style={{width: 20}}></View>}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        // set key as id key value pair
         renderItem={({item}) => {
           return (
             <View style={{
             }}>
                 <Card
                 title={item.title}
+                subtitle={item.subtitle}
                 content={item.content}
                 subContent={item.subContent}
+                modalID = {item.id}
                 ></Card>
 
             </View>
