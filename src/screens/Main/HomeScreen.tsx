@@ -1,146 +1,108 @@
-import { StyleSheet, 
-  Text, 
-  View,
-  FlatList,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity
-} from 'react-native'
-
-import {useState, useRef, useCallback, act} from 'react'
-import Card from '../../components/Card'
+import React, { useState, useRef, useCallback } from 'react';
+import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
+import { VictoryBar, VictoryChart, VictoryTheme } from 'victory-native';
+import Card from '../../components/Card';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
 const cardContents = [
   {
-  id: "1",
-  title: "Avg. Daily Consumption",
-  subtitle: "Learn more about your daily consumption habits.",
-  content: "5.67 kWh",
-  subContent: "10:34 PM"
+    id: '1',
+    title: 'Avg. Daily Consumption',
+    subtitle: 'Learn more about your daily consumption habits.',
+    content: '5.67 kWh',
+    subContent: 'As of 10:34 PM',
   },
   {
-  id: "2",
-  title: "<title content>",
-  subtitle: "<subtitle>",
-  content: "<content/measurement>",
-  subContent: "<subcontent/time>"
+    id: '2',
+    title: 'Monthly Consumption',
+    subtitle: 'Track your monthly usage.',
+    content: '102 kWh',
+    subContent: 'August 2023',
   },
   {
-  id: "3",
-  title: "<title content>",
-  subtitle: "<subtitle>",
-  content: "<content/measurement>",
-  subContent: "<subcontent/time>"
+    id: '3',
+    title: 'Yearly Consumption',
+    subtitle: 'Track your yearly usage.',
+    content: '1200 kWh',
+    subContent: '2023',
   },
-]
+];
 
-const Dot = ({
-  active
-}) => {
-  return (
-    <View style={[styles.dot, {backgroundColor: active}]}>
-    </View>
-  )
-}
+const Dot = ({ active }) => {
+  return <View style={[styles.dot, { backgroundColor: active }]} />;
+};
 
 const HomeScreen = () => {
-  // focused item on card flatlist
-  const [focusedItem, setFocusedItem] = useState(null);
+  const [focusedItem, setFocusedItem] = useState('1');
 
   const viewabilityConfig = useRef({
-    // will change depending on how much an element is displayed on screen
-    // 50% displayed on screen will trigger
-    itemVisiblePercentThreshold: 50, // Adjust as needed
+    itemVisiblePercentThreshold: 50,
   }).current;
 
-  const onViewableItemsChanged = useCallback(({ viewableItems, changed }) => {
-  // This function is called when viewable items change
+  const onViewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
-      // set id of element in focus
-      setFocusedItem(viewableItems[0].item.id)
+      setFocusedItem(viewableItems[0].item.id);
     }
   }, []);
 
+  // Dummy data for the VictoryBar chart
+  const data = [
+    { month: 'May', kWh: 102 },
+    { month: 'June', kWh: 98 },
+    { month: 'July', kWh: 105 },
+    { month: 'August', kWh: 102 },
+    { month: 'September', kWh: 110 },
+  ];
+
   return (
     <ScrollView style={styles.mainContentContainer}>
-      <Text style={[styles.regularText, styles.paddingHorizontalSmall]}>Hey there,</Text>
-      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Bato Bato</Text>
-      <View style={{
-      }}>
+      <Text style={[styles.regularText, styles.paddingHorizontalSmall]}>Hey there, User</Text>
+      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Avg. Daily Consumption</Text>
+      <View>
         <FlatList
-
-        contentContainerStyle={{
-          paddingLeft: 20,
-          marginVertical: 20
-        }}
-        scrollEnabled={true}
-        data={cardContents}
-        horizontal
-        snapToAlignment='center'
-        decelerationRate='normal'
-        snapToOffsets={[windowWidth, windowWidth-20,windowWidth]}
-        snapToEnd={true}
-        ListFooterComponent={() => <View style={{width: 20}}></View>}
-        ItemSeparatorComponent={() => <View style={{width: 20}}></View>}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={viewabilityConfig}
-
-        renderItem={({item}) => {
-          return (
-            <View style={{
-            }}>
-                <Card
-                title={item.title}
-                subtitle={item.subtitle}
-                content={item.content}
-                subContent={item.subContent}
-                modalID = {item.id}
-                ></Card>
-
+          contentContainerStyle={{
+            paddingLeft: 20,
+            marginVertical: 20,
+          }}
+          data={cardContents}
+          horizontal
+          snapToAlignment="center"
+          decelerationRate="fast"
+          snapToOffsets={Array(cardContents.length).fill(0).map((_, index) => index * (windowWidth - 40))}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          onViewableItemsChanged={onViewableItemsChanged}
+          viewabilityConfig={viewabilityConfig}
+          renderItem={({ item }) => (
+            <View>
+              <Card title={item.title} subtitle={item.subtitle} content={item.content} subContent={item.subContent} modalID={item.id} />
             </View>
-          )
-        }}
-        >
-        </FlatList>
-        <View style={[styles.carouselNav]}>
-          <Dot
-          active={focusedItem == "1" ? "lightblue" : 'lightgrey'}
-          ></Dot>
-          <Dot
-          active={focusedItem == "2" ? "lightblue" : 'lightgrey'}
-          ></Dot>
-          <Dot
-          active={focusedItem == "3" ? "lightblue" : 'lightgrey'}
-          ></Dot>
-
+          )}
+        />
+        <View style={styles.carouselNav}>
+          {cardContents.map((item) => (
+            <Dot key={item.id} active={focusedItem === item.id ? 'lightblue' : 'lightgrey'} />
+          ))}
         </View>
       </View>
       <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Monthly Consumption</Text>
       <View style={[styles.monthlyConsumptionContainer, styles.paddingHorizontalSmall]}>
-        <View>
-          <Text>Chart goes here!</Text>
-          <Text>Chart goes here!</Text>
-          <Text>Chart goes here!</Text>
-          <Text>Chart goes here!</Text>
-        </View>
+        <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 20 }}>
+          <VictoryBar data={data} x="month" y="kWh" style={{ data: { fill: 'blue' } }} />
+        </VictoryChart>
       </View>
-
     </ScrollView>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   mainContentContainer: {
     paddingVertical: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   regularText: {
     fontSize: 16,
@@ -150,32 +112,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   paddingHorizontalSmall: {
-    paddingHorizontal: 20
-
+    paddingHorizontal: 20,
   },
   monthlyConsumptionContainer: {
     marginVertical: 10,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius:10,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   dot: {
     height: 8,
     width: 8,
-    borderRadius: 30,
-    backgroundColor: "lightgrey",
+    borderRadius: 4,
+    backgroundColor: 'lightgrey',
   },
   carouselNav: {
-    alignContent: "center",
+    flexDirection: 'row',
     justifyContent: 'center',
-    flexDirection: "row",
-    columnGap: 5,
     marginBottom: 10,
-  }
-
-
-
-})
+    columnGap: 5,
+  },
+});
