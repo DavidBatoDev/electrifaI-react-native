@@ -16,16 +16,19 @@ export default function Card({
   content,
   subContent,
   modalID
-
 }) {
+
   const navigation = useNavigation();
   return (
+
     <TouchableOpacity style={styles.mainContainer}
     onPress={() => {
+      // on press of card, determine modal id and navigate accordingly
       switch(modalID) {
         case "1":
           console.log('true')
           navigation.navigate('Daily Consumption Modal')
+          // add cases for more modal screens
       }
 
     }}
@@ -63,15 +66,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     elevation: 5,
-
   },
   contentWrapper: {
     // wrapper for text elements inside card
-
     flex: 1,
     rowGap: 2,
-    // backgroundColor: "yellow",
   },
+  // text presets
   mediumBoldText: {
     fontWeight: 'bold',
     fontSize: 18,

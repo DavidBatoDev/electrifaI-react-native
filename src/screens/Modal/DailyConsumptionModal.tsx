@@ -43,7 +43,6 @@ const data = [
 ];
 
 
-    // mock config
 
 export default function DailyConsumptionModal () {
     /*
@@ -152,9 +151,11 @@ const styles = StyleSheet.create({
     regularText: {
         fontSize: 16,
     },
+    
     headerTextWrapper: {
         rowGap: 5,
     },
+    // container for info wrapper (with the progress bars)
     chartInfoWrapper: {
         rowGap: 20,
         backgroundColor: "white",
@@ -172,7 +173,4 @@ const styles = StyleSheet.create({
     textWrapper: {
         rowGap: 5,
     },
-    consumptionText: {
-        
-    }
 })
