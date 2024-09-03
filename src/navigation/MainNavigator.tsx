@@ -13,6 +13,7 @@ import ProfileScreen from '../screens/Main/ProfileScreen';
 import TrackingScreen from '../screens/Main/TrackingScreen';
 import PaymentsScreen from '../screens/Main/PaymentsScreen';
 import DetailsScreen from '../screens/Main/DetailsScreen';
+import DailyConsumptionModal from "../screens/Modal/DailyConsumptionModal";
 
 const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
@@ -31,6 +32,8 @@ const HomeStack = () => (
 
     />
     <MainStack.Screen name="Details" component={DetailsScreen} />
+    <MainStack.Screen name="Daily Consumption Modal" component={DailyConsumptionModal} />
+
   </MainStack.Navigator>
 );
 

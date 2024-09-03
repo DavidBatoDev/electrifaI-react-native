@@ -13,6 +13,7 @@ import Card from '../../components/Card'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+
 const cardContents = [
   {
   id: "1",
@@ -62,6 +63,7 @@ const HomeScreen = () => {
         ItemSeparatorComponent={() => <View style={{width: 20}}></View>}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        // set key as id key value pair
         renderItem={({item}) => {
           return (
             <View style={{
@@ -71,6 +73,7 @@ const HomeScreen = () => {
                 subtitle={item.subtitle}
                 content={item.content}
                 subContent={item.subContent}
+                modalID = {item.id}
                 ></Card>
 
             </View>
