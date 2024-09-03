@@ -12,8 +12,6 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Card({
   title,
-
-  subtitle,
   subtitle,
   content,
   subContent,
