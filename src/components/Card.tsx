@@ -11,6 +11,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Card({
   title,
+  subtitle,
   content,
   subContent,
 
@@ -18,9 +19,10 @@ export default function Card({
   return (
     <TouchableOpacity style={styles.mainContainer}>
       <View style={styles.contentWrapper}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.contentText}>{content}</Text>
-        <Text style={styles.subContentText}>{subContent}</Text>
+        <Text style={styles.mediumBoldText}>{title}</Text>
+        <Text style={styles.smallText}>{subtitle}</Text>
+        <Text style={styles.largeRegularText}>{content}</Text>
+        <Text style={styles.smallText}>{subContent}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -43,18 +45,25 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     // wrapper for text elements inside card
+
     flex: 1,
+    rowGap: 2,
     // backgroundColor: "yellow",
   },
-  titleText: {
+  mediumBoldText: {
     fontWeight: 'bold',
     fontSize: 18,
     color: "grey",
   },
-  contentText: {
+  largeRegularText: {
     fontSize: 28,
   },
-  subContentText: {
+  regularText: {
     fontSize: 16
+  },
+  smallText: {
+    fontSize: 14,
+    color: "lightgrey",
   }
+  
 })

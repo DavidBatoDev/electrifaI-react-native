@@ -15,19 +15,25 @@ const windowHeight = Dimensions.get('window').height;
 
 const cardContents = [
   {
+  id: "1",
   title: "Avg. Daily Consumption",
+  subtitle: "Learn more about your daily consumption habits.",
   content: "5.67 kWh",
   subContent: "10:34 PM"
   },
   {
-  title: "Avg. Daily Consumption",
-  content: "5.67",
-  subContent: "10:34 PM"
+  id: "2",
+  title: "<title content>",
+  subtitle: "<subtitle>",
+  content: "<content/measurement>",
+  subContent: "<subcontent/time>"
   },
   {
-  title: "Avg. Daily Consumption",
-  content: "5.67",
-  subContent: "10:34 PM"
+  id: "3",
+  title: "<title content>",
+  subtitle: "<subtitle>",
+  content: "<content/measurement>",
+  subContent: "<subcontent/time>"
   },
 ]
 
@@ -62,6 +68,7 @@ const HomeScreen = () => {
             }}>
                 <Card
                 title={item.title}
+                subtitle={item.subtitle}
                 content={item.content}
                 subContent={item.subContent}
                 ></Card>
