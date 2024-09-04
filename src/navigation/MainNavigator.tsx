@@ -1,81 +1,86 @@
-import {
-  View, 
-  Text,
-  StyleSheet
-} from "react-native";
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Import screens
 import HomeScreen from '../screens/Main/HomeScreen';
 import ProfileScreen from '../screens/Main/ProfileScreen';
 import TrackingScreen from '../screens/Main/TrackingScreen';
 import PaymentsScreen from '../screens/Main/PaymentsScreen';
 import DetailsScreen from '../screens/Main/DetailsScreen';
-import DailyConsumptionModal from "../screens/Modal/DailyConsumptionModal";
+import DailyConsumptionModal from '../screens/Modal/DailyConsumptionModal';
 
 const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
 
-// Hooks
-
-
-
 const HomeStack = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="Home" component={HomeScreen}
-    options={{
-      headerShown: false  
-    }}
-
-
+    <MainStack.Screen 
+      name="HomeStack" 
+      component={HomeScreen}
+      options={{ headerShown: false }}
     />
-    <MainStack.Screen name="Details" component={DetailsScreen} />
-    <MainStack.Screen name="Daily Consumption Modal" component={DailyConsumptionModal} />
-
+    <MainStack.Screen 
+      name="Details" 
+      component={DetailsScreen} 
+    />
+    <MainStack.Screen 
+      name="Daily Consumption Modal" 
+      component={DailyConsumptionModal} 
+    />
   </MainStack.Navigator>
 );
 
 const MainNavigator = () => {
-
-  const [userName, setUserName] = useState('Justine Rey')
+  const [userName] = useState('Justine Rey');
 
   return (
-    <Tab.Navigator  >
-      <Tab.Screen name="HomeStack" component={HomeStack} 
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName: string = '';
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home-outline' : 'home-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person-outline' : 'person-outline';
+          } else if (route.name === 'Tracking') {
+            iconName = focused ? 'analytics-outline' : 'analytics-outline';
+          } else if (route.name === 'Payments') {
+            iconName = focused ? 'card-outline' : 'card-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarShowLabel: false, 
+        tabBarActiveTintColor: '#007bff',
+        tabBarInactiveTintColor: '#8e8e93', 
+      })}
+    >
+      <Tab.Screen 
+        name="Home" 
+        component={HomeStack}
         options={{
-          headerShown: false  
+          headerShown: false,
         }}
       />
-      <Tab.Screen name="Profile" component={ProfileScreen} 
-      options={{
-        
-      }}
+      <Tab.Screen 
+        name="Tracking" 
+        component={TrackingScreen}
       />
-      <Tab.Screen name="Tracking" component={TrackingScreen} 
-      options={{
-        
-      }}
+      <Tab.Screen 
+        name="Payments" 
+        component={PaymentsScreen}
       />
-      <Tab.Screen name="Payments" component={PaymentsScreen} 
-      options={{
-        
-      }}
+            <Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen}
       />
     </Tab.Navigator>
   );
 };
-const styles = StyleSheet.create({
 
-  headerRightWrapper: {
-    paddingHorizontal: 12,
-
-  }
-
-})
 export default MainNavigator;
-
-
-
-
