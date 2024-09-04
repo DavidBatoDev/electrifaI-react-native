@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryTheme } from 'victory-native';
