@@ -1,43 +1,44 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     Modal,
     Text,
     View,
     StyleSheet,
     StatusBar,
-    Dimensions
-} from "react-native"
+    Dimensions,
+} from 'react-native';
 // importing progress bar component
-import ProgressBar from "../../components/ProgressBar";
+import ProgressBar from '../../components/ProgressBar';
 
 
 const data = [
     // mock data for visualization
     {
-        name: "Morning",
+        name: 'Morning',
         consumption: 1.28,
-        color: "#EB5353",
-        legendFontColor: "#7F7F7F",
+        color: '#EB5353',
+        legendFontColor: '#7F7F7F',
         legendFontSize: 12,
     },
     {
-        name: "Afternoon",
+        name: 'Afternoon',
         consumption: 2.2,
-        color: "#F9D923",
-        legendFontColor: "#7F7F7F",
+        color: '#F9D923',
+        legendFontColor: '#7F7F7F',
         legendFontSize: 12,
     },
     {
-        name: "Evening",
+        name: 'Evening',
         consumption: 0.88,
-        color: "#36AE7C",
-        legendFontColor: "#7F7F7F",
+        color: '#36AE7C',
+        legendFontColor: '#7F7F7F',
         legendFontSize: 12,
     },
     {
-        name: "Night",
+        name: 'Night',
         consumption: 3.5,
-        color: "#187498",
-        legendFontColor: "#7F7F7F",
+        color: '#187498',
+        legendFontColor: '#7F7F7F',
         legendFontSize: 12,
     },
 ];
@@ -73,31 +74,31 @@ export default function DailyConsumptionModal () {
                       <Text style={[styles.regularTextBold]}>Throughout the day</Text>
                       <Text style={[styles.regularText]}>You're consumption peaks during the night, and lowest in the evening.</Text>
                   </View>
-                  
-          
+
+
                   <View style={{rowGap: 8}}>
                   {/* progress bars */}
                       <ProgressBar
                       percentage={0.2}
-                      progressColor={"#EB5353"}
-                      ></ProgressBar>
+                      progressColor={'#EB5353'}
+                       />
                       <ProgressBar
                       percentage={0.5}
-                      progressColor={"#F9D923"}
-                      ></ProgressBar>
+                      progressColor={'#F9D923'}
+                       />
                       <ProgressBar
                       percentage={0.1}
-                      progressColor={"#36AE7C"}
-                      ></ProgressBar>
+                      progressColor={'#36AE7C'}
+                       />
                       <ProgressBar
-                      progressColor={"#187498"}
+                      progressColor={'#187498'}
                       percentage={0.2}
-                      ></ProgressBar>
+                       />
                   </View>
 
                   <View style={styles.textWrapper}>
                       <Text style={styles.regularTextBold}>Did you know?</Text>
-                  <Text style={[styles.regularText]}>You are <Text style={ {fontWeight: "bold", color: "#EB5353"}}>above average</Text> on daily consumption in Manila, Philippines.</Text>
+                  <Text style={[styles.regularText]}>You are <Text style={ {fontWeight: 'bold', color: '#EB5353'}}>above average</Text> on daily consumption in Manila, Philippines.</Text>
 
                   </View>
 
@@ -111,9 +112,9 @@ export default function DailyConsumptionModal () {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent', 
+        backgroundColor: 'transparent',
         paddingTop: StatusBar.currentHeight + 10, // for responsive resizing of card
         paddingBottom: StatusBar.currentHeight,
         paddingHorizontal: 10,
@@ -123,18 +124,18 @@ const styles = StyleSheet.create({
         rowGap: 15,
         paddingHorizontal: 25,
         paddingVertical: 30,
-        alignItems: "flex-start",
+        alignItems: 'flex-start',
         // occupy all of maincontainer
-        height: "100%",
-        width: "100%",
-        backgroundColor: "white",
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'white',
         flex: 1,
         borderRadius: 12,
         elevation: 3,
     },
     // text presets
     mediumBoldText: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontSize: 18,
     },
     largeRegularText: {
@@ -142,35 +143,35 @@ const styles = StyleSheet.create({
     },
     smallText: {
       fontSize: 14,
-      color: "lightgrey",
+      color: 'lightgrey',
     },
-    regularTextBold: { 
-        fontWeight: "bold", 
+    regularTextBold: {
+        fontWeight: 'bold',
         fontSize: 16,
     },
     regularText: {
         fontSize: 16,
     },
-    
+
     headerTextWrapper: {
         rowGap: 5,
     },
     // container for info wrapper (with the progress bars)
     chartInfoWrapper: {
         rowGap: 20,
-        backgroundColor: "white",
-        width: "100%",
+        backgroundColor: 'white',
+        width: '100%',
         padding: 20,
-        borderRadius: 12, 
+        borderRadius: 12,
         elevation: 3,
     },
     chartWrapper: {
         marginVertical: 15,
-        justifyContent: "center",
+        justifyContent: 'center',
         alignItems: 'center',
     },
 
     textWrapper: {
         rowGap: 5,
     },
-})
+});
