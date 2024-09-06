@@ -22,27 +22,27 @@ export default function Signup() {
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.title}>Sign Up</Text>
+      <Text style={styles.title}>Create an Account</Text>
       <TextInput
         placeholder="First Name"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Last Name"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -79,22 +79,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFB315",
+    color: "#2D3142",
     marginBottom: 20,
   },
   input: {
     width: "80%",
-    borderWidth: 1,
-    borderColor: "#D4820C",
     padding: 10,
     margin: 10,
     borderRadius: 4,
     color: "#000",
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9fb",
+    elevation: 4,
   },
   button: {
     width: "80%",
-    backgroundColor: "#FFB315",
+    backgroundColor: "#2D3142",
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   loginLink: {
-    color: "#FFB315",
+    color: "#2D3142",
     marginLeft: 5,
     fontWeight: "bold",
   },
