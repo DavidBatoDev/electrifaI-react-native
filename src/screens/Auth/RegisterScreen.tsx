@@ -3,6 +3,8 @@ import { StyleSheet, TextInput, Image } from "react-native";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { RootStackNavigationProp } from "../types";
+import LinearGradient from "react-native-linear-gradient";
+
 
 export default function Signup() {
   const navigate = useNavigation<RootStackNavigationProp>()
@@ -44,9 +46,17 @@ export default function Signup() {
         style={styles.input}
         placeholderTextColor="#2D3142"
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+      <LinearGradient
+        colors={['#333E6C', '#2D3142']}
+        locations={[0, 0.66]}
+        style={styles.button}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <TouchableOpacity style={styles.innerButton} onPress={handleSignup}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </LinearGradient>
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>Already have an account?</Text>
         <TouchableOpacity 
@@ -59,6 +69,7 @@ export default function Signup() {
         >
           <Text style={styles.loginLink}> Login</Text>
         </TouchableOpacity>
+      
       </View>
     </View>
   );
@@ -93,11 +104,14 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    backgroundColor: "#2D3142",
-    padding: 14,
+    paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
+  },
+  innerButton: {
+    width: "100%",
+    alignItems: 'center',
   },
   buttonText: {
     color: "#fff",
