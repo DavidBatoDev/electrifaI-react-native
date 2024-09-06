@@ -23,17 +23,17 @@ export default function Login() {
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.title}>Project ElectriAI</Text>
+      {/* <Text style={styles.title}>Project ElectriAI</Text> */}
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -75,17 +75,16 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    borderWidth: 1,
-    borderColor: "#D4820C",
     padding: 10,
     margin: 10,
     borderRadius: 4,
     color: "#000",
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9fb",
+    elevation: 4,
   },
   button: {
     width: "80%",
-    backgroundColor: "#FFB315",
+    backgroundColor: "#2D3142",
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   signupLink: {
-    color: "#FFB315",
+    color: "#2D3142",
     marginLeft: 5,
     fontWeight: "bold",
   },
