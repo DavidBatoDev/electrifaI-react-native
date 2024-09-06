@@ -104,13 +104,13 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
   },
   innerButton: {
     width: "100%",
+    paddingVertical: 14,
     alignItems: 'center',
   },
   buttonText: {

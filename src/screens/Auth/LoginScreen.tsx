@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
   innerButton: {
     width: "100%",
     alignItems: 'center',
+    paddingVertical: 14,
   },
   buttonText: {
     color: "#fff",
