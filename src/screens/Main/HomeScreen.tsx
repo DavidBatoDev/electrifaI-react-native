@@ -1,12 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory-native';
 import Card from '../../components/Card';
+import BarChart from '../../components/BarChart'; // Import the BarChart component
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+
+// Unified monthly consumption data
+const monthly_consumption_data = [
+  { id: '1', month_in_number: 1, month: 'Jan', consumption: '95 kWh', kWh: 95 },
+  { id: '2', month_in_number: 2, month: 'Feb', consumption: '90 kWh', kWh: 90 },
+  { id: '3', month_in_number: 3, month: 'Mar', consumption: '85 kWh', kWh: 85 },
+  { id: '4', month_in_number: 4, month: 'Apr', consumption: '88 kWh', kWh: 88 },
+  { id: '5', month_in_number: 5, month: 'May', consumption: '102 kWh', kWh: 102 },
+  { id: '6', month_in_number: 6, month: 'Jun', consumption: '98 kWh', kWh: 98 },
+  { id: '7', month_in_number: 7, month: 'Jul', consumption: '105 kWh', kWh: 105 },
+  { id: '8', month_in_number: 8, month: 'Aug', consumption: '102 kWh', kWh: 102 },
+  { id: '9', month_in_number: 9, month: 'Sep', consumption: '110 kWh', kWh: 110 },
+  { id: '10', month_in_number: 10, month: 'Oct', consumption: '115 kWh', kWh: 115 },
+  { id: '11', month_in_number: 11, month: 'Nov', consumption: '120 kWh', kWh: 120 },
+  { id: '12', month_in_number: 12, month: 'Dec', consumption: '130 kWh', kWh: 130 },
+];
+
+// interfaces 
+interface DotProps {
+  active: string;
+}
 
 const cardContents = [
   {
@@ -32,7 +50,7 @@ const cardContents = [
   },
 ];
 
-const Dot = ({ active }) => {
+const Dot = ({ active }: DotProps) => {
   return <View style={[styles.dot, { backgroundColor: active }]} />;
 };
 
@@ -49,14 +67,13 @@ const HomeScreen = () => {
     }
   }, []);
 
-  // Dummy data for the VictoryBar chart
-  const data = [
-    { month: 'May', kWh: 102 },
-    { month: 'June', kWh: 98 },
-    { month: 'July', kWh: 105 },
-    { month: 'August', kWh: 102 },
-    { month: 'September', kWh: 110 },
-  ];
+  // Function to render each item in the FlatList (scrollable monthly data)
+  const renderMonthlyItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Text style={styles.monthText}>{item.month}</Text>
+      <Text style={styles.consumptionText}>{item.consumption}</Text>
+    </View>
+  );
 
   return (
     <ScrollView style={styles.mainContentContainer}>
@@ -72,14 +89,22 @@ const HomeScreen = () => {
           horizontal
           snapToAlignment="center"
           decelerationRate="fast"
-          snapToOffsets={Array(cardContents.length).fill(0).map((_, index) => index * (windowWidth - 40))}
+          snapToOffsets={Array(cardContents.length)
+            .fill(0)
+            .map((_, index) => index * (windowWidth - 40))}
           showsHorizontalScrollIndicator={false}
           pagingEnabled
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
           renderItem={({ item }) => (
             <View>
-              <Card title={item.title} subtitle={item.subtitle} content={item.content} subContent={item.subContent} modalID={item.id} />
+              <Card
+                title={item.title}
+                subtitle={item.subtitle}
+                content={item.content}
+                subContent={item.subContent}
+                modalID={item.id}
+              />
             </View>
           )}
         />
@@ -89,11 +114,23 @@ const HomeScreen = () => {
           ))}
         </View>
       </View>
+
       <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Monthly Consumption</Text>
+      <View style={[styles.monthlyConsumptionContainer]}>
+        {/* ../components/BarChart.tsx */}
+        <BarChart data={monthly_consumption_data} />
+      </View>
+
+      {/* Scrollable monthly consumption list */}
       <View style={[styles.monthlyConsumptionContainer, styles.paddingHorizontalSmall]}>
-        <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 20 }}>
-          <VictoryBar data={data} x="month" y="kWh" style={{ data: { fill: 'blue' } }} />
-        </VictoryChart>
+        <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly</Text>
+        <FlatList
+          data={monthly_consumption_data}
+          keyExtractor={(item) => item.id}
+          renderItem={renderMonthlyItem}
+          scrollEnabled={true}
+          style={styles.flatList}
+        />
       </View>
     </ScrollView>
   );
@@ -118,11 +155,14 @@ const styles = StyleSheet.create({
   },
   monthlyConsumptionContainer: {
     marginVertical: 10,
-    borderRadius: 10,
-    backgroundColor: 'white',
+    borderRadius: 16,
+    backgroundColor: '#f9f9f9',
     justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
+    // padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
   },
   dot: {
     height: 8,
@@ -135,5 +175,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     columnGap: 5,
+  },
+  flatList: {
+    marginVertical: 10,
+    backgroundColor: 'white',
+    borderRadius: 16,
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomColor: '#E5E7EB',
+    borderBottomWidth: 1,
+  },
+  monthText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  consumptionText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#333',
   },
 });
