@@ -1,4 +1,4 @@
-import { Button, StyleSheet, TextInput, Image } from "react-native";
+import { StyleSheet, TextInput, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -27,13 +27,13 @@ export default function Login() {
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#4050E7"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#4050E7"
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFB315",
+    color: "#4050E7",
     marginBottom: 20,
   },
   input: {
     width: "80%",
     borderWidth: 1,
-    borderColor: "#D4820C",
+    borderColor: "#4050E7",
     padding: 10,
     margin: 10,
     borderRadius: 4,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    backgroundColor: "#FFB315",
+    backgroundColor: "#4050E7",
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   signupLink: {
-    color: "#FFB315",
+    color: "#4050E7",
     marginLeft: 5,
     fontWeight: "bold",
   },
