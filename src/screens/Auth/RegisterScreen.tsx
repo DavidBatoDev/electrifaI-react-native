@@ -26,23 +26,23 @@ export default function Signup() {
       <TextInput
         placeholder="First Name"
         style={styles.input}
-        placeholderTextColor="#4050E7"
+        placeholderTextColor="#D4820C"
       />
       <TextInput
         placeholder="Last Name"
         style={styles.input}
-        placeholderTextColor="#4050E7"
+        placeholderTextColor="#D4820C"
       />
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#4050E7"
+        placeholderTextColor="#D4820C"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#4050E7"
+        placeholderTextColor="#D4820C"
       />
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#4050E7",
+    color: "#FFB315",
     marginBottom: 20,
   },
   input: {
     width: "80%",
     borderWidth: 1,
-    borderColor: "#4050E7",
+    borderColor: "#D4820C",
     padding: 10,
     margin: 10,
     borderRadius: 4,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    backgroundColor: "#4050E7",
+    backgroundColor: "#FFB315",
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   loginLink: {
-    color: "#4050E7",
+    color: "#FFB315",
     marginLeft: 5,
     fontWeight: "bold",
   },
