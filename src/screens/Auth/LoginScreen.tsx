@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
+import LinearGradient from "react-native-linear-gradient";
 
 
 export default function Login() {
@@ -23,21 +24,30 @@ export default function Login() {
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.title}>Project ElectriAI</Text>
+      {/* <Text style={styles.title}>Project ElectriAI</Text> */}
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+      <LinearGradient
+        colors={['#333E6C', '#2D3142']}
+        locations={[0, 0.66]}
+        style={styles.button}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <TouchableOpacity style={styles.innerButton} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+  
      <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account yet?</Text>
         <TouchableOpacity
@@ -75,21 +85,23 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    borderWidth: 1,
-    borderColor: "#D4820C",
     padding: 10,
     margin: 10,
     borderRadius: 4,
     color: "#000",
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9fb",
+    elevation: 4,
   },
   button: {
     width: "80%",
-    backgroundColor: "#FFB315",
-    padding: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
+  },
+  innerButton: {
+    width: "100%",
+    alignItems: 'center',
+    paddingVertical: 14,
   },
   buttonText: {
     color: "#fff",
@@ -104,7 +116,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   signupLink: {
-    color: "#FFB315",
+    color: "#2D3142",
     marginLeft: 5,
     fontWeight: "bold",
   },

@@ -3,6 +3,8 @@ import { StyleSheet, TextInput, Image } from "react-native";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { RootStackNavigationProp } from "../types";
+import LinearGradient from "react-native-linear-gradient";
+
 
 export default function Signup() {
   const navigate = useNavigation<RootStackNavigationProp>()
@@ -22,31 +24,39 @@ export default function Signup() {
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Text style={styles.title}>Sign Up</Text>
+      <Text style={styles.title}>Create an Account</Text>
       <TextInput
         placeholder="First Name"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Last Name"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#D4820C"
+        placeholderTextColor="#2D3142"
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+      <LinearGradient
+        colors={['#333E6C', '#2D3142']}
+        locations={[0, 0.66]}
+        style={styles.button}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <TouchableOpacity style={styles.innerButton} onPress={handleSignup}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </LinearGradient>
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>Already have an account?</Text>
         <TouchableOpacity 
@@ -59,6 +69,7 @@ export default function Signup() {
         >
           <Text style={styles.loginLink}> Login</Text>
         </TouchableOpacity>
+      
       </View>
     </View>
   );
@@ -79,26 +90,28 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFB315",
+    color: "#2D3142",
     marginBottom: 20,
   },
   input: {
     width: "80%",
-    borderWidth: 1,
-    borderColor: "#D4820C",
     padding: 10,
     margin: 10,
     borderRadius: 4,
     color: "#000",
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9fb",
+    elevation: 4,
   },
   button: {
     width: "80%",
-    backgroundColor: "#FFB315",
-    padding: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
+  },
+  innerButton: {
+    width: "100%",
+    paddingVertical: 14,
+    alignItems: 'center',
   },
   buttonText: {
     color: "#fff",
@@ -113,7 +126,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   loginLink: {
-    color: "#FFB315",
+    color: "#2D3142",
     marginLeft: 5,
     fontWeight: "bold",
   },
