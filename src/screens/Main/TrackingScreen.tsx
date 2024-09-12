@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -9,6 +10,7 @@ const blueLineChart = require('../../assets/images/blueLineChart.png');
 const redLineChart = require('../../assets/images/redLineChart.png');
 
 const TrackingScreen = () => {
+  const navigation = useNavigation();
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -26,7 +28,12 @@ const TrackingScreen = () => {
         </View>
 
         {/* Anomaly Detection Card */}
-        <View style={styles.statCard}>
+        <TouchableOpacity 
+        activeOpacity={0.8} 
+        onPress={() => navigation.navigate('Track Consumption', {
+          consumptionId: '1'
+        })}
+        style={styles.statCard}>
           <View style={styles.statHeader}>
             <Ionicons name="stats-chart-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -45,10 +52,15 @@ const TrackingScreen = () => {
           <Text style={styles.statDescription}>
             Spikes in electrical usage may hint at a possible power leak.
           </Text>
-        </View>
+        </TouchableOpacity>
 
         {/* Visit Duration Card */}
-        <View style={styles.statCard}>
+        <TouchableOpacity 
+          activeOpacity={0.8} 
+          onPress={() => navigation.navigate('Track Consumption', {
+            consumptionId: '1'
+          })}
+        style={styles.statCard}>
           <View style={styles.statHeader}>
             <Ionicons name="battery-charging-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -67,7 +79,7 @@ const TrackingScreen = () => {
           <Text style={styles.statDescription}>
             Spikes in electrical usage may hint at a possible power leak.
           </Text>
-        </View>
+        </TouchableOpacity>
 
         {/* Footer Notification */}
         <View style={styles.footerCard}>

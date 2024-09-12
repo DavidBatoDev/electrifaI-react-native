@@ -12,6 +12,7 @@ import TrackingScreen from '../screens/Main/TrackingScreen';
 import PaymentsScreen from '../screens/Main/PaymentsScreen';
 import DetailsScreen from '../screens/Main/DetailsScreen';
 import DailyConsumptionModal from '../screens/Modal/DailyConsumptionModal';
+import TrackConsumption from '../screens/Main/TrackConsumption';
 
 const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
@@ -30,6 +31,14 @@ const HomeStack = () => (
     <MainStack.Screen 
       name="Daily Consumption Modal" 
       component={DailyConsumptionModal} 
+    />
+    <MainStack.Screen 
+      name="Track Consumption" 
+      component={TrackConsumption}
+      options={{
+        headerShown: false,
+      }}
+      
     />
   </MainStack.Navigator>
 );
