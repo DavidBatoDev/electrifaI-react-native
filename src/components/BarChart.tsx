@@ -6,7 +6,7 @@ const BarChart = ({ data }) => {
   return (
     <VictoryChart
       domainPadding={{ x: 20 }}
-      height={280} // Adjust height based on design
+      height={300} // Adjust height based on design
       padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
       style={{
         parent: { borderRadius: 16, backgroundColor: '#f9f9f9' },
@@ -20,7 +20,7 @@ const BarChart = ({ data }) => {
         y="kWh"
         style={{
           data: {
-            fill: '#3B82F6',
+            fill: '#4050E7',
             width: 12,
           },
         }}
@@ -35,7 +35,7 @@ const BarChart = ({ data }) => {
           axis: { stroke: 'transparent' }, // Remove axis line or set to 'transparent' (based sa figma)
           tickLabels: {
             fontSize: 12,
-            fill: '#333', // color ng text sa x-axis
+            fill: '#28282C', // color ng text sa x-axis
             padding: 5,
           },
         }}
@@ -47,13 +47,11 @@ const BarChart = ({ data }) => {
         tickFormat={(x) => `${x}`}
         style={{
           axis: { stroke: 'transparent' }, // No visible axis line
-          ticks: { stroke: 'transparent' }, // Remove ticks for cleaner look
           tickLabels: {
             fontSize: 12,
-            fill: '#999', // color ng text sa y-axis
+            fill: '#828284', // color ng text sa y-axis
             padding: 5,
           },
-          grid: { stroke: '#E5E7EB', strokeDasharray: '5,5' }, // para may grid lines
         }}
       />
     </VictoryChart>
