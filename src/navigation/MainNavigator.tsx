@@ -70,6 +70,9 @@ const MainNavigator = () => {
       <Tab.Screen 
         name="Tracking" 
         component={TrackingScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <Tab.Screen 
         name="Payments" 
