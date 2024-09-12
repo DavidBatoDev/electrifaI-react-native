@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 4,
     color: "#000",
-    backgroundColor: "#f9f9fb",
+    backgroundColor: "#FFFFFF",
     elevation: 4,
   },
   button: {
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
+    elevation: 4,
   },
   innerButton: {
     width: "100%",
