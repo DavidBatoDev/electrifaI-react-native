@@ -1,7 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
 // import Card from '../../components/Card';
-import BarChart from '../../components/BarChart'; // Import the BarChart component
+import LinearGradient from 'react-native-linear-gradient';
+import BarChart from '../../components/BarChart';
 import HomeScreenCard from '../../components/HomeScreenCard';
 
 const windowWidth = Dimensions.get('window').width;
@@ -82,63 +83,66 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.mainContentContainer}>
-      <Text style={[styles.regularText, styles.paddingHorizontalSmall]}>Hey there, User</Text>
-      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Avg. Daily Consumption</Text>
-      <View>
-        <FlatList
-          contentContainerStyle={{
-            padding: 20,
-            marginTop: 20,
-            gap: 20,
-          }}
-          data={cardContents}
-          horizontal
-          snapToAlignment="center"
-          decelerationRate="fast"
-          snapToOffsets={Array(cardContents.length)
-            .fill(0)
-            .map((_, index) => index * (windowWidth - 40))}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          onViewableItemsChanged={onViewableItemsChanged}
-          viewabilityConfig={viewabilityConfig}
-          renderItem={({ item }) => (
-            <View>
-              <HomeScreenCard
-                title={item.title}
-                // subtitle={item.subtitle}
-                subContent={item.subtitle}
-                content={item.content}
-                modalID={item.id}
-                focused={focusedItem === item.id}
-              />
-            </View>
-          )}
-        />
-        <View style={styles.carouselNav}>
-          {cardContents.map((item) => (
-            <Dot key={item.id} active={focusedItem === item.id ? 'lightblue' : 'lightgrey'} />
-          ))}
+      <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.mainContentContainer}>
+        <View style={[styles.headerTextContainer]}>
+          <Text style={[styles.regularText, styles.paddingHorizontalSmall, styles.whiteText]}>Hey there, User</Text>
         </View>
-      </View>
+        <View>
+          <FlatList
+            contentContainerStyle={{
+              padding: 20,
+              gap: 10,
+            }}
+            data={cardContents}
+            horizontal
+            snapToAlignment="center"
+            decelerationRate="fast"
+            snapToOffsets={Array(cardContents.length)
+              .fill(0)
+              .map((_, index) => index * (windowWidth - 40))}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onViewableItemsChanged={onViewableItemsChanged}
+            viewabilityConfig={viewabilityConfig}
+            renderItem={({ item }) => (
+              <View>
+                <HomeScreenCard
+                  title={item.title}
+                  // subtitle={item.subtitle}
+                  subContent={item.subContent}
+                  subtitle={item.subtitle}
+                  content={item.content}
+                  modalID={item.id}
+                  focused={focusedItem === item.id}
+                />
+              </View>
+            )}
+          />
+          <View style={styles.carouselNav}>
+            {cardContents.map((item) => (
+              <Dot key={item.id} active={focusedItem === item.id ? 'lightblue' : 'lightgrey'} />
+            ))}
+          </View>
+        </View>
 
-      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Lorem Ipsum</Text>
-      <View style={[styles.monthlyConsumptionContainer]}>
-        {/* ../components/BarChart.tsx */}
-        <BarChart data={monthly_consumption_data} />
-      </View>
+        <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Lorem Ipsum</Text>
+        <View style={[styles.monthlyConsumptionContainer]}>
+          {/* ../components/BarChart.tsx */}
+          <BarChart data={monthly_consumption_data} />
+        </View>
 
-      {/* Scrollable monthly consumption list */}
-      <View style={[styles.monthlyConsumptionContainer, styles.paddingHorizontalSmall]}>
-        <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly</Text>
-        <FlatList
-          data={monthly_consumption_data.slice(7, 12)}
-          keyExtractor={(item) => item.id}
-          renderItem={renderMonthlyItem}
-          scrollEnabled={true}
-          style={styles.flatList}
-        />
-      </View>
+        {/* Scrollable monthly consumption list */}
+        <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
+          <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly</Text>
+          <FlatList
+            data={monthly_consumption_data.slice(7, 12)}
+            keyExtractor={(item) => item.id}
+            renderItem={renderMonthlyItem}
+            scrollEnabled={true}
+            style={styles.flatList}
+          />
+        </View>
+      </LinearGradient>
     </ScrollView>
   );
 };
@@ -147,11 +151,13 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   mainContentContainer: {
-    paddingVertical: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'linear-gradient(to bottom, #333E6C, #2D3142)',
+  },
+  whiteText: {
+    color: '#f9f9f9',
   },
   regularText: {
-    fontSize: 16,
+    fontSize: 19,
   },
   mediumBoldText: {
     fontSize: 18,
@@ -160,16 +166,36 @@ const styles = StyleSheet.create({
   paddingHorizontalSmall: {
     paddingHorizontal: 20,
   },
+  headerTextContainer: {
+    marginTop: 20,
+  },
+  monthlyConsumptionHeaderText: {
+    fontSize: 22,
+    marginLeft: 10,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 10,
+  },
   monthlyConsumptionContainer: {
-    // marginTop: 10,
-    // borderRadius: 16,
+    borderTopEndRadius: 16,
+    borderTopStartRadius: 16,
     backgroundColor: '#f9f9f9',
     justifyContent: 'center',
-    // padding: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
+  },
+  monthlyConsumptionContainerList: {
+    backgroundColor: '#f9f9f9',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    marginBottom: 20,
+    borderBottomStartRadius: 16,
+    borderBottomEndRadius: 16,
   },
   dot: {
     height: 8,
@@ -185,7 +211,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginVertical: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     borderRadius: 16,
   },
   listItem: {

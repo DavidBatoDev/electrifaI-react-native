@@ -11,6 +11,7 @@ export default function HomeScreenCard({
   subContent,
   modalID,
   focused,
+  subtitle
 }) {
   const navigation = useNavigation();
 
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    marginBottom: 20,
     display: 'flex',
   },
   cardContent: {
@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 22,
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#333',
   },
   cardValue: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#000', 
+    fontWeight: '500',
+    color: '#000000', 
     marginTop: 10,
   },
   cardSubContent: {
