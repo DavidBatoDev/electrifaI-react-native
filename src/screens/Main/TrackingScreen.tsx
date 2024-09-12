@@ -1,90 +1,93 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const windowWidth = Dimensions.get('window').width;
 
-// Import images
 const blueLineChart = require('../../assets/images/blueLineChart.png');
 const redLineChart = require('../../assets/images/redLineChart.png');
 
 const TrackingScreen = () => {
   return (
-    <ScrollView style={styles.container}>
-      {/* Leakage Notification Card */}
-      <View style={styles.notificationCard}>
-        <View style={styles.iconContainer}>
-          <Ionicons name="alert-circle" size={28} color="#F59E0B" />
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.cardTitle}>Leakage</Text>
-          <Text style={styles.cardDescription}>
-            He'll want to use your yacht, and I don't want this thing smelling like fish.
-          </Text>
-        </View>
-      </View>
-
-      {/* Anomaly Detection Card, wikll be componetize */}
-      <View style={styles.statCard}>
-        <View style={styles.statHeader}>
-          <Ionicons name="stats-chart-outline" size={28} color="#000" />
-          <View style={styles.statHeaderTitle}>
-            <Text style={styles.statTitle}>Anomaly Detection</Text>
-            <Text style={styles.statSubtitle}>Statistics</Text>
+    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* Leakage Notification Card */}
+        <View style={styles.notificationCard}>
+          <View style={styles.iconContainer}>
+            <Ionicons name="alert-circle" size={28} color="#F59E0B" />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.cardTitle}>Leakage</Text>
+            <Text style={styles.cardDescription}>
+              He'll want to use your yacht, and I don't want this thing smelling like fish.
+            </Text>
           </View>
         </View>
-        <View style={styles.statContent}>
-          <Text style={styles.statValue}>+12 kWh</Text>
-          <Text style={styles.statPercentage}>
-            <Text style={styles.greenText}>+21.01%</Text>
-            <Ionicons name="md-arrow-up" size={16} color="green" />
-          </Text>
-        </View>
-        {/* Replacing graph placeholder with blueLineChart image */}
-        <Image source={blueLineChart} style={styles.chartImage} />
-        <Text style={styles.statDescription}>
-          Spikes in electrical usage may hint at a possible power leak.
-        </Text>
-      </View>
 
-      {/* Visit Duration Card, will be componetize */}
-      <View style={styles.statCard}>
-        <View style={styles.statHeader}>
-          <Ionicons name="battery-charging-outline" size={28} color="#000" />
-          <View style={styles.statHeaderTitle}>
-            <Text style={styles.statTitle}>Visit Duration</Text>
-            <Text style={styles.statSubtitle}>Statistics</Text>
+        {/* Anomaly Detection Card */}
+        <View style={styles.statCard}>
+          <View style={styles.statHeader}>
+            <Ionicons name="stats-chart-outline" size={28} color="#000" />
+            <View style={styles.statHeaderTitle}>
+              <Text style={styles.statTitle}>Anomaly Detection</Text>
+              <Text style={styles.statSubtitle}>Statistics</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.statContent}>
-          <Text style={styles.statValue}>5m 8s</Text>
-          <Text style={styles.statPercentage}>
-            <Text style={styles.redText}>-7.69%</Text>
-            <Ionicons name="md-arrow-down" size={16} color="red" />
+          <View style={styles.statContent}>
+            <Text style={styles.statValue}>+12 kWh</Text>
+            <Text style={styles.statPercentage}>
+              <Text style={styles.greenText}>+21.01%</Text>
+              <Ionicons name="md-arrow-up" size={16} color="green" />
+            </Text>
+          </View>
+          <Image source={blueLineChart} style={styles.chartImage} />
+          <Text style={styles.statDescription}>
+            Spikes in electrical usage may hint at a possible power leak.
           </Text>
         </View>
-        <Image source={redLineChart} style={styles.chartImage} />
-        <Text style={styles.statDescription}>
-          Spikes in electrical usage may hint at a possible power leak.
-        </Text>
-      </View>
 
-      {/* Footer Notification */}
-      <View style={styles.footerCard}>
-        <Ionicons name="checkmark-circle" size={24} color="green" />
-        <Text style={styles.footerText}>All sensors are working well.</Text>
-      </View>
-    </ScrollView>
+        {/* Visit Duration Card */}
+        <View style={styles.statCard}>
+          <View style={styles.statHeader}>
+            <Ionicons name="battery-charging-outline" size={28} color="#000" />
+            <View style={styles.statHeaderTitle}>
+              <Text style={styles.statTitle}>Visit Duration</Text>
+              <Text style={styles.statSubtitle}>Statistics</Text>
+            </View>
+          </View>
+          <View style={styles.statContent}>
+            <Text style={styles.statValue}>5m 8s</Text>
+            <Text style={styles.statPercentage}>
+              <Text style={styles.redText}>-7.69%</Text>
+              <Ionicons name="md-arrow-down" size={16} color="red" />
+            </Text>
+          </View>
+          <Image source={redLineChart} style={styles.chartImage} />
+          <Text style={styles.statDescription}>
+            Spikes in electrical usage may hint at a possible power leak.
+          </Text>
+        </View>
+
+        {/* Footer Notification */}
+        <View style={styles.footerCard}>
+          <Ionicons name="checkmark-circle" size={24} color="green" />
+          <Text style={styles.footerText}>All sensors are working well.</Text>
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 export default TrackingScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-    padding: 20,
+  linearGradient: {
+    flex: 1, // Ensures the gradient covers the whole screen
+  },
+  scrollViewContent: {
+    padding: 20, // Padding for ScrollView content
+    flexGrow: 1, // Ensures ScrollView stretches to fit content
   },
   notificationCard: {
     flexDirection: 'row',
@@ -131,10 +134,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   statHeaderTitle: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent : 'center',
-    alignContent: 'center',
     marginLeft: 10,
   },
   statTitle: {
@@ -144,7 +143,7 @@ const styles = StyleSheet.create({
   },
   statSubtitle: {
     fontSize: 12,
-    color: '#6B7280', 
+    color: '#6B7280',
     marginBottom: 10,
   },
   statContent: {
@@ -154,10 +153,9 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#1E293B', 
+    color: '#1E293B',
   },
   statPercentage: {
-    fontSize: 14,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -179,7 +177,7 @@ const styles = StyleSheet.create({
   },
   statDescription: {
     fontSize: 16,
-    color: 'black', 
+    color: 'black',
   },
   footerCard: {
     flexDirection: 'row',

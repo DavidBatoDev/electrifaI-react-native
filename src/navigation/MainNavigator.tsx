@@ -78,7 +78,7 @@ const MainNavigator = () => {
         name="Payments" 
         component={PaymentsScreen}
       />
-            <Tab.Screen 
+      <Tab.Screen 
         name="Profile" 
         component={ProfileScreen}
       />
