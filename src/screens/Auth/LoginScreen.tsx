@@ -38,8 +38,8 @@ export default function Login() {
         placeholderTextColor="#2D3142"
       />
       <LinearGradient
-        colors={['#333E6C', '#2D3142']}
-        locations={[0, 0.66]}
+        colors={['#24252C', '#454D6D']}
+        locations={[0, 1]}
         style={styles.button}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
