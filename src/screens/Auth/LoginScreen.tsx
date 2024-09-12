@@ -23,6 +23,7 @@ export default function Login() {
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
+        resizeMode="contain"
       />
       {/* <Text style={styles.title}>Project ElectriAI</Text> */}
       <TextInput
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   logo: {
-    width: 100,
     height: 100,
     marginBottom: 20,
   },
