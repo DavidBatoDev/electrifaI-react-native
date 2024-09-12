@@ -1,11 +1,12 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
-import Card from '../../components/Card';
+// import Card from '../../components/Card';
 import BarChart from '../../components/BarChart'; // Import the BarChart component
+import HomeScreenCard from '../../components/HomeScreenCard';
 
 const windowWidth = Dimensions.get('window').width;
 
-// Unified monthly consumption data
+// dummy data for the monthly consumption chart
 const monthly_consumption_data = [
   { id: '1', month_in_number: 1, month: 'Jan', consumption: '95 kWh', kWh: 95 },
   { id: '2', month_in_number: 2, month: 'Feb', consumption: '90 kWh', kWh: 90 },
@@ -26,6 +27,7 @@ interface DotProps {
   active: string;
 }
 
+// dummy data for the cards
 const cardContents = [
   {
     id: '1',
@@ -54,6 +56,8 @@ const Dot = ({ active }: DotProps) => {
   return <View style={[styles.dot, { backgroundColor: active }]} />;
 };
 
+
+// HomeScreen component
 const HomeScreen = () => {
   const [focusedItem, setFocusedItem] = useState('1');
 
@@ -61,6 +65,7 @@ const HomeScreen = () => {
     itemVisiblePercentThreshold: 50,
   }).current;
 
+  // Function to determine the focused item in the FlatList
   const onViewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setFocusedItem(viewableItems[0].item.id);
@@ -82,8 +87,9 @@ const HomeScreen = () => {
       <View>
         <FlatList
           contentContainerStyle={{
-            paddingLeft: 20,
-            marginVertical: 20,
+            padding: 20,
+            marginTop: 20,
+            gap: 20,
           }}
           data={cardContents}
           horizontal
@@ -98,12 +104,13 @@ const HomeScreen = () => {
           viewabilityConfig={viewabilityConfig}
           renderItem={({ item }) => (
             <View>
-              <Card
+              <HomeScreenCard
                 title={item.title}
-                subtitle={item.subtitle}
+                // subtitle={item.subtitle}
+                subContent={item.subtitle}
                 content={item.content}
-                subContent={item.subContent}
                 modalID={item.id}
+                focused={focusedItem === item.id}
               />
             </View>
           )}
@@ -115,7 +122,7 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Monthly Consumption</Text>
+      <Text style={[styles.mediumBoldText, styles.paddingHorizontalSmall]}>Lorem Ipsum</Text>
       <View style={[styles.monthlyConsumptionContainer]}>
         {/* ../components/BarChart.tsx */}
         <BarChart data={monthly_consumption_data} />
@@ -125,7 +132,7 @@ const HomeScreen = () => {
       <View style={[styles.monthlyConsumptionContainer, styles.paddingHorizontalSmall]}>
         <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly</Text>
         <FlatList
-          data={monthly_consumption_data}
+          data={monthly_consumption_data.slice(7, 12)}
           keyExtractor={(item) => item.id}
           renderItem={renderMonthlyItem}
           scrollEnabled={true}
@@ -154,8 +161,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   monthlyConsumptionContainer: {
-    marginVertical: 10,
-    borderRadius: 16,
+    // marginTop: 10,
+    // borderRadius: 16,
     backgroundColor: '#f9f9f9',
     justifyContent: 'center',
     // padding: 10,
