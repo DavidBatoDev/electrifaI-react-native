@@ -22,21 +22,20 @@ export default function ProfileScreen() {
               <Image source={{ uri: user.profilePhoto }} style={styles.profilePhoto} />
             </View>
             {/* Edit Profile Photo Icon */}
-            <TouchableOpacity style={styles.editButton}>
+            <TouchableOpacity style={styles.editPhotoButton}>
               <Text style={styles.editButtonText}>Edit Profile Photo</Text>
             </TouchableOpacity>
           </View>
           {/* Profile Name */}
           <Text style={styles.profileName}>{user.name}</Text>
         </View>
-
         <View style={styles.infoContainer}>
-        <TouchableOpacity style={styles.editInfoButton}>
-            <Text>
-            <Ionicons name="pencil-outline" size={16}></Ionicons>
-            </Text>
+          <TouchableOpacity style={styles.editInfoRow}>
+            <Text style={styles.infoTitle}>Personal Information</Text>
+            <View style={styles.editButtonInfo}>
+              <Ionicons name="pencil-outline" size={25} color="#FFFFFF"></Ionicons>
+            </View>
           </TouchableOpacity>
-          <Text style={styles.infoTitle}>Personal Information</Text>
           <View style={styles.infoContent}>
             <Text style={styles.label}>Name:</Text>
             <Text style={styles.info}>{user.name}</Text>
@@ -92,13 +91,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profilePhotoContainer: {
-    borderRadius: Dimensions.get('window').width * 0.2, // Half of width/height to make it circular
+    borderRadius: Dimensions.get('window').width * 0.2,
     width: Dimensions.get('window').width * 0.4,
     height: Dimensions.get('window').width * 0.4,
-    backgroundColor: '#fff', // White background similar to the example
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    overflow: 'hidden', // Ensure image stays within the circular frame
+    overflow: 'hidden',
     marginBottom: 10,
   },
   profilePhoto: {
@@ -106,8 +105,8 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
-  editButton: {
-    marginTop: 5, // Space between the circle and the edit text
+  editPhotoButton: {
+    paddingVertical: 5,
   },
   editButtonText: {
     color: "#fff",
@@ -122,18 +121,15 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 15,
     padding: 15,
     marginVertical: 10,
     elevation: 2,
-    height: 300,
+
   },
-  
   infoTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
-    marginRight: 10,
     color: "#333",
   },
   infoContent: {
@@ -141,14 +137,27 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   label: {
-    fontWeight: "bold",
     color: "#333",
+    fontSize: 15,
   },
   info: {
+    fontWeight: "bold",
+    color: "#333",
+    fontSize: 17,
     marginBottom: 5,
   },
-  editInfoButton: {
-    alignItems: "flex-end",
+  editInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  editButtonInfo: {
+    marginLeft: 'auto',
+    height: 35,
+    width: 35,
+    backgroundColor: '#828284',
+    justifyContent: 'center',
+    alignItems: 'center', 
+    borderRadius: 15, 
   },
   editInfoButtonText: {
     color: "#00f",
