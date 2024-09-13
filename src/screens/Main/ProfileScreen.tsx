@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Import the icon library
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function ProfileScreen() {
   const user = {
@@ -40,7 +40,7 @@ export default function ProfileScreen() {
         </View>
         <TouchableOpacity style={styles.editInfoButton}>
           <Text>
-            <Icon name="edit" size={20} color="#00f" />
+          <Ionicons name="pencil-outline" size={16}></Ionicons>
           </Text>
         </TouchableOpacity>
       </View>
