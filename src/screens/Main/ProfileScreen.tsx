@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function ProfileScreen() {
@@ -13,65 +14,64 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.profileHeader}>
-        <View style={styles.photoAndEditContainer}>
-          {/* Circular Profile Photo Frame */}
-          <View style={styles.profilePhotoContainer}>
-            <Image source={{ uri: user.profilePhoto }} style={styles.profilePhoto} />
+    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+        <View style={styles.profileHeader}>
+          <View style={styles.photoAndEditContainer}>
+            {/* Circular Profile Photo Frame */}
+            <View style={styles.profilePhotoContainer}>
+              <Image source={{ uri: user.profilePhoto }} style={styles.profilePhoto} />
+            </View>
+            {/* Edit Profile Photo Icon */}
+            <TouchableOpacity style={styles.editButton}>
+              <Text style={styles.editButtonText}>Edit Profile Photo</Text>
+            </TouchableOpacity>
           </View>
-          {/* Edit Profile Photo Icon */}
-          <TouchableOpacity style={styles.editButton}>
-            <Text style={styles.editButtonText}>Edit Profile Photo</Text>
-          </TouchableOpacity>
+          {/* Profile Name */}
+          <Text style={styles.profileName}>{user.name}</Text>
         </View>
-        {/* Profile Name */}
-        <Text style={styles.profileName}>{user.name}</Text>
-      </View>
 
-      <View style={styles.infoContainer}>
-      <TouchableOpacity style={styles.editInfoButton}>
-          <Text>
-          <Ionicons name="pencil-outline" size={16}></Ionicons>
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.infoTitle}>Personal Information</Text>
-        <View style={styles.infoContent}>
-          <Text style={styles.label}>Name:</Text>
-          <Text style={styles.info}>{user.name}</Text>
-          <Text style={styles.label}>Nickname:</Text>
-          <Text style={styles.info}>{user.nickname}</Text>
-          <Text style={styles.label}>Location:</Text>
-          <Text style={styles.info}>{user.location}</Text>
-          <Text style={styles.label}>Age:</Text>
-          <Text style={styles.info}>{user.age}</Text>
-          <Text style={styles.label}>Occupation:</Text>
-          <Text style={styles.info}>{user.occupation}</Text>
+        <View style={styles.infoContainer}>
+        <TouchableOpacity style={styles.editInfoButton}>
+            <Text>
+            <Ionicons name="pencil-outline" size={16}></Ionicons>
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.infoTitle}>Personal Information</Text>
+          <View style={styles.infoContent}>
+            <Text style={styles.label}>Name:</Text>
+            <Text style={styles.info}>{user.name}</Text>
+            <Text style={styles.label}>Nickname:</Text>
+            <Text style={styles.info}>{user.nickname}</Text>
+            <Text style={styles.label}>Location:</Text>
+            <Text style={styles.info}>{user.location}</Text>
+            <Text style={styles.label}>Age:</Text>
+            <Text style={styles.info}>{user.age}</Text>
+            <Text style={styles.label}>Occupation:</Text>
+            <Text style={styles.info}>{user.occupation}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.moreContainer}>
-        <Text style={styles.moreTitle}>More</Text>
-        <Text style={styles.moreSubtitle}>What would you like to do?</Text>
-        <View style={styles.moreOptions}>
-          <TouchableOpacity style={styles.optionButton}>
-            <Text style={styles.optionButtonText}>General Settings</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.optionButton}>
-            <Text style={styles.optionButtonText}>Contact Us</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.optionButton} onPress={() => {/* Add your logout logic here */ }}>
-            <Text style={styles.optionButtonText}>Logout</Text>
-          </TouchableOpacity>
+        <View style={styles.moreContainer}>
+          <Text style={styles.moreTitle}>More</Text>
+          <Text style={styles.moreSubtitle}>What would you like to do?</Text>
+          <View style={styles.moreOptions}>
+            <TouchableOpacity style={styles.optionButton}>
+              <Text style={styles.optionButtonText}>General Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton}>
+              <Text style={styles.optionButtonText}>Contact Us</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton} onPress={() => {/* Add your logout logic here */ }}>
+              <Text style={styles.optionButtonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  linearGradient: {
     flex: 1,
-    backgroundColor: "#FFA500", // orange background
     paddingHorizontal: 20,
   },
   profileHeader: {
