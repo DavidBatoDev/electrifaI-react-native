@@ -54,16 +54,25 @@ export default function ProfileScreen() {
           <Text style={styles.moreTitle}>More</Text>
           <Text style={styles.moreSubtitle}>What would you like to do?</Text>
           <View style={styles.moreOptions}>
+          <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              <Text style={styles.optionButtonText}>General Settings</Text>
+              {/* Add any content or styles for the button here */}
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton}>
-              <Text style={styles.optionButtonText}>Contact Us</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={() => {/* Add your logout logic here */ }}>
-              <Text style={styles.optionButtonText}>Logout</Text>
-            </TouchableOpacity>
+            <Text style={styles.optionButtonText}>General Settings</Text>
           </View>
+          <View style={styles.optionContainer}>
+            <TouchableOpacity style={styles.optionButton}>
+              {/* Add any content or styles for the button here */}
+            </TouchableOpacity>
+            <Text style={styles.optionButtonText}>Contact Us</Text>
+          </View>
+          <View style={styles.optionContainer}>
+            <TouchableOpacity style={styles.optionButton}>
+              {/* Add any content or styles for the button here */}
+            </TouchableOpacity>
+            <Text style={styles.optionButtonText}>Logout</Text>
+          </View>
+        </View>
         </View>
     </LinearGradient>
   );
@@ -136,8 +145,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   info: {
-    marginBottom: 3
-    , // Space between different info sections
+    marginBottom: 5,
   },
   editInfoButton: {
     alignItems: "flex-end",
@@ -147,7 +155,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   moreContainer: {
-    width: "90%",
     paddingVertical: 20,
   },
   moreTitle: {
@@ -164,6 +171,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  optionContainer: {
+    alignItems: 'center',
+    marginBottom: 10,
+  },
   optionButton: {
     width: "30%",
     backgroundColor: "#fff",
@@ -174,10 +185,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 5,
-    elevation: 3, // For Android shadow
+    elevation: 3,
   },
   optionButtonText: {
-    color: "#000",
+    textAlign: 'center',
+    color: "#fff",
   },
 });
 
