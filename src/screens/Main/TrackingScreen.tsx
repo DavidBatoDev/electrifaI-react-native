@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const windowWidth = Dimensions.get('window').width;
 
 const blueLineChart = require('../../assets/images/blueLineChart.png');
-const redLineChart = require('../../assets/images/redLineChart.png');
+const redLineChart = require('../../assets/images/sample-profile.png');
 
 const TrackingScreen = () => {
   const navigation = useNavigation();

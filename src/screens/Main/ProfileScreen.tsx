@@ -10,16 +10,17 @@ export default function ProfileScreen() {
     location: "Manila",
     age: "30 yrs Old",
     occupation: "Electronics and Communication Engineer",
-    profilePhoto: "path/to/profile/photo.jpg", // replace with the actual path to the profile photo
   };
-
+  
+  const profilePhoto = require('../../assets/images/sample-profile.png')
+  
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
         <View style={styles.profileHeader}>
           <View style={styles.photoAndEditContainer}>
             {/* Circular Profile Photo Frame */}
             <View style={styles.profilePhotoContainer}>
-              <Image source={{ uri: user.profilePhoto }} style={styles.profilePhoto} />
+              <Image source={profilePhoto} style={styles.profilePhoto} />
             </View>
             {/* Edit Profile Photo Icon */}
             <TouchableOpacity style={styles.editPhotoButton}>
@@ -101,8 +102,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profilePhoto: {
-    width: '100%',
-    height: '100%',
+    width: '90%',
+    height: '90%',
+    borderRadius: 80,
     resizeMode: 'cover',
   },
   editPhotoButton: {
