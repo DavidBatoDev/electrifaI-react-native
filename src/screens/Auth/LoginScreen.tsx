@@ -50,7 +50,7 @@ export default function Login() {
       </LinearGradient>
   
      <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Don't have an account yet?</Text>
+        <Text style={styles.signupText}>No account yet?</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Auth", {
@@ -114,10 +114,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   signupText: {
-    color: "#000",
+    color: "#424968",
   },
   signupLink: {
-    color: "#2D3142",
+    color: "#424968",
     marginLeft: 5,
     fontWeight: "bold",
   },
