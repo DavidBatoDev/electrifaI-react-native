@@ -31,12 +31,12 @@ export default function ProfileScreen() {
           <Text style={styles.profileName}>{user.name}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <TouchableOpacity style={styles.editInfoRow}>
+          <View style={styles.editInfoRow}>
             <Text style={styles.infoTitle}>Personal Information</Text>
-            <View style={styles.editButtonInfo}>
+            <TouchableOpacity style={styles.editButtonInfo}>
               <Ionicons name="pencil-outline" size={25} color="#FFFFFF"></Ionicons>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
           <View style={styles.infoContent}>
             <Text style={styles.label}>Name:</Text>
             <Text style={styles.info}>{user.name}</Text>
