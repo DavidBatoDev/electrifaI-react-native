@@ -55,19 +55,19 @@ export default function ProfileScreen() {
           <View style={styles.moreOptions}>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              <Ionicons name="settings-outline" size={50} color="#6C6F83"></Ionicons>
+              <Ionicons name="settings-outline" size={30} color="#6C6F83"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>General Settings</Text>
           </View>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              <Ionicons name="call-outline" size={50} color="#61DE70"></Ionicons>
+              <Ionicons name="call-outline" size={30} color="#61DE70"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Contact Us</Text>
           </View>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              <Ionicons name="log-out-outline" size={50} color="#FF4D4D"></Ionicons>
+              <Ionicons name="log-out-outline" size={30} color="#FF4D4D"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Logout</Text>
           </View>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     elevation: 2,
-
+    height: 300,
   },
   infoTitle: {
     fontSize: 18,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   moreTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+
     color: "#fff",
   },
   moreSubtitle: {
@@ -187,15 +187,18 @@ const styles = StyleSheet.create({
   optionButton: {
     backgroundColor: "#fff",
     width: 100,
+    height: 70,
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 5,
     elevation: 3,
   },
+  
   optionButtonText: {
     textAlign: 'center',
     color: "#fff",
