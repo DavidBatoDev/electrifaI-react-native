@@ -29,23 +29,23 @@ export default function Signup() {
       <TextInput
         placeholder="First Name"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Last Name"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <LinearGradient
         colors={['#24252C', '#454D6D']}

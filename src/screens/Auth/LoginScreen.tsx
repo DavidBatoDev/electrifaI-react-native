@@ -29,13 +29,13 @@ export default function Login() {
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <LinearGradient
         colors={['#24252C', '#454D6D']}
