@@ -21,7 +21,7 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/images/logo.png')}
+        source={require('../../assets/images/logo-with-name.png')}
         style={styles.logo}
         resizeMode="contain"
       />
