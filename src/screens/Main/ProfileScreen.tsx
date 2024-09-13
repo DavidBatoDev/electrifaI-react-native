@@ -30,6 +30,11 @@ export default function ProfileScreen() {
       </View>
 
       <View style={styles.infoContainer}>
+      <TouchableOpacity style={styles.editInfoButton}>
+          <Text>
+          <Ionicons name="pencil-outline" size={16}></Ionicons>
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.infoTitle}>Personal Information</Text>
         <View style={styles.infoContent}>
           <Text><Text style={styles.label}>Name: </Text>{user.name}</Text>
@@ -38,11 +43,6 @@ export default function ProfileScreen() {
           <Text><Text style={styles.label}>Age: </Text>{user.age}</Text>
           <Text><Text style={styles.label}>Occupation: </Text>{user.occupation}</Text>
         </View>
-        <TouchableOpacity style={styles.editInfoButton}>
-          <Text>
-          <Ionicons name="pencil-outline" size={16}></Ionicons>
-          </Text>
-        </TouchableOpacity>
       </View>
       <View style={styles.moreContainer}>
         <Text style={styles.moreTitle}>More</Text>
@@ -107,17 +107,14 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   infoContainer: {
-    width: "90%",
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 20,
-    marginVertical: 20,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    elevation: 5, // For Android shadow
+    padding: 15,
+    marginVertical: 10,
+    elevation: 2,
+    height: 300,
   },
+  
   infoTitle: {
     fontSize: 18,
     fontWeight: "bold",
