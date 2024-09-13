@@ -37,11 +37,16 @@ export default function ProfileScreen() {
         </TouchableOpacity>
         <Text style={styles.infoTitle}>Personal Information</Text>
         <View style={styles.infoContent}>
-          <Text><Text style={styles.label}>Name: </Text>{user.name}</Text>
-          <Text><Text style={styles.label}>Nickname: </Text>{user.nickname}</Text>
-          <Text><Text style={styles.label}>Location: </Text>{user.location}</Text>
-          <Text><Text style={styles.label}>Age: </Text>{user.age}</Text>
-          <Text><Text style={styles.label}>Occupation: </Text>{user.occupation}</Text>
+          <Text style={styles.label}>Name:</Text>
+          <Text style={styles.info}>{user.name}</Text>
+          <Text style={styles.label}>Nickname:</Text>
+          <Text style={styles.info}>{user.nickname}</Text>
+          <Text style={styles.label}>Location:</Text>
+          <Text style={styles.info}>{user.location}</Text>
+          <Text style={styles.label}>Age:</Text>
+          <Text style={styles.info}>{user.age}</Text>
+          <Text style={styles.label}>Occupation:</Text>
+          <Text style={styles.info}>{user.occupation}</Text>
         </View>
       </View>
       <View style={styles.moreContainer}>
@@ -119,13 +124,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+    marginRight: 10,
+    color: "#333",
   },
   infoContent: {
     marginBottom: 10,
+    marginLeft: 10,
   },
   label: {
     fontWeight: "bold",
     color: "#333",
+  },
+  info: {
+    marginBottom: 3
+    , // Space between different info sections
   },
   editInfoButton: {
     alignItems: "flex-end",
