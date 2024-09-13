@@ -23,32 +23,33 @@ export default function Signup() {
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
+        resizeMode="contain"
       />
       <Text style={styles.title}>Create an Account</Text>
       <TextInput
         placeholder="First Name"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Last Name"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Email"
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <TextInput
         placeholder="Password"
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#2D3142"
+        placeholderTextColor="#7B7B7B"
       />
       <LinearGradient
-        colors={['#333E6C', '#2D3142']}
-        locations={[0, 0.66]}
+        colors={['#24252C', '#454D6D']}
+        locations={[0, 1]}
         style={styles.button}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -80,10 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#F9F9F9",
   },
   logo: {
-    width: 100,
     height: 100,
     marginBottom: 20,
   },
@@ -97,16 +97,17 @@ const styles = StyleSheet.create({
     width: "80%",
     padding: 10,
     margin: 10,
-    borderRadius: 4,
-    color: "#000",
-    backgroundColor: "#f9f9fb",
+    borderRadius: 10,
+    color: "#2D3142",
+    backgroundColor: "#FFFFFF",
     elevation: 4,
   },
   button: {
     width: "80%",
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: "center",
     marginTop: 20,
+    elevation: 4,
   },
   innerButton: {
     width: "100%",
@@ -123,10 +124,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   loginText: {
-    color: "#000",
+    color: "#424968",
   },
   loginLink: {
-    color: "#2D3142",
+    color: "#424968",
     marginLeft: 5,
     fontWeight: "bold",
   },
