@@ -56,19 +56,19 @@ export default function ProfileScreen() {
           <View style={styles.moreOptions}>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              {/* Add any content or styles for the button here */}
+              <Ionicons name="settings-outline" size={50} color="#6C6F83"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>General Settings</Text>
           </View>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              {/* Add any content or styles for the button here */}
+              <Ionicons name="call-outline" size={50} color="#61DE70"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Contact Us</Text>
           </View>
           <View style={styles.optionContainer}>
             <TouchableOpacity style={styles.optionButton}>
-              {/* Add any content or styles for the button here */}
+              <Ionicons name="log-out-outline" size={50} color="#FF4D4D"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Logout</Text>
           </View>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   moreContainer: {
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   moreTitle: {
     fontSize: 18,
@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    width: "30%",
     backgroundColor: "#fff",
+    width: 100,
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
   optionButtonText: {
     textAlign: 'center',
     color: "#fff",
+    paddingVertical: 10,
   },
 });
 
