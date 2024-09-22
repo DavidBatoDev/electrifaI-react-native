@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Button, StyleSheet, TextInput, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";

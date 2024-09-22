@@ -1,9 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
 // import Card from '../../components/Card';
 import LinearGradient from 'react-native-linear-gradient';
 import BarChart from '../../components/BarChart';
 import HomeScreenCard from '../../components/HomeScreenCard';
+import AppBar from '../../components/AppBar';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -32,7 +34,7 @@ interface DotProps {
 const cardContents = [
   {
     id: '1',
-    title: 'Avg. Daily Consumption',
+    title: 'Average Daily Consumption',
     subtitle: 'Learn more about your daily consumption habits.',
     content: '5.67 kWh',
     subContent: 'As of 10:34 PM',
@@ -84,13 +86,14 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.mainContentContainer}>
       <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.mainContentContainer}>
-        <View style={[styles.headerTextContainer]}>
-          <Text style={[styles.regularText, styles.paddingHorizontalSmall, styles.whiteText]}>Hey there, User</Text>
-        </View>
+      <AppBar />
+        {/* <View style={[styles.headerTextContainer]}>
+          <Text style={[styles.regularText, styles.paddingHorizontalSmall, styles.whiteText]}>Hello, Juan! </Text>
+        </View> */}
         <View>
           <FlatList
             contentContainerStyle={{
-              padding: 20,
+              padding: 10,
               gap: 10,
             }}
             data={cardContents}
@@ -125,7 +128,7 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Lorem Ipsum</Text>
+        {/* <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text> */}
         <View style={[styles.monthlyConsumptionContainer]}>
           {/* ../components/BarChart.tsx */}
           <BarChart data={monthly_consumption_data} />
@@ -133,7 +136,7 @@ const HomeScreen = () => {
 
         {/* Scrollable monthly consumption list */}
         <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
-          <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly</Text>
+          <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Text>
           <FlatList
             data={monthly_consumption_data.slice(7, 12)}
             keyExtractor={(item) => item.id}

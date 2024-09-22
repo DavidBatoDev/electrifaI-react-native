@@ -16,7 +16,6 @@ const AppNavigator = () => {
         component={AuthNavigator}
         options={{ headerShown: false }} // Hide header for auth screens
       />
-      
       {/* Main App Flow */}
       <RootStack.Screen
         name="Main"

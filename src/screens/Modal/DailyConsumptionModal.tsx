@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     Modal,
@@ -55,7 +57,7 @@ export default function DailyConsumptionModal () {
 
               <View style={styles.headerTextWrapper}>
               {/* wrapper for the header texts of card */}
-                  <Text style={styles.mediumBoldText}>Avg. Daily Consumption</Text>
+                  <Text style={styles.mediumBoldText}>Average Daily Consumption</Text>
                   <Text style={[styles.largeRegularText, styles.consumptionText]}>....... kWh</Text>
                   <Text style={styles.smallText}>As of ......</Text>
               </View>

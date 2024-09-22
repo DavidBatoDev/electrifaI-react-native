@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     scaleX: 24,
   },
   cardTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '500',
     color: '#333',
   },

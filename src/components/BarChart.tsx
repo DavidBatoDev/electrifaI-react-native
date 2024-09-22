@@ -15,16 +15,16 @@ const BarChart = ({ data }) => {
       {/* Bar chart data */}
       <VictoryBar
         data={data}
-        // x="month" // eto pag gusto natin by months name ang x-axis
-        x="id" // Use the numeric month representation (based sa figma design)
+        x="month" // eto pag gusto natin by months name ang x-axis
+        // x="id" // Use the numeric month representation (based sa figma design)
         y="kWh"
         style={{
           data: {
             fill: '#4050E7',
-            width: 12,
+            width: 8,
           },
         }}
-        cornerRadius={{ top: 4 }}
+        cornerRadius={{ top: 0 }}
       />
 
       {/* X Axis (months) with explicit tick values */}
