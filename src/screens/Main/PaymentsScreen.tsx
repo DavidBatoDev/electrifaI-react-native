@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-shadow */
+
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -64,15 +65,15 @@ const PaymentsScreen = () => {
       <View style={styles.paymentMethodsContainer}>
         <Text style={styles.paymentMethodsTitle}>Payment Methods</Text>
         {paymentMethods.map(({ id, method, date }) => (
-          <TouchableOpacity 
-            key={id} 
+          <TouchableOpacity
+            key={id}
             style={styles.paymentMethodItem}
           >
             <View>
               <Text style={styles.paymentMethodText}>{method}</Text>
               <Text style={styles.paymentMethodDate}>{date}</Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.payButton}
               onPress={() => navigation.navigate('_')}
             >
@@ -83,7 +84,7 @@ const PaymentsScreen = () => {
       </View>
     </ScrollView>
   );
-}
+};
 
 export default PaymentsScreen;
 
