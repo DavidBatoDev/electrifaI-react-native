@@ -118,8 +118,10 @@ export const getTotalConsumptionThisYear = async () => {
   return response;
 };
 
+export const getConsumptionForAllMonths = async () => {
+  // TODO
+};
+
 // TODO: 
-// refactor consumptions use one func and pass only conditionals for queries
 // consumption for monthly bar graph in Home Screen 
-// 
 
