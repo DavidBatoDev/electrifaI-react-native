@@ -1,5 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { getUserCredential } from './authService';
+import { successResponse, errorResponse } from '../utils/responseUtils';
 
 type getTotalConsumptionProps = {
   userID: string,
@@ -12,7 +14,6 @@ export const getTotalConsumption = async ({
   dateLowerBound,
   dateUpperBound,
 }: getTotalConsumptionProps) => {
-  console.log(userID, dateLowerBound, dateUpperBound);
   try {
     const consumptionCollection = firestore().collection('consumptions');
     const consumptionQuery = await consumptionCollection
@@ -36,19 +37,12 @@ export const getTotalConsumption = async ({
       mostRecentReading: mostRecentReading,
       totalConsumption: totalConsumption,
     };
-    console.log(data);
-    return {data: data, error: ''};
+    console.log(successResponse(data));
+    return successResponse(data);
   }
   catch (error: any) {
-      console.log(error.message);
-      error = {
-        date: null,
-        error: {
-          code: 913,
-          message: "Can't reach consumptions collections",
-        }
-      }
-      return error;
+    console.log(errorResponse(913, "Can't reach the database."));
+    return errorResponse(913, "Can't reach the database.");
   }
 };
 
@@ -59,45 +53,25 @@ export const getTotalConsumptionToday = async () => {
   endOfDay.setHours(23, 59, 59, 999);
 
   let userCredential = getUserCredential();
-  if (!userCredential) {
-    return {data: null, error: "Error has occurred."};
+  if (!userCredential || !userCredential.uid) {
+    return errorResponse(913, "Can't identify user.");
   }
-  try {
-    const consumptionCollection = firestore().collection('consumptions');
-    // // Query for testing dummy data, delete this
-    const dailyConsumptionQuery = await consumptionCollection
-      .where('userID', '==', 'WyL4DHk8VxdmMU3L0pxbrgZstjn2')
-      .where('recordedAt', '>=', new Date('2024-11-10T16:00:00.000Z'))
-      .where('recordedAt', '<=', new Date('2024-11-11T15:59:59.999Z'))
-      .get();
-      // // Query for actual data, do NOT delete this
-      // const dailyConsumptionQuery = await consumptionCollection
-      //   .where('userID', '==', userCredential.uid)
-      //   .where('recordedAt', '>=', startOfDay)
-      // .where('recordedAt', '<=', endOfDay)
-      // .get();
-    
-    let totalConsumption = 0;
-    let mostRecentReading = startOfDay;
-    dailyConsumptionQuery.forEach(doc => {
-      const data = doc.data();
-      totalConsumption += data.kilowattHour;
-      const recordedAt = data.recordedAt.toDate();
-      mostRecentReading = mostRecentReading > recordedAt
-        ? mostRecentReading
-        : recordedAt;
-    });
-    const data = {
-      mostRecentReading: mostRecentReading,
-      totalConsumption: totalConsumption,
-    };
-    console.log(data);
-    return {data: data, error: ''};
+
+  let params = {
+    userID: String(userCredential.uid),
+    dateLowerBound: startOfDay,
+    dateUpperBound: endOfDay,
   }
-  catch (error: any) {
-    console.log(error.message);
-    return {data: null, error: "Error has occurred."};
+  // NOTE: Query for testing dummy data, delete this
+  params = {
+    userID: String(userCredential.uid),
+    dateLowerBound: new Date('2024-11-10T16:00:00.000Z'),
+    dateUpperBound: new Date('2024-11-11T15:59:59.999Z'),
   }
+  // END OF TESTING DUMMY DATA
+  console.log(params);
+  const response = await getTotalConsumption(params);
+  return response;
 };
 
 export const getTotalConsumptionThisMonth = async () => {
@@ -134,7 +108,7 @@ export const getTotalConsumptionThisMonth = async () => {
       mostRecentReading: mostRecentReading,
       totalConsumption: totalConsumption,
     };
-    console.log(data);
+    // console.log(data);
     return {data: data, error: ''};
   }
   catch {
@@ -176,7 +150,7 @@ export const getTotalConsumptionThisYear = async () => {
       mostRecentReading: mostRecentReading,
       totalConsumption: totalConsumption,
     };
-    console.log(data);
+    // console.log(data);
     return {data: data, error: ''};
   }
   catch {
