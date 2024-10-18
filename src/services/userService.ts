@@ -4,7 +4,7 @@ import { getUserCredential } from './authService';
 export const fetchUserProfile = async () => {
   const userCredential = getUserCredential();
   if (!userCredential) {
-    return "Error has occurred."
+    return 'Error has occurred.';
   }
   try {
     const userProfileSnapshot = await firestore()
@@ -15,8 +15,8 @@ export const fetchUserProfile = async () => {
     return userProfileData;
   }
   catch {
-    console.log("Error while fetching profile");
-    return "Error while fetching profile";
+    console.log('Error while fetching profile');
+    return 'Error while fetching profile';
   }
 };
 
