@@ -30,7 +30,7 @@ export default function ProfileScreen() {
   // getTotalConsumptionToday(); // FOR TESTING
   // getTotalConsumptionThisMonth(); // FOR TESTING
   // getTotalConsumptionThisYear(); // FOR TESTING
-  getConsumptionRecentMonths(4); // FOR TESTING
+  // getConsumptionRecentMonths(4); // FOR TESTING
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {

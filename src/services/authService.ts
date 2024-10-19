@@ -6,7 +6,7 @@ export const isUserLoggedIn = () => {
   return !!auth().currentUser;
 };
 
-// 
+// Get User Credential of the logged in user
 export const getUserCredential = () => {
   return auth().currentUser;
 };
@@ -65,16 +65,14 @@ const addDisplayName = async (
 // Add user account in Firestore, called on signUp, returns error code
 export const createAccount = async (id: string, name: string) => {
   try {
-    await firestore().collection('users').doc(id).set(
-      {
-        name: name,
-        nickname: '',
-        location: '',
-        age: '',
-        occupation: '',
-        photoUrl: '',
-      }
-    )
+    await firestore().collection('users').doc(id).set({
+      name: name,
+      nickname: '',
+      location: '',
+      age: '',
+      occupation: '',
+      photoUrl: '',
+    });
     return '';
   }
   catch (error: any) {
@@ -104,5 +102,5 @@ export const logIn = async (
 - login w other services (maybe phone, google, apple, fb)
 - verify email first?
 - forgot/reset password
-- always return {data, errors} for consistency
+- always return {data, errors, status} for consistency
 */
