@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "479647278019",
+    "project_id": "electrifai-ec4cc",
+    "storage_bucket": "electrifai-ec4cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479647278019:android:aa25633e9f8c62fc18d376",
+        "android_client_info": {
+          "package_name": "com.electrifai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKziVEmYicaUzZH555y7SP4t0CoP6RlYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
