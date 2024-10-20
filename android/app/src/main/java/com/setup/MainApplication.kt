@@ -1,4 +1,4 @@
-package com.setup
+package com.electrifai
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -1,4 +1,4 @@
-package com.setup
+package com.electrifai
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
