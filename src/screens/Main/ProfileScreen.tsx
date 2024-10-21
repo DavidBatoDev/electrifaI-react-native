@@ -4,14 +4,12 @@ import { ScrollView } from 'react-native';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import firestore from '@react-native-firebase/firestore';
 import { signOut } from '../../services/authService';
 import { Alert } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 
 import { fetchUserProfile } from '../../services/userService';
-import { createDummyConsumptions } from '../../utils/dummyDataUtils';
 
 // Define an interface for user data
 interface User {
@@ -24,36 +22,26 @@ interface User {
 
 export default function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  fetchUserProfile();
-
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {
     try {
-      const documentSnapshot = await firestore()
-        .collection('user')
-        .doc('dummy-data')
-        .get();
-
-      if (documentSnapshot.exists) {
-        const data = documentSnapshot.data();
+      const {data, error} = await fetchUserProfile();
+      if (error) {
+        // TODO: HANDLE WHEN USER PROFILE AREN'T FETCHED
+        console.log(error.message);
+      }
 
         // Check if data is defined
         if (data) {
           const fetchedUser: User = {
-            name: data.firstName + ' ' + data.lastName,
-            nickname: data.nickName,
-            location: data.location,
-            age: data.age, // Ensure this matches the type in the interface
-            occupation: data.occupation,
+            name: data.name,
+            nickname: data.nickName || "Not Set",
+            location: data.location || "Not Set",
+            age: data.age || "Not Set",
+            occupation: data.occupation || "Not Set",
           };
-
-          setUser(fetchedUser); // Set the user state
-        } else {
-          console.log('Data is undefined');
-        }
-      } else {
-        console.log('User does not exist');
+        setUser(fetchedUser); // Set the user state
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
