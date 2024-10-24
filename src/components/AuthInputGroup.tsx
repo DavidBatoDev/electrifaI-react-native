@@ -21,16 +21,16 @@ export const AuthInputGroup = ({
   return (
     <View style={styles.inputGroup}>
       <View style={styles.nameErrorGroup}>
-        <Text style={styles.nameErrorText}>{name}</Text>
-        <Text style={styles.nameErrorText}>{error}</Text>
+        <Text style={styles.nameErrorText}>{value ? name : ''}</Text>
+        {error && <Text style={styles.nameErrorText}>{error}</Text>}
       </View>
       <TextInput
         placeholder={name}
         style={styles.input}
         placeholderTextColor="#7B7B7B"
         value={value}
-        onChangeText={(value) => {onValueChange(value); validate(value)}}
-        onBlur={() => validate(value)}
+        onChangeText={(value) => {onValueChange(value); validate(value);}}
+        onBlur={() => {validate(value);}}
       />
     </View>
   )
