@@ -7,7 +7,7 @@ import { RootStackNavigationProp } from "../types";
 import LinearGradient from "react-native-linear-gradient";
 
 
-export default function Login() {
+export default function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>()
 
   const handleLogin = () => {

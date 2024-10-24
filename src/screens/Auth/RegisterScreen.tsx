@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TextInput, Image } from "react-native";
 import { Text, View } from "react-native";
@@ -5,11 +6,19 @@ import { TouchableOpacity } from "react-native";
 import { RootStackNavigationProp } from "../types";
 import LinearGradient from "react-native-linear-gradient";
 
+import { signUp } from "./firebaseAuth";
 
-export default function Signup() {
+
+export default function RegisterScreen() {
   const navigate = useNavigation<RootStackNavigationProp>()
-  
+  const [firstName, setFirstName] = useState("a");
+  const [lastName, setLastName] = useState("a");
+  const [email, setEmail] = useState("a");
+  const [password, setPassword] = useState("a");
+
   const handleSignup = () => {
+    console.log("SIGNING IN");
+    signUp(firstName, lastName, email, password);
     navigate.navigate('Auth', {
       screen: 'Login',
       params: {
