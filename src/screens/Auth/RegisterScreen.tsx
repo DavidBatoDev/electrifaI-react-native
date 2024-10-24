@@ -15,6 +15,20 @@ export default function RegisterScreen() {
   const [lastName, setLastName] = useState("a");
   const [email, setEmail] = useState("a");
   const [password, setPassword] = useState("a");
+  const [errors, setErrors] = useState(
+    {
+      firstName: "", 
+      lastName: "", 
+      email: "", 
+      password: "", 
+    }
+  );
+
+  const validateName = (name: string) => {
+    if (!name) {
+      setErrors((prev) => ({...prev, firstName: "required"}));
+    }
+  };
 
   const handleSignup = () => {
     console.log("SIGNING IN");
@@ -35,11 +49,18 @@ export default function RegisterScreen() {
         resizeMode="contain"
       />
       <Text style={styles.title}>Create an Account</Text>
-      <TextInput
-        placeholder="First Name"
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
-      />
+      
+      <View style={styles.inputGroup}>
+        <View style={styles.inputNameError}>
+          <Text>Name</Text>
+          <Text>Error</Text>
+        </View>
+        <TextInput
+          placeholder="First Name"
+          style={styles.input}
+          placeholderTextColor="#7B7B7B"
+        />
+      </View>
       <TextInput
         placeholder="Last Name"
         style={styles.input}
@@ -101,6 +122,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#2D3142",
     marginBottom: 20,
+  },
+
+  inputGroup: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputNameError: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+    paddingHorizontal: 5,
   },
   input: {
     width: "80%",
