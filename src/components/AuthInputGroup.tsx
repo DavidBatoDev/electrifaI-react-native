@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, TextInput } from "react-native";
 import { Text, View } from "react-native";
 
+
 type InputGroupProps = {
   name: string,
   error: string,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginLeft: "10%",
     marginRight: "auto",
-    marginBottom: 4,
+    marginBottom: 12,
     borderRadius: 10,
   },
   input: {
