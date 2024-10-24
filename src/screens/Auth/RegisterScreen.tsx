@@ -12,13 +12,13 @@ import { AuthInputGroup } from '../../components/AuthInputGroup';
 
 export default function RegisterScreen() {
   const navigate = useNavigation<RootStackNavigationProp>();
-  const [firstName, setFirstName] = useState('a');
-  const [lastName, setLastName] = useState('a');
-  const [email, setEmail] = useState('a');
-  const [password, setPassword] = useState('a');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(
     {
-      firstName: '4devtest error',
+      firstName: '',
       lastName: '',
       email: '',
       password: '',
@@ -26,27 +26,25 @@ export default function RegisterScreen() {
   );
 
   const validateFirstName = (name: string) => {
-    if (!name) {
-      setErrors((prev) => ({...prev, firstName: 'required'}));
-    }
+    let currError: string = '';
+    if (!name) currError = 'required';
+    setErrors((prev) => ({...prev, firstName: currError}));
   };
-
   const validateLastName = (name: string) => {
-    if (!name) {
-      setErrors((prev) => ({...prev, lastName: 'required'}));
-    }
+    let currError: string = '';
+    if (!name) currError = 'required';
+    setErrors((prev) => ({...prev, lastName: currError}));
   };
-
-  const validateEmail = (name: string) => {
-    if (!name) {
-      setErrors((prev) => ({...prev, email: 'required'}));
-    }
+  const validateEmail = (email: string) => {
+    let currError: string = '';
+    if (!email) currError = 'required';
+    setErrors((prev) => ({...prev, email: currError}));
   };
-
-  const validatePassword = (name: string) => {
-    if (!name) {
-      setErrors((prev) => ({...prev, email: 'required'}));
-    }
+  const validatePassword = (password: string) => {
+    let currError: string = '';
+    if (!password) currError = 'required';
+    else if (password.length < 8) currError = 'min 8 characters';
+    setErrors((prev) => ({...prev, password: currError}));
   };
 
   const handleSignup = () => {
@@ -72,22 +70,30 @@ export default function RegisterScreen() {
       <AuthInputGroup
         name="First Name"
         error={errors.firstName}
-        onInputChange={validateFirstName}
-      />
+        value={firstName}
+        onValueChange={setFirstName}
+        validate={validateFirstName}
+        />
       <AuthInputGroup
         name="Last Name"
         error={errors.lastName}
-        onInputChange={validateLastName}
-      />
+        value={lastName}
+        onValueChange={setLastName}
+        validate={validateLastName}
+        />
       <AuthInputGroup
         name="Email"
         error={errors.email}
-        onInputChange={validateEmail}
-      />
+        value={email}
+        onValueChange={setEmail}
+        validate={validateEmail}
+        />
       <AuthInputGroup
         name="Password"
         error={errors.password}
-        onInputChange={validatePassword}
+        value={password}
+        onValueChange={setPassword}
+        validate={validatePassword}
       />
 
       <LinearGradient
@@ -134,29 +140,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#2D3142',
     marginBottom: 20,
-  },
-
-  inputGroup: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inputNameError: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    paddingHorizontal: 5,
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    margin: 10,
-    borderRadius: 10,
-    color: '#2D3142',
-    backgroundColor: '#FFFFFF',
-    elevation: 4,
   },
   button: {
     width: '80%',
