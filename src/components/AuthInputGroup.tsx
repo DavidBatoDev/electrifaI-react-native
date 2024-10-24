@@ -1,17 +1,23 @@
+import { useState } from 'react';
 import { StyleSheet, TextInput } from "react-native";
 import { Text, View } from "react-native";
 
 type InputGroupProps = {
   name: string,
   error: string,
-  onInputChange: (name: string) => void,
+  value: string,
+  onValueChange: (text: string) => void,
+  validate: (text: string) => void,
 };
 
 export const AuthInputGroup = ({
-  name, 
-  error, 
-  onInputChange
+  name,
+  error,
+  value,
+  onValueChange,
+  validate
 }: InputGroupProps) => {
+
   return (
     <View style={styles.inputGroup}>
       <View style={styles.nameErrorGroup}>
@@ -22,6 +28,9 @@ export const AuthInputGroup = ({
         placeholder={name}
         style={styles.input}
         placeholderTextColor="#7B7B7B"
+        value={value}
+        onChangeText={(value) => {onValueChange(value); validate(value)}}
+        onBlur={() => validate(value)}
       />
     </View>
   )
