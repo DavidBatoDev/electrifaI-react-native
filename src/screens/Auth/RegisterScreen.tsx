@@ -16,14 +16,12 @@ export default function RegisterScreen() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState(
-    {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    }
-  );
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
 
   const validateFirstName = (newFirstName: string) => {
     let currError: string = '';
@@ -34,6 +32,7 @@ export default function RegisterScreen() {
     let currError: string = '';
     if (!newLastName) {currError = 'required';}
     setErrors((prev) => ({...prev, lastName: currError}));
+    return currError;
   };
   const validateEmail = (newEmail: string) => {
     // Email regex
@@ -54,6 +53,7 @@ export default function RegisterScreen() {
     if (!newEmail) {currError = 'required';}
     else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
     setErrors((prev) => ({...prev, email: currError}));
+    return currError;
   };
   const validatePassword = (newPassword: string) => {
     // Regex
@@ -71,10 +71,22 @@ export default function RegisterScreen() {
       currError = 'at least 1 special character';
     }
     setErrors((prev) => ({...prev, password: currError}));
+    return currError;
   };
 
   const handleSignup = () => {
-    console.log('SIGNING IN');
+    const  isFirstNameValid = validateFirstName(firstName);
+    const  isLastNameValid = validateLastName(lastName);
+    const  isEmailValid = validateEmail(email);
+    const  isPasswordValid = validatePassword(password);
+    const fieldsValidity = [
+      isFirstNameValid, 
+      isLastNameValid, 
+      isEmailValid, 
+      isPasswordValid
+    ];
+    const hasErrors = fieldsValidity.some(error => error);
+    if (hasErrors) {return};
     signUp(firstName, lastName, email, password);
     navigate.navigate('Auth', {
       screen: 'Login',

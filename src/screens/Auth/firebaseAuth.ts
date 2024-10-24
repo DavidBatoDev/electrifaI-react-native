@@ -1,10 +1,10 @@
 import auth from "@react-native-firebase/auth";
 
 export const signUp = async (
-  email: string,
-  password: string, 
   firstName: string, 
   lastName: string, 
+  email: string,
+  password: string, 
 ): Promise<void> => {
   
   auth().createUserWithEmailAndPassword(email, password)
@@ -23,3 +23,14 @@ export const signUp = async (
       // ..
     });
   }
+
+/* TODO:
+- disable submit if there is still error
+- create data on firestore connected to auth uid
+- login
+- logout
+- persist login
+- login w other services (maybe phone, google, apple, fb)
+- forgot/reset password
+- 
+*/
