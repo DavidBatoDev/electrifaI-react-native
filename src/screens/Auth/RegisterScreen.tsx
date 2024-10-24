@@ -7,6 +7,7 @@ import { RootStackNavigationProp } from "../types";
 import LinearGradient from "react-native-linear-gradient";
 
 import { signUp } from "./firebaseAuth";
+import { AuthInputGroup } from "../../components/AuthInputGroup";
 
 
 export default function RegisterScreen() {
@@ -17,14 +18,14 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("a");
   const [errors, setErrors] = useState(
     {
-      firstName: "", 
+      firstName: "4devtest error", 
       lastName: "", 
       email: "", 
       password: "", 
     }
   );
 
-  const validateName = (name: string) => {
+  const validateFirstName = (name: string) => {
     if (!name) {
       setErrors((prev) => ({...prev, firstName: "required"}));
     }
@@ -50,33 +51,30 @@ export default function RegisterScreen() {
       />
       <Text style={styles.title}>Create an Account</Text>
       
-      <View style={styles.inputGroup}>
-        <View style={styles.inputNameError}>
-          <Text>Name</Text>
-          <Text>Error</Text>
-        </View>
-        <TextInput
-          placeholder="First Name"
-          style={styles.input}
-          placeholderTextColor="#7B7B7B"
-        />
-      </View>
-      <TextInput
-        placeholder="Last Name"
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
+      <AuthInputGroup 
+        name="First Name" 
+        error={errors.firstName} 
+        onInputChange={validateFirstName}
       />
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
+
+      <AuthInputGroup 
+        name="Last Name" 
+        error={errors.firstName} 
+        onInputChange={validateFirstName}
       />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
+
+      <AuthInputGroup 
+        name="Email" 
+        error={errors.firstName} 
+        onInputChange={validateFirstName}
       />
+
+      <AuthInputGroup 
+        name="Password" 
+        error={errors.firstName} 
+        onInputChange={validateFirstName}
+      />
+
       <LinearGradient
         colors={['#24252C', '#454D6D']}
         locations={[0, 1]}
@@ -114,8 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F9F9",
   },
   logo: {
-    height: 100,
-    marginBottom: 20,
+    height: 80,
+    marginBottom: 10,
   },
   title: {
     fontSize: 24,
