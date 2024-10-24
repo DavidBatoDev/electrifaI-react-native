@@ -1,4 +1,3 @@
-import { FunctionComponent } from "react";
 import { StyleSheet, TextInput } from "react-native";
 import { Text, View } from "react-native";
 
