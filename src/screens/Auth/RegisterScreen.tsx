@@ -37,11 +37,16 @@ export default function RegisterScreen() {
   };
   const validateEmail = (newEmail: string) => {
     // Email regex
-    const localPart = '[^\\s@]+'; // 1+ character that is not whitespace or @
-    const atSymbol = '@'; // 1 at symbol (@), separates local and domain name
-    const domainName = '[^\\s@]+'; // 1+ character that is not whitespace or @
-    const dot = '\\.'; // 1 dot (.), separates domain and top-level domain
-    const topLevelDomain = '[^\\s@]+'; // 1+ character that is not whitespace or @
+    // 1+ character that is not whitespace or @
+    const localPart = '[^\\s@]+';
+    // 1 at symbol (@), separates local and domain name
+    const atSymbol = '@';
+    // 1+ character that is not whitespace or @
+    const domainName = '[^\\s@]+';
+    // 1 dot (.), separates domain and top-level domain
+    const dot = '\\.';
+    // 1+ character that is not whitespace or @
+    const topLevelDomain = '[^\\s@]+';
     const emailRegex = new RegExp(
       `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
     );
