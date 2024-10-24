@@ -36,17 +36,26 @@ export default function RegisterScreen() {
     setErrors((prev) => ({...prev, lastName: currError}));
   };
   const validateEmail = (newEmail: string) => {
+    // Email regex
+    const localPart = '[^\\s@]+'; // 1+ character that is not whitespace or @
+    const atSymbol = '@'; // 1 at symbol (@), separates local and domain name
+    const domainName = '[^\\s@]+'; // 1+ character that is not whitespace or @
+    const dot = '\\.'; // 1 dot (.), separates domain and top-level domain
+    const topLevelDomain = '[^\\s@]+'; // 1+ character that is not whitespace or @
+    const emailRegex = new RegExp(
+      `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
+    );
     let currError: string = '';
     if (!newEmail) {currError = 'required';}
+    else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
     setErrors((prev) => ({...prev, email: currError}));
   };
   const validatePassword = (newPassword: string) => {
-    // Regex for password validation
+    // Regex
     const upperCase = /[A-Z]/;
     const lowerCase = /[a-z]/;
     const number = /\d/;
     const specialChar = /[`!@#$%^&*(),.?":{}|<>]/;
-
     let currError: string = '';
     if (!newPassword) {currError = 'required';}
     else if (newPassword.length < 8) {currError = 'minimum 8 characters';}
