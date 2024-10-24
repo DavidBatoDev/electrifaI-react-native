@@ -25,25 +25,37 @@ export default function RegisterScreen() {
     }
   );
 
-  const validateFirstName = (name: string) => {
+  const validateFirstName = (newFirstName: string) => {
     let currError: string = '';
-    if (!name) currError = 'required';
+    if (!newFirstName) {currError = 'required';}
     setErrors((prev) => ({...prev, firstName: currError}));
   };
-  const validateLastName = (name: string) => {
+  const validateLastName = (newLastName: string) => {
     let currError: string = '';
-    if (!name) currError = 'required';
+    if (!newLastName) {currError = 'required';}
     setErrors((prev) => ({...prev, lastName: currError}));
   };
-  const validateEmail = (email: string) => {
+  const validateEmail = (newEmail: string) => {
     let currError: string = '';
-    if (!email) currError = 'required';
+    if (!newEmail) {currError = 'required';}
     setErrors((prev) => ({...prev, email: currError}));
   };
-  const validatePassword = (password: string) => {
+  const validatePassword = (newPassword: string) => {
+    // Regex for password validation
+    const upperCase = /[A-Z]/;
+    const lowerCase = /[a-z]/;
+    const number = /\d/;
+    const specialChar = /[`!@#$%^&*(),.?":{}|<>]/;
+
     let currError: string = '';
-    if (!password) currError = 'required';
-    else if (password.length < 8) currError = 'min 8 characters';
+    if (!newPassword) {currError = 'required';}
+    else if (newPassword.length < 8) {currError = 'minimum 8 characters';}
+    else if (!upperCase.test(newPassword)) {currError = 'at least 1 uppercase';}
+    else if (!lowerCase.test(newPassword)) {currError = 'at least 1 lowercase';}
+    else if (!number.test(newPassword)) {currError = 'at least 1 number';}
+    else if (!specialChar.test(newPassword)) {
+      currError = 'at least 1 special character';
+    }
     setErrors((prev) => ({...prev, password: currError}));
   };
 
