@@ -20,10 +20,6 @@ export const AuthInputGroup = ({
 
   return (
     <View style={styles.inputGroup}>
-      <View style={styles.nameErrorGroup}>
-        <Text style={styles.nameErrorText}>{value ? name : ''}</Text>
-        {error && <Text style={styles.nameErrorText}>{error}</Text>}
-      </View>
       <TextInput
         placeholder={name}
         style={styles.input}
@@ -32,6 +28,7 @@ export const AuthInputGroup = ({
         onChangeText={(value) => {onValueChange(value); validate(value);}}
         onBlur={() => {validate(value);}}
       />
+      {error && <Text style={styles.ErrorText}>{error}</Text>}
     </View>
   )
 };
@@ -50,8 +47,16 @@ const styles = StyleSheet.create({
     width: "80%",
     paddingHorizontal: 5,
   },
-  nameErrorText: {
+  ErrorText: {
     fontSize: 12,
+    backgroundColor: "#FF5661",
+    color: "#FFFF",
+    paddingHorizontal: 12,
+    paddingVertical: 2,
+    marginLeft: "10%",
+    marginRight: "auto",
+    marginBottom: 4,
+    borderRadius: 10,
   },
   input: {
     width: "80%",
