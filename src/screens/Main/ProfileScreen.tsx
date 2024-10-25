@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function ProfileScreen() {
   const user = {
-    name: "Victoria Robertson",
+    name: "Victoria Test Test Test Robertson",
     nickname: "Vicky",
     location: "Manila",
     age: "30 yrs Old",
@@ -29,8 +29,8 @@ export default function ProfileScreen() {
               <Text style={styles.editButtonText}>Edit Profile Photo</Text>
             </TouchableOpacity>
           </View>
-          {/* Profile Name */}
-          <Text style={styles.profileName}>{user.name}</Text>
+            {/* Profile Name */}
+            <Text style={styles.profileName}>{user.name}</Text>
         </View>
         <View style={styles.infoContainer}>
           <View style={styles.editInfoRow}>
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profilePhoto: {
-    width: '90%',
-    height: '90%',
+    width: '100%',
+    height: '100%',
     borderRadius: 80,
     resizeMode: 'cover',
   },
@@ -122,10 +122,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   profileName: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 20,
     color: "#fff",
+    marginBottom: 10,
+    marginLeft: 20,
+    width: "60%",
   },
   infoContainer: {
     backgroundColor: '#fff',
