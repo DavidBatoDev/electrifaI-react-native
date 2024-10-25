@@ -8,6 +8,7 @@ import { RootStackNavigationProp } from '../types';
 import LinearGradient from 'react-native-linear-gradient';
 import { signUp } from './firebaseAuth';
 import { AuthInputGroup } from '../../components/AuthInputGroup';
+import { Alert } from 'react-native';
 
 
 export default function RegisterScreen() {
@@ -74,7 +75,7 @@ export default function RegisterScreen() {
     return currError;
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     const  isFirstNameValid = validateFirstName(firstName);
     const  isLastNameValid = validateLastName(lastName);
     const  isEmailValid = validateEmail(email);
@@ -87,13 +88,15 @@ export default function RegisterScreen() {
     ];
     const hasErrors = fieldsValidity.some(error => error);
     if (hasErrors) {return;}
-    signUp(firstName, lastName, email, password);
+    const error: string = await signUp(firstName, lastName, email, password);
+    if (error) {Alert.alert("Error Code", error); return;}
     navigate.navigate('Auth', {
       screen: 'Login',
       params: {
         screen: 'Login',
       },
     });
+    
   };
 
   return (

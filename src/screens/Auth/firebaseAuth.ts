@@ -1,37 +1,31 @@
 import auth from "@react-native-firebase/auth";
-import { Alert } from 'react-native';
 
 export const signUp = async (
   firstName: string, 
   lastName: string, 
   email: string,
   password: string, 
-): Promise<void> => {
-  
-  auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      console.log("SUCCESS?");
-      console.log(user);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("ERROR!");
-      console.log(errorCode, errorMessage);
-      if (errorCode === "auth/email-already-in-use") {
-        Alert.alert('Error', 'This email is already used.');
-      }
-      else {
-        Alert.alert('Error', `${errorMessage}`);
-      }
-    });
+): Promise<string> => {
+  try {
+    const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    console.log("SUCCESS?");
+    console.log(user);
+    return "";
   }
+  catch (error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("ERROR!");
+    console.log(errorCode, errorMessage);
+    return errorCode;
+  }
+}
 
 /* TODO:
 - disable submit if there is still error
+- spinners
+- inform user account is created
 - create data on firestore connected to auth uid
 - login
 - logout
