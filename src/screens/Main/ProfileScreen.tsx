@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,6 +17,7 @@ export default function ProfileScreen() {
   
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.profileHeader}>
           <View style={styles.photoAndEditContainer}>
             {/* Circular Profile Photo Frame */}
@@ -74,14 +76,19 @@ export default function ProfileScreen() {
           </View>
         </View>
         </View>
+      </ScrollView>  
     </LinearGradient>
+    
   );
 }
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1,
-    paddingHorizontal: 20,
+    flex: 1, // Ensures the gradient covers the whole screen
+  },
+  scrollViewContent: {
+    padding: 20, // Padding for ScrollView content
+    flexGrow: 1, // Ensures ScrollView stretches to fit content
   },
   profileHeader: {
     flexDirection: 'row',
