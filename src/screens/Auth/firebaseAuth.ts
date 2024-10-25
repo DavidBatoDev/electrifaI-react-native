@@ -1,4 +1,4 @@
-import auth from "@react-native-firebase/auth";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 export const signUp = async (
   firstName: string, 
@@ -9,8 +9,30 @@ export const signUp = async (
   try {
     const userCredential = await auth().createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
+    const fullName = firstName + lastName;
+    const error: string = await addDisplayName(user, fullName);
     console.log("SUCCESS?");
     console.log(user);
+    return error;
+  }
+  catch (error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("ERROR!");
+    console.log(errorCode, errorMessage);
+    return errorCode;
+  }
+};
+
+const addDisplayName = async (
+  user: FirebaseAuthTypes.User,
+  fullName: string,
+): Promise<string> => {
+  try {
+    await user.updateProfile({
+      displayName: fullName,
+      photoURL: null,
+    });
     return "";
   }
   catch (error: any) {
@@ -20,7 +42,7 @@ export const signUp = async (
     console.log(errorCode, errorMessage);
     return errorCode;
   }
-}
+};
 
 /* TODO:
 - disable submit if there is still error
