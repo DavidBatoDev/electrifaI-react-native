@@ -1,16 +1,56 @@
 /* eslint-disable react/react-in-jsx-scope */
+import React, {useState} from 'react';
 import { Button, StyleSheet, TextInput, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 import LinearGradient from "react-native-linear-gradient";
-
+import { logIn } from "./firebaseAuth";
+import { Alert } from 'react-native';
+import { AuthInputGroup } from '../../components/AuthInputGroup';
 
 export default function LoginScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>()
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({email: '',password: '',});
 
-  const handleLogin = () => {
+  const validateEmail = (newEmail: string) => {
+    // Email regex
+    // 1+ character that is not whitespace or @
+    const localPart = '[^\\s@]+';
+    // 1 at symbol (@), separates local and domain name
+    const atSymbol = '@';
+    // 1+ character that is not whitespace or @
+    const domainName = '[^\\s@]+';
+    // 1 dot (.), separates domain and top-level domain
+    const dot = '\\.';
+    // 1+ character that is not whitespace or @
+    const topLevelDomain = '[^\\s@]+';
+    const emailRegex = new RegExp(
+      `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
+    );
+    let currError: string = '';
+    if (!newEmail) {currError = 'required';}
+    else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
+    setErrors((prev) => ({...prev, email: currError}));
+    return currError;
+  };
+
+  const validatePassword = (password: string) => {
+    let currError: string = '';
+    if (!password) {currError = 'required';}
+    setErrors((prev) => ({...prev, password: currError}));
+    return currError;
+  };
+
+  const handleLogin = async () => {
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+    if (isEmailValid || isPasswordValid) {return;}
+    const error: string = await logIn(email, password);
+    if (error) {Alert.alert("Error Code", error); return;};
     navigation.navigate('Main', {
           screen: 'HomeStack',
           params: {
@@ -27,7 +67,21 @@ export default function LoginScreen() {
         resizeMode="contain"
       />
       {/* <Text style={styles.title}>Project ElectriAI</Text> */}
-      <TextInput
+      <AuthInputGroup
+        name="Email"
+        error={errors.email}
+        value={email}
+        onValueChange={setEmail}
+        validate={validateEmail}
+      />
+      <AuthInputGroup
+        name="Password"
+        error={errors.password}
+        value={password}
+        onValueChange={setPassword}
+        validate={validatePassword}
+      />
+      {/* <TextInput
         placeholder="Email"
         style={styles.input}
         placeholderTextColor="#7B7B7B"
@@ -37,7 +91,7 @@ export default function LoginScreen() {
         secureTextEntry
         style={styles.input}
         placeholderTextColor="#7B7B7B"
-      />
+      /> */}
       <LinearGradient
         colors={['#24252C', '#454D6D']}
         locations={[0, 1]}
@@ -83,15 +137,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFB315",
     marginBottom: 20,
-  },
-  input: {
-    width: "80%",
-    padding: 10,
-    margin: 10,
-    borderRadius: 10,
-    color: "#2D3142",
-    backgroundColor: "#FFFFFF",
-    elevation: 4,
   },
   button: {
     width: "80%",

@@ -9,7 +9,7 @@ export const signUp = async (
   try {
     const userCredential = await auth().createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
-    const fullName = firstName + lastName;
+    const fullName = `${firstName} ${lastName}`;
     const error: string = await addDisplayName(user, fullName);
     console.log("SUCCESS?");
     console.log(user);
@@ -44,15 +44,31 @@ const addDisplayName = async (
   }
 };
 
+export const logIn = async (
+  email: string,
+  password: string,
+): Promise<string> => {
+  try {
+    const userCredential = await auth().signInWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+    console.log(user);
+    return "";
+  }
+  catch (error: any) {
+    const errorCode = error.code;
+    console.log(errorCode);
+    return errorCode;
+  }
+};
+
 /* TODO:
 - disable submit if there is still error
 - spinners
-- inform user account is created
+- inform user account is created/ just logged in
 - create data on firestore connected to auth uid
-- login
+- catch incorrect sign in
 - logout
 - persist login
 - login w other services (maybe phone, google, apple, fb)
 - forgot/reset password
-- 
 */
