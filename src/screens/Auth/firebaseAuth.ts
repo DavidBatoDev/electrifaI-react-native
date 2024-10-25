@@ -52,7 +52,7 @@ export const logIn = async (
     const userCredential = await auth().signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
     console.log(user);
-    return "";
+    return '';
   }
   catch (error: any) {
     const errorCode = error.code;
@@ -66,9 +66,10 @@ export const logIn = async (
 - spinners
 - inform user account is created/ just logged in
 - create data on firestore connected to auth uid
-- catch incorrect sign in
+- show error in ui for firebase errors
 - logout
 - persist login
 - login w other services (maybe phone, google, apple, fb)
+- verify email first?
 - forgot/reset password
 */

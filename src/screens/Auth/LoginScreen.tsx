@@ -50,13 +50,14 @@ export default function LoginScreen() {
     const isPasswordValid = validatePassword(password);
     if (isEmailValid || isPasswordValid) {return;}
     const error: string = await logIn(email, password);
+    if (error === 'auth/invalid-credential') {Alert.alert("Error Code", "Incorrect Credentials."); return;};
     if (error) {Alert.alert("Error Code", error); return;};
     navigation.navigate('Main', {
-          screen: 'HomeStack',
-          params: {
-            screen: 'Home',
-          },
-        });
+      screen: 'HomeStack',
+      params: {
+        screen: 'Home',
+      },
+    });
   };
 
   return (
@@ -81,17 +82,6 @@ export default function LoginScreen() {
         onValueChange={setPassword}
         validate={validatePassword}
       />
-      {/* <TextInput
-        placeholder="Email"
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        style={styles.input}
-        placeholderTextColor="#7B7B7B"
-      /> */}
       <LinearGradient
         colors={['#24252C', '#454D6D']}
         locations={[0, 1]}
@@ -130,12 +120,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 100,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#FFB315",
     marginBottom: 20,
   },
   button: {

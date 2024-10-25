@@ -89,6 +89,7 @@ export default function RegisterScreen() {
     const hasErrors = fieldsValidity.some(error => error);
     if (hasErrors) {return;}
     const error: string = await signUp(firstName, lastName, email, password);
+    if (error === 'auth/email-already-in-use') {Alert.alert("Error Code", "email already used"); return;};
     if (error) {Alert.alert("Error Code", error); return;}
     navigate.navigate('Auth', {
       screen: 'Login',
