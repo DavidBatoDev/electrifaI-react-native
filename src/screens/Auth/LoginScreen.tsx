@@ -80,6 +80,7 @@ export default function LoginScreen() {
         value={email}
         onValueChange={setEmail}
         validate={validateEmail}
+        fieldType="email"
       />
       <AuthInputGroup
         name="Password"
@@ -87,7 +88,7 @@ export default function LoginScreen() {
         value={password}
         onValueChange={setPassword}
         validate={validatePassword}
-        isSensitive={true}
+        fieldType="password"
       />
       <LinearGradient
         colors={['#24252C', '#454D6D']}
@@ -101,7 +102,7 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </LinearGradient>
   
-     <View style={styles.signupContainer}>
+      <View style={styles.signupContainer}>
         <Text style={styles.signupText}>No account yet?</Text>
         <TouchableOpacity
           onPress={() => {

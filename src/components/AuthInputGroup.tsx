@@ -10,7 +10,7 @@ type InputGroupProps = {
   value: string,
   onValueChange: (text: string) => void,
   validate: (text: string) => void,
-  isSensitive?: boolean,
+  fieldType?: string,
 };
 
 export const AuthInputGroup = ({
@@ -19,8 +19,10 @@ export const AuthInputGroup = ({
   value,
   onValueChange,
   validate,
-  isSensitive=false,
+  fieldType="text",
 }: InputGroupProps) => {
+  const isPasswordField: boolean = fieldType === "password";
+  const isEmailField: boolean = fieldType === "email"; 
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   return (
     <View style={styles.inputGroup}>
@@ -32,9 +34,11 @@ export const AuthInputGroup = ({
           value={value}
           onChangeText={(text) => {onValueChange(text); validate(text);}}
           onBlur={() => {validate(value);}}
-          secureTextEntry={isSensitive && isPasswordHidden}
+          secureTextEntry={isPasswordField && isPasswordHidden}
+          keyboardType={isEmailField ? "email-address" : "default"}
+          autoCapitalize={(isEmailField || isPasswordField) ? "none" : "words"}
         />
-        {isSensitive &&
+        {isPasswordField &&
           <TouchableOpacity
             style={styles.eyeIcon}
             onPress={() => setIsPasswordHidden((prev) => !prev)}

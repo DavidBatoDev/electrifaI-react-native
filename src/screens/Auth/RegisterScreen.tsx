@@ -135,6 +135,7 @@ export default function RegisterScreen() {
         value={email}
         onValueChange={setEmail}
         validate={validateEmail}
+        fieldType="email"
         />
       <AuthInputGroup
         name="Password"
@@ -142,7 +143,7 @@ export default function RegisterScreen() {
         value={password}
         onValueChange={setPassword}
         validate={validatePassword}
-        isSensitive={true}
+        fieldType="password"
       />
 
       <LinearGradient
