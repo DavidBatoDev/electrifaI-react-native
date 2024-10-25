@@ -142,6 +142,7 @@ export default function RegisterScreen() {
         value={password}
         onValueChange={setPassword}
         validate={validatePassword}
+        isSensitive={true}
       />
 
       <LinearGradient

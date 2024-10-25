@@ -66,7 +66,6 @@ export const logIn = async (
 - spinners
 - inform user account is created/ just logged in
 - create data on firestore connected to auth uid
-- show error in ui for firebase errors
 - logout
 - persist login
 - login w other services (maybe phone, google, apple, fb)

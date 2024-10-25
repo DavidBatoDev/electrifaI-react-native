@@ -87,6 +87,7 @@ export default function LoginScreen() {
         value={password}
         onValueChange={setPassword}
         validate={validatePassword}
+        isSensitive={true}
       />
       <LinearGradient
         colors={['#24252C', '#454D6D']}
