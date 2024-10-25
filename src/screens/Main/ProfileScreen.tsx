@@ -84,16 +84,15 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1, // Ensures the gradient covers the whole screen
+    flex: 1,
   },
   scrollViewContent: {
-    padding: 20, // Padding for ScrollView content
-    flexGrow: 1, // Ensures ScrollView stretches to fit content
+    padding: 20,
+    flexGrow: 1,
   },
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 50,
   },
   photoAndEditContainer: {
     alignItems: 'center',
