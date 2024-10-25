@@ -1,4 +1,5 @@
 import auth from "@react-native-firebase/auth";
+import { Alert } from 'react-native';
 
 export const signUp = async (
   firstName: string, 
@@ -20,7 +21,12 @@ export const signUp = async (
       const errorMessage = error.message;
       console.log("ERROR!");
       console.log(errorCode, errorMessage);
-      // ..
+      if (errorCode === "auth/email-already-in-use") {
+        Alert.alert('Error', 'This email is already used.');
+      }
+      else {
+        Alert.alert('Error', `${errorMessage}`);
+      }
     });
   }
 
