@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { Button, StyleSheet, TextInput, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 import LinearGradient from "react-native-linear-gradient";
 import { logIn } from "./firebaseAuth";
@@ -58,12 +58,22 @@ export default function LoginScreen() {
       Alert.alert("Error Code", error); 
       return;
     };
-    navigation.navigate('Main', {
-      screen: 'HomeStack',
-      params: {
-        screen: 'Home',
-      },
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { name: 'Main', 
+            params: {screen: 'Home'
+          } },
+        ],
+      })
+    );
+    // navigation.navigate('Main', {
+    //   screen: 'HomeStack',
+    //   params: {
+    //     screen: 'Home',
+    //   },
+    // });
   };
 
   return (

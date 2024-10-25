@@ -1,5 +1,20 @@
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
+
+export const isUserLoggedIn = () => {
+    return !!auth().currentUser;
+};
+
+export const signOut = async (): Promise<string> => {
+  try {
+    await auth().signOut();
+    return "";
+  }
+  catch (error: any) {
+    return error.code;
+  }
+};
+
 export const signUp = async (
   firstName: string, 
   lastName: string, 
@@ -66,8 +81,6 @@ export const logIn = async (
 - spinners
 - inform user account is created/ just logged in
 - create data on firestore connected to auth uid
-- logout
-- persist login
 - login w other services (maybe phone, google, apple, fb)
 - verify email first?
 - forgot/reset password
