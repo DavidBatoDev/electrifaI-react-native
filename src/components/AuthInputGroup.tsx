@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { StyleSheet, TextInput } from "react-native";
-import { Text, View } from "react-native";
-
+import React from 'react';
+import { StyleSheet, TextInput } from 'react-native';
+import { Text, View } from 'react-native';
 
 type InputGroupProps = {
   name: string,
@@ -16,7 +15,7 @@ export const AuthInputGroup = ({
   error,
   value,
   onValueChange,
-  validate
+  validate,
 }: InputGroupProps) => {
 
   return (
@@ -26,47 +25,40 @@ export const AuthInputGroup = ({
         style={styles.input}
         placeholderTextColor="#7B7B7B"
         value={value}
-        onChangeText={(value) => {onValueChange(value); validate(value);}}
+        onChangeText={(text) => {onValueChange(text); validate(text);}}
         onBlur={() => {validate(value);}}
       />
       {error && <Text style={styles.ErrorText}>{error}</Text>}
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
   inputGroup: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  nameErrorGroup: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "80%",
-    paddingHorizontal: 5,
-  },
-  ErrorText: {
-    fontSize: 12,
-    backgroundColor: "#FF5661",
-    color: "#FFFF",
-    paddingHorizontal: 12,
-    paddingVertical: 2,
-    marginLeft: "10%",
-    marginRight: "auto",
-    marginBottom: 12,
-    borderRadius: 10,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
-    width: "80%",
+    width: '80%',
     padding: 10,
     borderRadius: 10,
-    color: "#2D3142",
-    backgroundColor: "#FFFFFF",
+    color: '#2D3142',
+    backgroundColor: '#FFFFFF',
     elevation: 4,
     marginBottom: 10,
     marginTop: 5,
+  },
+  ErrorText: {
+    fontSize: 12,
+    backgroundColor: '#FF5661',
+    color: '#FFFF',
+    paddingHorizontal: 12,
+    paddingVertical: 2,
+    marginLeft: '10%',
+    marginRight: 'auto',
+    marginBottom: 12,
+    borderRadius: 10,
   },
 });

@@ -80,13 +80,13 @@ export default function RegisterScreen() {
     const  isEmailValid = validateEmail(email);
     const  isPasswordValid = validatePassword(password);
     const fieldsValidity = [
-      isFirstNameValid, 
-      isLastNameValid, 
-      isEmailValid, 
-      isPasswordValid
+      isFirstNameValid,
+      isLastNameValid,
+      isEmailValid,
+      isPasswordValid,
     ];
     const hasErrors = fieldsValidity.some(error => error);
-    if (hasErrors) {return};
+    if (hasErrors) {return;}
     signUp(firstName, lastName, email, password);
     navigate.navigate('Auth', {
       screen: 'Login',
