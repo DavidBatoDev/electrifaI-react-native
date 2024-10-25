@@ -76,10 +76,10 @@ export default function RegisterScreen() {
   };
 
   const handleSignup = async () => {
-    const  isFirstNameValid = validateFirstName(firstName);
-    const  isLastNameValid = validateLastName(lastName);
-    const  isEmailValid = validateEmail(email);
-    const  isPasswordValid = validatePassword(password);
+    const isFirstNameValid = validateFirstName(firstName);
+    const isLastNameValid = validateLastName(lastName);
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
     const fieldsValidity = [
       isFirstNameValid,
       isLastNameValid,
@@ -89,8 +89,14 @@ export default function RegisterScreen() {
     const hasErrors = fieldsValidity.some(error => error);
     if (hasErrors) {return;}
     const error: string = await signUp(firstName, lastName, email, password);
-    if (error === 'auth/email-already-in-use') {Alert.alert("Error Code", "email already used"); return;};
-    if (error) {Alert.alert("Error Code", error); return;}
+    if (error === 'auth/email-already-in-use') {
+      setErrors((prev) => ({...prev, email: "email already used"}));
+      return;
+    }
+    if (error) {
+      Alert.alert("Error Code", error); 
+      return;
+    }
     navigate.navigate('Auth', {
       screen: 'Login',
       params: {

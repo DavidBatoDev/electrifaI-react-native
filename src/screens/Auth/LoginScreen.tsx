@@ -36,7 +36,7 @@ export default function LoginScreen() {
     else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
     setErrors((prev) => ({...prev, email: currError}));
     return currError;
-  };
+  }
 
   const validatePassword = (password: string) => {
     let currError: string = '';
@@ -50,8 +50,14 @@ export default function LoginScreen() {
     const isPasswordValid = validatePassword(password);
     if (isEmailValid || isPasswordValid) {return;}
     const error: string = await logIn(email, password);
-    if (error === 'auth/invalid-credential') {Alert.alert("Error Code", "Incorrect Credentials."); return;};
-    if (error) {Alert.alert("Error Code", error); return;};
+    if (error === 'auth/invalid-credential') {
+      setErrors({email: "", password: "Incorrect Credentials"});
+      return;
+    };
+    if (error) {
+      Alert.alert("Error Code", error); 
+      return;
+    };
     navigation.navigate('Main', {
       screen: 'HomeStack',
       params: {
