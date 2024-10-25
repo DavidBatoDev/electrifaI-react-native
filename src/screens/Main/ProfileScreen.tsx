@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
   },
   profilePhotoContainer: {
     borderRadius: Dimensions.get('window').width * 0.2,
-    width: Dimensions.get('window').width * 0.4,
-    height: Dimensions.get('window').width * 0.4,
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
