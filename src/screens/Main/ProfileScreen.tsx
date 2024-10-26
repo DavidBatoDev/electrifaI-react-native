@@ -2,8 +2,15 @@ import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { signOut } from '../../services/firebaseAuth';
+import { Alert } from 'react-native';
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import { RootStackNavigationProp } from "../types";
+
 
 export default function ProfileScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   const user = {
     name: "Victoria Robertson",
     nickname: "Vicky",
@@ -14,6 +21,21 @@ export default function ProfileScreen() {
   
   const profilePhoto = require('../../assets/images/sample-profile.png')
   
+  const handleLogout = async () => {
+    const error: string = await signOut();
+    if (error) {Alert.alert("Error Code", error); return;};
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { name: 'Auth', 
+            params: {screen: 'Login'
+          } },
+        ],
+      })
+    );
+  };
+
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
         <View style={styles.profileHeader}>
@@ -67,7 +89,7 @@ export default function ProfileScreen() {
             <Text style={styles.optionButtonText}>Contact Us</Text>
           </View>
           <View style={styles.optionContainer}>
-            <TouchableOpacity style={styles.optionButton}>
+            <TouchableOpacity style={styles.optionButton} onPress={handleLogout}>
               <Ionicons name="log-out-outline" size={30} color="#FF4D4D"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Logout</Text>
