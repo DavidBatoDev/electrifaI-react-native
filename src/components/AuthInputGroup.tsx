@@ -3,19 +3,20 @@ import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
 type InputGroupProps = {
-  name: string,
-  error: string,
+  placeholder: string,
+  error: string | null,
+  onErrorChange: (error: string | null) => void,
   value: string,
   onValueChange: (text: string) => void,
-  validate: (text: string) => void,
+  validate: (text: string) => string | null,
   fieldType?: string,
 };
 
 export const AuthInputGroup = ({
-  name,
+  placeholder,
   error,
+  onErrorChange,
   value,
   onValueChange,
   validate,
@@ -28,12 +29,19 @@ export const AuthInputGroup = ({
     <View style={styles.inputGroup}>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder={name}
+          placeholder={placeholder}
           style={styles.input}
           placeholderTextColor="#7B7B7B"
           value={value}
-          onChangeText={(text) => {onValueChange(text); validate(text);}}
-          onBlur={() => {validate(value);}}
+          onChangeText={(text) => {
+            onValueChange(text); 
+            const newError = validate(text);
+            onErrorChange(newError);
+          }}
+          onBlur={() => {
+            const newError = validate(value);
+            onErrorChange(newError);
+          }}
           secureTextEntry={isPasswordField && isPasswordHidden}
           keyboardType={isEmailField ? "email-address" : "default"}
           autoCapitalize={(isEmailField || isPasswordField) ? "none" : "words"}

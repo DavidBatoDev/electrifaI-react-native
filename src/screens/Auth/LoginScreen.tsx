@@ -9,49 +9,37 @@ import LinearGradient from "react-native-linear-gradient";
 import { logIn } from "./firebaseAuth";
 import { Alert } from 'react-native';
 import { AuthInputGroup } from '../../components/AuthInputGroup';
+import {
+  validateRequired,
+  validateEmail,
+} from '../../utils/validationUtils';
 
 export default function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({email: '',password: '',});
+  const [emailError, setEmailError] = useState<string | null>('');
+  const [passwordError, setPasswordError] = useState<string | null>('');
 
-  const validateEmail = (newEmail: string) => {
-    // Email regex
-    // 1+ character that is not whitespace or @
-    const localPart = '[^\\s@]+';
-    // 1 at symbol (@), separates local and domain name
-    const atSymbol = '@';
-    // 1+ character that is not whitespace or @
-    const domainName = '[^\\s@]+';
-    // 1 dot (.), separates domain and top-level domain
-    const dot = '\\.';
-    // 1+ character that is not whitespace or @
-    const topLevelDomain = '[^\\s@]+';
-    const emailRegex = new RegExp(
-      `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
-    );
-    let currError: string = '';
-    if (!newEmail) {currError = 'required';}
-    else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
-    setErrors((prev) => ({...prev, email: currError}));
-    return currError;
-  }
-
-  const validatePassword = (password: string) => {
-    let currError: string = '';
-    if (!password) {currError = 'required';}
-    setErrors((prev) => ({...prev, password: currError}));
-    return currError;
+  const validateAll = (): boolean => {
+    const isEmailValid: string | null = validateEmail(email);
+    const isPasswordValid: string | null = validateRequired(password);
+    setEmailError(isEmailValid);
+    setPasswordError(isPasswordValid);
+    if (isEmailValid || isPasswordValid) {
+      return true;
+    }
+    return false;
   };
-
+  
   const handleLogin = async () => {
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
-    if (isEmailValid || isPasswordValid) {return;}
+    const hasError: boolean = validateAll();
+    if (hasError) {
+      return;
+    }
     const error: string = await logIn(email, password);
     if (error === 'auth/invalid-credential') {
-      setErrors({email: "", password: "Incorrect Credentials"});
+      setPasswordError("Incorrect Credentials");
       return;
     };
     if (error) {
@@ -68,12 +56,6 @@ export default function LoginScreen() {
         ],
       })
     );
-    // navigation.navigate('Main', {
-    //   screen: 'HomeStack',
-    //   params: {
-    //     screen: 'Home',
-    //   },
-    // });
   };
 
   return (
@@ -85,19 +67,21 @@ export default function LoginScreen() {
       />
       {/* <Text style={styles.title}>Project ElectriAI</Text> */}
       <AuthInputGroup
-        name="Email"
-        error={errors.email}
+        placeholder="Email"
+        error={emailError}
+        onErrorChange={setEmailError}
         value={email}
         onValueChange={setEmail}
         validate={validateEmail}
         fieldType="email"
-      />
+        />
       <AuthInputGroup
-        name="Password"
-        error={errors.password}
+        placeholder="Password"
+        error={passwordError}
+        onErrorChange={setPasswordError}
         value={password}
         onValueChange={setPassword}
-        validate={validatePassword}
+        validate={validateRequired}
         fieldType="password"
       />
       <LinearGradient

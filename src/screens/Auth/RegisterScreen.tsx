@@ -9,88 +9,49 @@ import LinearGradient from 'react-native-linear-gradient';
 import { signUp } from './firebaseAuth';
 import { AuthInputGroup } from '../../components/AuthInputGroup';
 import { Alert } from 'react-native';
+import {
+  validateRequired,
+  validateEmail,
+  validatePassword
+} from '../../utils/validationUtils';
 
 
 export default function RegisterScreen() {
   const navigate = useNavigation<RootStackNavigationProp>();
+  // Input Fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
+  // Input Field Errors
+  const [firstNameError, setFirstNameError] = useState<string | null>(null);
+  const [lastNameError, setLastNameError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  const validateFirstName = (newFirstName: string) => {
-    let currError: string = '';
-    if (!newFirstName) {currError = 'required';}
-    setErrors((prev) => ({...prev, firstName: currError}));
-  };
-  const validateLastName = (newLastName: string) => {
-    let currError: string = '';
-    if (!newLastName) {currError = 'required';}
-    setErrors((prev) => ({...prev, lastName: currError}));
-    return currError;
-  };
-  const validateEmail = (newEmail: string) => {
-    // Email regex
-    // 1+ character that is not whitespace or @
-    const localPart = '[^\\s@]+';
-    // 1 at symbol (@), separates local and domain name
-    const atSymbol = '@';
-    // 1+ character that is not whitespace or @
-    const domainName = '[^\\s@]+';
-    // 1 dot (.), separates domain and top-level domain
-    const dot = '\\.';
-    // 1+ character that is not whitespace or @
-    const topLevelDomain = '[^\\s@]+';
-    const emailRegex = new RegExp(
-      `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
-    );
-    let currError: string = '';
-    if (!newEmail) {currError = 'required';}
-    else if (!emailRegex.test(newEmail)) {currError = 'invalid email format';}
-    setErrors((prev) => ({...prev, email: currError}));
-    return currError;
-  };
-  const validatePassword = (newPassword: string) => {
-    // Regex
-    const upperCase = /[A-Z]/;
-    const lowerCase = /[a-z]/;
-    const number = /\d/;
-    const specialChar = /[`!@#$%^&*(),.?":{}|<>]/;
-    let currError: string = '';
-    if (!newPassword) {currError = 'required';}
-    else if (newPassword.length < 8) {currError = 'minimum 8 characters';}
-    else if (!upperCase.test(newPassword)) {currError = 'at least 1 uppercase';}
-    else if (!lowerCase.test(newPassword)) {currError = 'at least 1 lowercase';}
-    else if (!number.test(newPassword)) {currError = 'at least 1 number';}
-    else if (!specialChar.test(newPassword)) {
-      currError = 'at least 1 special character';
+  const validateAll = (): boolean => {
+    const isFirstNameValid: string | null = validateRequired(email);
+    const isLastNameValid: string | null = validateRequired(password);
+    const isEmailValid: string | null = validateEmail(email);
+    const isPasswordValid: string | null = validatePassword(password);
+    setFirstNameError(isFirstNameValid);
+    setLastNameError(isLastNameValid);
+    setEmailError(isEmailValid);
+    setPasswordError(isPasswordValid);
+    if (isEmailValid || isPasswordValid) {
+      return true;
     }
-    setErrors((prev) => ({...prev, password: currError}));
-    return currError;
+    return false;
   };
 
   const handleSignup = async () => {
-    const isFirstNameValid = validateFirstName(firstName);
-    const isLastNameValid = validateLastName(lastName);
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
-    const fieldsValidity = [
-      isFirstNameValid,
-      isLastNameValid,
-      isEmailValid,
-      isPasswordValid,
-    ];
-    const hasErrors = fieldsValidity.some(error => error);
-    if (hasErrors) {return;}
+    const hasError: boolean = validateAll();
+    if (hasError) {
+      return;
+    }
     const error: string = await signUp(firstName, lastName, email, password);
     if (error === 'auth/email-already-in-use') {
-      setErrors((prev) => ({...prev, email: "email already used"}));
+      setEmailError("email already used");
       return;
     }
     if (error) {
@@ -116,30 +77,34 @@ export default function RegisterScreen() {
       <Text style={styles.title}>Create an Account</Text>
 
       <AuthInputGroup
-        name="First Name"
-        error={errors.firstName}
+        placeholder="First Name"
+        error={firstNameError}
+        onErrorChange={setFirstNameError}
         value={firstName}
         onValueChange={setFirstName}
-        validate={validateFirstName}
+        validate={validateRequired}
         />
       <AuthInputGroup
-        name="Last Name"
-        error={errors.lastName}
+        placeholder="Last Name"
+        error={lastNameError}
+        onErrorChange={setLastNameError}
         value={lastName}
         onValueChange={setLastName}
-        validate={validateLastName}
+        validate={validateRequired}
         />
       <AuthInputGroup
-        name="Email"
-        error={errors.email}
+        placeholder="Email"
+        error={emailError}
+        onErrorChange={setEmailError}
         value={email}
         onValueChange={setEmail}
         validate={validateEmail}
         fieldType="email"
         />
       <AuthInputGroup
-        name="Password"
-        error={errors.password}
+        placeholder="Password"
+        error={passwordError}
+        onErrorChange={setPasswordError}
         value={password}
         onValueChange={setPassword}
         validate={validatePassword}
