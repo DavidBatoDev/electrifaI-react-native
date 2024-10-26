@@ -1,17 +1,59 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
+
+
+// Define an interface for user data
+interface User {
+  name: string;
+  nickname: string;
+  location: string;
+  age: number;
+  occupation: string;
+}
 
 export default function ProfileScreen() {
-  const user = {
-    name: "Victoria Robertson",
-    nickname: "Vicky",
-    location: "Manila",
-    age: "30 yrs Old",
-    occupation: "Electronics and Communication Engineer",
+  const [user, setUser] = useState<User | null>(null); // User state
+
+  const getUserData = async () => {
+    try {
+      const documentSnapshot = await firestore()
+        .collection('user')
+        .doc('dummy-data')
+        .get();
+
+      if (documentSnapshot.exists) {
+        const data = documentSnapshot.data();
+
+        // Check if data is defined
+        if (data) {
+          const fetchedUser: User = {
+            name: data.firstName + ' ' + data.lastName,
+            nickname: data.nickName,
+            location: data.location,
+            age: data.age, // Ensure this matches the type in the interface
+            occupation: data.occupation,
+          };
+
+          setUser(fetchedUser); // Set the user state
+        } else {
+          console.log('Data is undefined');
+        }
+      } else {
+        console.log('User does not exist');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
+
+  useEffect(() => {
+    getUserData(); // Fetch user data when the component mounts
+  }, []);
   
   const profilePhoto = require('../../assets/images/sample-profile.png')
   
@@ -30,7 +72,7 @@ export default function ProfileScreen() {
             </TouchableOpacity>
           </View>
             {/* Profile Name */}
-            <Text style={styles.profileName}>{user.name}</Text>
+            <Text style={styles.profileName}>{user ? user.name : 'Loading...'}</Text>
         </View>
         <View style={styles.infoContainer}>
           <View style={styles.editInfoRow}>
@@ -41,15 +83,15 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.infoContent}>
             <Text style={styles.label}>Name:</Text>
-            <Text style={styles.info}>{user.name}</Text>
+            <Text style={styles.info}>{user ? user.name : 'Loading...'}</Text>
             <Text style={styles.label}>Nickname:</Text>
-            <Text style={styles.info}>{user.nickname}</Text>
+            <Text style={styles.info}>{user ? user.nickname : 'Loading...'}</Text>
             <Text style={styles.label}>Location:</Text>
-            <Text style={styles.info}>{user.location}</Text>
+            <Text style={styles.info}>{user ? user.location : 'Loading...'}</Text>
             <Text style={styles.label}>Age:</Text>
-            <Text style={styles.info}>{user.age}</Text>
+            <Text style={styles.info}>{user ? user.age : 'Loading...'}</Text>
             <Text style={styles.label}>Occupation:</Text>
-            <Text style={styles.info}>{user.occupation}</Text>
+            <Text style={styles.info}>{user ? user.occupation : 'Loading...'}</Text>
           </View>
         </View>
         <View style={styles.moreContainer}>
