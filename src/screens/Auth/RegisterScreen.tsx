@@ -35,8 +35,8 @@ export default function RegisterScreen() {
 
   // Validates all input fields, returns true if all valid
   const validateAll = (): boolean => {
-    const newFirstNameError: string | null = validateRequired(email);
-    const newLastNameError: string | null = validateRequired(password);
+    const newFirstNameError: string | null = validateRequired(firstName);
+    const newLastNameError: string | null = validateRequired(lastName);
     const newEmailError: string | null = validateEmail(email);
     const newPasswordError: string | null = validatePassword(password);
     // Displays errors in UI
