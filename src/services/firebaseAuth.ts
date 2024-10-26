@@ -1,44 +1,43 @@
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-
+// Checks if a user is signed in at the moment
 export const isUserLoggedIn = () => {
-    return !!auth().currentUser;
+  return !!auth().currentUser;
 };
 
+// Sign outs the user, returns error code
 export const signOut = async (): Promise<string> => {
   try {
     await auth().signOut();
-    return "";
+    return '';
   }
   catch (error: any) {
     return error.code;
   }
 };
 
+// Create an account, returns error code
 export const signUp = async (
-  firstName: string, 
-  lastName: string, 
+  firstName: string,
+  lastName: string,
   email: string,
-  password: string, 
+  password: string,
 ): Promise<string> => {
   try {
-    const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+    const userCredential = await auth().
+      createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
     const fullName = `${firstName} ${lastName}`;
     const error: string = await addDisplayName(user, fullName);
-    console.log("SUCCESS?");
-    console.log(user);
     return error;
   }
   catch (error: any) {
     const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("ERROR!");
-    console.log(errorCode, errorMessage);
     return errorCode;
   }
 };
 
+// Add displayName upon creating account, called on signUp, returns error code
 const addDisplayName = async (
   user: FirebaseAuthTypes.User,
   fullName: string,
@@ -48,35 +47,30 @@ const addDisplayName = async (
       displayName: fullName,
       photoURL: null,
     });
-    return "";
+    return '';
   }
   catch (error: any) {
     const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("ERROR!");
-    console.log(errorCode, errorMessage);
     return errorCode;
   }
 };
 
+// Log in, return error code
 export const logIn = async (
   email: string,
   password: string,
 ): Promise<string> => {
   try {
-    const userCredential = await auth().signInWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-    console.log(user);
+    await auth().signInWithEmailAndPassword(email, password);
     return '';
   }
   catch (error: any) {
     const errorCode = error.code;
-    console.log(errorCode);
     return errorCode;
   }
 };
 
-/* TODO:
+/* Auth TODO:
 - disable submit if there is still error
 - spinners
 - inform user account is created/ just logged in

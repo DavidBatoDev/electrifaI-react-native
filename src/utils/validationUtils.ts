@@ -20,7 +20,7 @@ export const validateEmail = (email: string): string | null => {
   const emailRegex = new RegExp(
     `^${localPart}${atSymbol}${domainName}${dot}${topLevelDomain}$`
   );
-  
+
   if (!email) {
     return 'required';
   }
