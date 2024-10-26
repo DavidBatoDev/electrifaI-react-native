@@ -1,26 +1,61 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
 import { signOut } from '../../services/firebaseAuth';
 import { Alert } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 
+// Define an interface for user data
+interface User {
+  name: string;
+  nickname: string;
+  location: string;
+  age: number;
+  occupation: string;
+}
 
 export default function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const user = {
-    name: "Victoria Robertson",
-    nickname: "Vicky",
-    location: "Manila",
-    age: "30 yrs Old",
-    occupation: "Electronics and Communication Engineer",
+  const [user, setUser] = useState<User | null>(null); // User state
+
+  const getUserData = async () => {
+    try {
+      const documentSnapshot = await firestore()
+        .collection('user')
+        .doc('dummy-data')
+        .get();
+
+      if (documentSnapshot.exists) {
+        const data = documentSnapshot.data();
+
+        // Check if data is defined
+        if (data) {
+          const fetchedUser: User = {
+            name: data.firstName + ' ' + data.lastName,
+            nickname: data.nickName,
+            location: data.location,
+            age: data.age, // Ensure this matches the type in the interface
+            occupation: data.occupation,
+          };
+
+          setUser(fetchedUser); // Set the user state
+        } else {
+          console.log('Data is undefined');
+        }
+      } else {
+        console.log('User does not exist');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
-  
-  const profilePhoto = require('../../assets/images/sample-profile.png')
-  
+
   const handleLogout = async () => {
     const error: string = await signOut();
     if (error) {Alert.alert("Error Code", error); return;};
@@ -36,8 +71,15 @@ export default function ProfileScreen() {
     );
   };
 
+  useEffect(() => {
+    getUserData(); // Fetch user data when the component mounts
+  }, []);
+  
+  const profilePhoto = require('../../assets/images/sample-profile.png')
+  
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.profileHeader}>
           <View style={styles.photoAndEditContainer}>
             {/* Circular Profile Photo Frame */}
@@ -49,8 +91,8 @@ export default function ProfileScreen() {
               <Text style={styles.editButtonText}>Edit Profile Photo</Text>
             </TouchableOpacity>
           </View>
-          {/* Profile Name */}
-          <Text style={styles.profileName}>{user.name}</Text>
+            {/* Profile Name */}
+            <Text style={styles.profileName}>{user ? user.name : 'Loading...'}</Text>
         </View>
         <View style={styles.infoContainer}>
           <View style={styles.editInfoRow}>
@@ -61,15 +103,15 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.infoContent}>
             <Text style={styles.label}>Name:</Text>
-            <Text style={styles.info}>{user.name}</Text>
+            <Text style={styles.info}>{user ? user.name : 'Loading...'}</Text>
             <Text style={styles.label}>Nickname:</Text>
-            <Text style={styles.info}>{user.nickname}</Text>
+            <Text style={styles.info}>{user ? user.nickname : 'Loading...'}</Text>
             <Text style={styles.label}>Location:</Text>
-            <Text style={styles.info}>{user.location}</Text>
+            <Text style={styles.info}>{user ? user.location : 'Loading...'}</Text>
             <Text style={styles.label}>Age:</Text>
-            <Text style={styles.info}>{user.age}</Text>
+            <Text style={styles.info}>{user ? user.age : 'Loading...'} yrs old</Text>
             <Text style={styles.label}>Occupation:</Text>
-            <Text style={styles.info}>{user.occupation}</Text>
+            <Text style={styles.info}>{user ? user.occupation : 'Loading...'}</Text>
           </View>
         </View>
         <View style={styles.moreContainer}>
@@ -96,27 +138,31 @@ export default function ProfileScreen() {
           </View>
         </View>
         </View>
+      </ScrollView>  
     </LinearGradient>
+    
   );
 }
 
 const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
-    paddingHorizontal: 20,
+  },
+  scrollViewContent: {
+    padding: 20,
+    flexGrow: 1,
   },
   profileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 50,
   },
   photoAndEditContainer: {
     alignItems: 'center',
   },
   profilePhotoContainer: {
     borderRadius: Dimensions.get('window').width * 0.2,
-    width: Dimensions.get('window').width * 0.4,
-    height: Dimensions.get('window').width * 0.4,
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
@@ -124,8 +170,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profilePhoto: {
-    width: '90%',
-    height: '90%',
+    width: '100%',
+    height: '100%',
     borderRadius: 80,
     resizeMode: 'cover',
   },
@@ -138,10 +184,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   profileName: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 20,
     color: "#fff",
+    marginBottom: 20,
+    marginLeft: 20,
+    width: "60%",
   },
   infoContainer: {
     backgroundColor: '#fff',
@@ -162,12 +210,12 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#333",
-    fontSize: 15,
+    fontSize: 14,
   },
   info: {
     fontWeight: "bold",
     color: "#333",
-    fontSize: 17,
+    fontSize: 15,
     marginBottom: 5,
   },
   editInfoRow: {
@@ -229,4 +277,3 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
-
