@@ -5,7 +5,10 @@ import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "rea
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
-
+import { signOut } from '../../services/firebaseAuth';
+import { Alert } from 'react-native';
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import { RootStackNavigationProp } from "../types";
 
 // Define an interface for user data
 interface User {
@@ -17,6 +20,8 @@ interface User {
 }
 
 export default function ProfileScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {
@@ -49,6 +54,21 @@ export default function ProfileScreen() {
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
+  };
+
+  const handleLogout = async () => {
+    const error: string = await signOut();
+    if (error) {Alert.alert("Error Code", error); return;};
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { name: 'Auth', 
+            params: {screen: 'Login'
+          } },
+        ],
+      })
+    );
   };
 
   useEffect(() => {
@@ -111,7 +131,7 @@ export default function ProfileScreen() {
             <Text style={styles.optionButtonText}>Contact Us</Text>
           </View>
           <View style={styles.optionContainer}>
-            <TouchableOpacity style={styles.optionButton}>
+            <TouchableOpacity style={styles.optionButton} onPress={handleLogout}>
               <Ionicons name="log-out-outline" size={30} color="#FF4D4D"></Ionicons>
             </TouchableOpacity>
             <Text style={styles.optionButtonText}>Logout</Text>
@@ -257,4 +277,3 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
-
