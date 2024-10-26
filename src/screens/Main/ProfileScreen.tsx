@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { signOut } from '../Auth/firebaseAuth';
+import { signOut } from '../../services/firebaseAuth';
 import { Alert } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";

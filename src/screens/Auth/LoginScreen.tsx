@@ -10,7 +10,7 @@ import {
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { RootStackNavigationProp } from '../types';
 import LinearGradient from 'react-native-linear-gradient';
-import { logIn } from './firebaseAuth';
+import { logIn } from '../../services/firebaseAuth';
 import { AuthInputGroup } from '../../components/AuthInputGroup';
 
 // Import validation utils
