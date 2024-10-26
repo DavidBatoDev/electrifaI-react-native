@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function ProfileScreen() {
   const user = {
-    name: "Victoria Test Test Test Robertson",
+    name: "Victoria Robertson",
     nickname: "Vicky",
     location: "Manila",
     age: "30 yrs Old",
@@ -148,12 +148,12 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#333",
-    fontSize: 15,
+    fontSize: 14,
   },
   info: {
     fontWeight: "bold",
     color: "#333",
-    fontSize: 17,
+    fontSize: 15,
     marginBottom: 5,
   },
   editInfoRow: {
