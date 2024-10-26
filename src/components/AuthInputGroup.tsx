@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,10 +20,10 @@ export const AuthInputGroup = ({
   value,
   onValueChange,
   validate,
-  fieldType="text",
+  fieldType = 'text',
 }: InputGroupProps) => {
-  const isPasswordField: boolean = fieldType === "password";
-  const isEmailField: boolean = fieldType === "email"; 
+  const isPasswordField: boolean = fieldType === 'password';
+  const isEmailField: boolean = fieldType === 'email';
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   return (
     <View style={styles.inputGroup}>
@@ -34,7 +34,7 @@ export const AuthInputGroup = ({
           placeholderTextColor="#7B7B7B"
           value={value}
           onChangeText={(text) => {
-            onValueChange(text); 
+            onValueChange(text);
             const newError = validate(text);
             onErrorChange(newError);
           }}
@@ -43,18 +43,18 @@ export const AuthInputGroup = ({
             onErrorChange(newError);
           }}
           secureTextEntry={isPasswordField && isPasswordHidden}
-          keyboardType={isEmailField ? "email-address" : "default"}
-          autoCapitalize={(isEmailField || isPasswordField) ? "none" : "words"}
+          keyboardType={isEmailField ? 'email-address' : 'default'}
+          autoCapitalize={(isEmailField || isPasswordField) ? 'none' : 'words'}
         />
         {isPasswordField &&
           <TouchableOpacity
             style={styles.eyeIcon}
             onPress={() => setIsPasswordHidden((prev) => !prev)}
           >
-            <Ionicons 
-              name={isPasswordHidden ? "eye-off-outline" : "eye-outline"}
+            <Ionicons
+              name={isPasswordHidden ? 'eye-off-outline' : 'eye-outline'}
               size={16}
-            ></Ionicons>
+            />
           </TouchableOpacity>
         }
       </View>
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     width: '80%',
     borderRadius: 10,
     color: '#2D3142',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   eyeIcon: {
-    alignSelf: "center",
+    alignSelf: 'center',
     padding: 10,
   },
   ErrorText: {

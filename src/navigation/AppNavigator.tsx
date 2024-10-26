@@ -1,6 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { isUserLoggedIn } from '../services/firebaseAuth';
 
 // Import the navigators
@@ -11,18 +10,18 @@ const RootStack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <RootStack.Navigator initialRouteName={isUserLoggedIn() ? "Main" : "Auth"}>
+    <RootStack.Navigator initialRouteName={isUserLoggedIn() ? 'Main' : 'Auth'}>
       {/* Authentication Flow */}
       <RootStack.Screen
         name="Auth"
         component={AuthNavigator}
-        options={{ headerShown: false }} // Hide header for auth screens
+        options={{ headerShown: false }}
       />
       {/* Main App Flow */}
       <RootStack.Screen
         name="Main"
         component={MainNavigator}
-        options={{ headerShown: false }} // Hide header for main screens
+        options={{ headerShown: false }}
       />
     </RootStack.Navigator>
   );
