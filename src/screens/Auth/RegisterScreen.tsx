@@ -12,70 +12,78 @@ import { Alert } from 'react-native';
 import {
   validateRequired,
   validateEmail,
-  validatePassword
+  validatePassword,
 } from '../../utils/validationUtils';
 
 
 export default function RegisterScreen() {
   const navigate = useNavigation<RootStackNavigationProp>();
   // Input Fields
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   // Input Field Errors
   const [firstNameError, setFirstNameError] = useState<string | null>(null);
   const [lastNameError, setLastNameError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
+  // Validates all input fields, returns true if all valid
   const validateAll = (): boolean => {
-    const isFirstNameValid: string | null = validateRequired(email);
-    const isLastNameValid: string | null = validateRequired(password);
-    const isEmailValid: string | null = validateEmail(email);
-    const isPasswordValid: string | null = validatePassword(password);
-    setFirstNameError(isFirstNameValid);
-    setLastNameError(isLastNameValid);
-    setEmailError(isEmailValid);
-    setPasswordError(isPasswordValid);
-    if (isEmailValid || isPasswordValid) {
+    const newFirstNameError: string | null = validateRequired(email);
+    const newLastNameError: string | null = validateRequired(password);
+    const newEmailError: string | null = validateEmail(email);
+    const newPasswordError: string | null = validatePassword(password);
+    // Displays the error
+    setFirstNameError(newFirstNameError);
+    setLastNameError(newLastNameError);
+    setEmailError(newEmailError);
+    setPasswordError(newPasswordError);
+    if (newFirstNameError || newLastNameError ||
+      newEmailError || newPasswordError) {
       return true;
     }
     return false;
   };
 
   const handleSignup = async () => {
+    // Validate all inputs, do not proceed if there are errors
     const hasError: boolean = validateAll();
     if (hasError) {
       return;
     }
+    // Create a new account
     const error: string = await signUp(firstName, lastName, email, password);
+    // Catch errors
     if (error === 'auth/email-already-in-use') {
-      setEmailError("email already used");
+      setEmailError('email already used');
       return;
     }
     if (error) {
-      Alert.alert("Error Code", error); 
+      Alert.alert('Error Code', error);
       return;
     }
+    // Redirect to LoginScreen
     navigate.navigate('Auth', {
       screen: 'Login',
       params: {
         screen: 'Login',
       },
     });
-    
   };
 
   return (
     <View style={styles.container}>
+      {/* Logo and Title */}
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
         resizeMode="contain"
-      />
+        />
       <Text style={styles.title}>Create an Account</Text>
 
+      {/* Input Fields */}
       <AuthInputGroup
         placeholder="First Name"
         error={firstNameError}
@@ -111,6 +119,7 @@ export default function RegisterScreen() {
         fieldType="password"
       />
 
+      {/* Submit Button */}
       <LinearGradient
         colors={['#24252C', '#454D6D']}
         locations={[0, 1]}
