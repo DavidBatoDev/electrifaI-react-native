@@ -1,20 +1,24 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Image } from 'react-native';
-import { Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import {
+  Alert,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import { RootStackNavigationProp } from '../types';
 import LinearGradient from 'react-native-linear-gradient';
 import { signUp } from './firebaseAuth';
 import { AuthInputGroup } from '../../components/AuthInputGroup';
-import { Alert } from 'react-native';
+
+// Import validation utils
 import {
   validateRequired,
   validateEmail,
   validatePassword,
 } from '../../utils/validationUtils';
-
 
 export default function RegisterScreen() {
   const navigate = useNavigation<RootStackNavigationProp>();
@@ -35,7 +39,7 @@ export default function RegisterScreen() {
     const newLastNameError: string | null = validateRequired(password);
     const newEmailError: string | null = validateEmail(email);
     const newPasswordError: string | null = validatePassword(password);
-    // Displays the error
+    // Displays errors in UI
     setFirstNameError(newFirstNameError);
     setLastNameError(newLastNameError);
     setEmailError(newEmailError);
@@ -131,6 +135,7 @@ export default function RegisterScreen() {
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </LinearGradient>
+      {/* Login Link */}
       <View style={styles.loginContainer}>
         <Text style={styles.loginText}>Already have an account?</Text>
         <TouchableOpacity
