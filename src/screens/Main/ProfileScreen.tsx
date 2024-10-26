@@ -89,7 +89,7 @@ export default function ProfileScreen() {
             <Text style={styles.label}>Location:</Text>
             <Text style={styles.info}>{user ? user.location : 'Loading...'}</Text>
             <Text style={styles.label}>Age:</Text>
-            <Text style={styles.info}>{user ? user.age : 'Loading...'}</Text>
+            <Text style={styles.info}>{user ? user.age : 'Loading...'} yrs old</Text>
             <Text style={styles.label}>Occupation:</Text>
             <Text style={styles.info}>{user ? user.occupation : 'Loading...'}</Text>
           </View>
