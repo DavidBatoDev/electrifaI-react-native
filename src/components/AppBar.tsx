@@ -16,7 +16,7 @@ export default function AppBar() {
 
       {/* Logo in the Center */}
       <Image
-        source={require('../assets/images/logo-with-name.png')}
+        source={require('../assets/images/logo.png')}
         style={styles.logo}
         resizeMode="contain"
       />
