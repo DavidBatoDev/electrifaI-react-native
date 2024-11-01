@@ -75,11 +75,10 @@ export default function LoginScreen() {
     <View style={styles.container}>
       {/* Logo */}
       <Image
-        source={require('../../assets/images/logo-with-name.png')}
+        source={require('../../assets/images/logo.png')}
         style={styles.logo}
         resizeMode="contain"
       />
-      {/* <Text style={styles.title}>Project ElectriAI</Text> */}
       {/* Input Fields */}
       <AuthInputGroup
         placeholder="Email"
