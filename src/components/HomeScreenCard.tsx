@@ -1,19 +1,28 @@
 // HomeScreenCard.tsx
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function HomeScreenCard({
+interface HomeScreenCardProps {
+  title: string;
+  content: string;
+  subContent: string;
+  modalID: string;
+  focused: boolean;
+  subtitle?: string;
+}
+
+const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
   title,
   content,
   subContent,
   modalID,
   focused,
   subtitle
-}) {
-  const navigation = useNavigation();
+}) => {
+  const navigation = useNavigation<NavigationProp<any>>();
 
   console.log('modalID', modalID, 'focused', focused);
 
@@ -38,7 +47,7 @@ export default function HomeScreenCard({
       </View>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -57,7 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 120,
     scaleX: 24,
-   
   },
   cardTitle: {
     fontSize: 18,
@@ -76,3 +84,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
+
+export default HomeScreenCard;
