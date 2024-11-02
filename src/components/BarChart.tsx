@@ -23,7 +23,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
           y="kWh"
           style={{
             data: {
-              fill: '#4050E7',
+              fill: '#00A5FF',
               width: 8,
             },
           }}

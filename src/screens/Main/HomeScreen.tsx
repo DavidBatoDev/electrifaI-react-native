@@ -94,7 +94,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <ScrollView style={styles.mainContentContainer}>
-      <LinearGradient colors={['#00A5FF', '#00A5FF']} style={styles.mainContentContainer}>
+<LinearGradient colors={['#00A5FF', '#0072FF', '#00C6FF']} style={styles.mainContentContainer}>
         <AppBar />
         <View>
           <FlatList

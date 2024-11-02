@@ -13,7 +13,7 @@ const TrackingScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   return (
-    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+    <LinearGradient colors={['#00A5FF', '#0072FF', '#00C6FF']} style={styles.linearGradient}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* Leakage Notification Card */}
         <View style={styles.notificationCard}>
