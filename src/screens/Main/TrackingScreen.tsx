@@ -2,15 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 
 const blueLineChart = require('../../assets/images/blueLineChart.png');
-const redLineChart = require('../../assets/images/sample-profile.png');
+const redLineChart = require('../../assets/images/redLineChart.png');
 
-const TrackingScreen = () => {
-  const navigation = useNavigation();
+const TrackingScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+
   return (
     <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -29,11 +30,12 @@ const TrackingScreen = () => {
 
         {/* Anomaly Detection Card */}
         <TouchableOpacity 
-        activeOpacity={0.8} 
-        onPress={() => navigation.navigate('Track Consumption', {
-          consumptionId: '1'
-        })}
-        style={styles.statCard}>
+          activeOpacity={0.8} 
+          onPress={() => navigation.navigate('Track Consumption', {
+            consumptionId: '1'
+          })}
+          style={styles.statCard}
+        >
           <View style={styles.statHeader}>
             <Ionicons name="stats-chart-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -60,7 +62,8 @@ const TrackingScreen = () => {
           onPress={() => navigation.navigate('Track Consumption', {
             consumptionId: '1'
           })}
-        style={styles.statCard}>
+          style={styles.statCard}
+        >
           <View style={styles.statHeader}>
             <Ionicons name="battery-charging-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -95,11 +98,11 @@ export default TrackingScreen;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1, // Ensures the gradient covers the whole screen
+    flex: 1, 
   },
   scrollViewContent: {
-    padding: 20, // Padding for ScrollView content
-    flexGrow: 1, // Ensures ScrollView stretches to fit content
+    padding: 20, 
+    flexGrow: 1,
   },
   notificationCard: {
     flexDirection: 'row',

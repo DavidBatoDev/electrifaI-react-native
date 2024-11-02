@@ -1,11 +1,16 @@
 // AppBar.tsx
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons'; // Correct import for Ionicons
 
+type RootStackParamList = {
+  Profile: undefined;
+  Notifications: undefined;
+}
+
 export default function AppBar() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.appBar}>

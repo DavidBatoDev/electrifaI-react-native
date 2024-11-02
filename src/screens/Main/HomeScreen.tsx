@@ -1,7 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions } from 'react-native';
-// import Card from '../../components/Card';
+import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions, ListRenderItem } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BarChart from '../../components/BarChart';
 import HomeScreenCard from '../../components/HomeScreenCard';
@@ -9,8 +7,15 @@ import AppBar from '../../components/AppBar';
 
 const windowWidth = Dimensions.get('window').width;
 
-// dummy data for the monthly consumption chart
-const monthly_consumption_data = [
+interface MonthlyConsumptionData {
+  id: string;
+  month_in_number: number;
+  month: string;
+  consumption: string;
+  kWh: number;
+}
+
+const monthly_consumption_data: MonthlyConsumptionData[] = [
   { id: '1', month_in_number: 1, month: 'Jan', consumption: '95 kWh', kWh: 95 },
   { id: '2', month_in_number: 2, month: 'Feb', consumption: '90 kWh', kWh: 90 },
   { id: '3', month_in_number: 3, month: 'Mar', consumption: '85 kWh', kWh: 85 },
@@ -25,13 +30,15 @@ const monthly_consumption_data = [
   { id: '12', month_in_number: 12, month: 'Dec', consumption: '130 kWh', kWh: 130 },
 ];
 
-// interfaces 
-interface DotProps {
-  active: string;
+interface CardContent {
+  id: string;
+  title: string;
+  subtitle: string;
+  content: string;
+  subContent: string;
 }
 
-// dummy data for the cards
-const cardContents = [
+const cardContents: CardContent[] = [
   {
     id: '1',
     title: 'Average Daily Consumption',
@@ -55,28 +62,28 @@ const cardContents = [
   },
 ];
 
-const Dot = ({ active }: DotProps) => {
+interface DotProps {
+  active: string;
+}
+
+const Dot: React.FC<DotProps> = ({ active }) => {
   return <View style={[styles.dot, { backgroundColor: active }]} />;
 };
 
-
-// HomeScreen component
-const HomeScreen = () => {
-  const [focusedItem, setFocusedItem] = useState('1');
+const HomeScreen: React.FC = () => {
+  const [focusedItem, setFocusedItem] = useState<string>('1');
 
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 50,
   }).current;
 
-  // Function to determine the focused item in the FlatList
-  const onViewableItemsChanged = useCallback(({ viewableItems }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<{ item: CardContent }> }) => {
     if (viewableItems.length > 0) {
       setFocusedItem(viewableItems[0].item.id);
     }
   }, []);
 
-  // Function to render each item in the FlatList (scrollable monthly data)
-  const renderMonthlyItem = ({ item }) => (
+  const renderMonthlyItem: ListRenderItem<MonthlyConsumptionData> = ({ item }) => (
     <View style={styles.listItem}>
       <Text style={styles.monthText}>{item.month}</Text>
       <Text style={styles.consumptionText}>{item.consumption}</Text>
@@ -86,10 +93,7 @@ const HomeScreen = () => {
   return (
     <ScrollView style={styles.mainContentContainer}>
       <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.mainContentContainer}>
-      <AppBar />
-        {/* <View style={[styles.headerTextContainer]}>
-          <Text style={[styles.regularText, styles.paddingHorizontalSmall, styles.whiteText]}>Hello, Juan! </Text>
-        </View> */}
+        <AppBar />
         <View>
           <FlatList
             contentContainerStyle={{
@@ -111,7 +115,6 @@ const HomeScreen = () => {
               <View>
                 <HomeScreenCard
                   title={item.title}
-                  // subtitle={item.subtitle}
                   subContent={item.subContent}
                   subtitle={item.subtitle}
                   content={item.content}
@@ -128,16 +131,12 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        {/* Add text here using react-native paper */}
         <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text>
 
-        {/* <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text> */}
         <View style={[styles.monthlyConsumptionContainer]}>
-          {/* ../components/BarChart.tsx */}
           <BarChart data={monthly_consumption_data} />
         </View>
 
-        {/* Scrollable monthly consumption list */}
         <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
           <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Text>
           <FlatList
@@ -199,9 +198,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    // marginBottom: 20,
-    // borderBottomStartRadius: 16,
-    // borderBottomEndRadius: 16,
   },
   dot: {
     height: 8,
