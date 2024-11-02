@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View, FlatList, ScrollView, Dimensions, ListRenderItem } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, ListRenderItem } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { Card, Title, Paragraph } from 'react-native-paper';
 import BarChart from '../../components/BarChart';
 import HomeScreenCard from '../../components/HomeScreenCard';
 import AppBar from '../../components/AppBar';
@@ -92,7 +94,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <ScrollView style={styles.mainContentContainer}>
-      <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.mainContentContainer}>
+      <LinearGradient colors={['#00A5FF', '#00A5FF']} style={styles.mainContentContainer}>
         <AppBar />
         <View>
           <FlatList
@@ -131,22 +133,21 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text>
+        <Title style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Title>
 
-        <View style={[styles.monthlyConsumptionContainer]}>
+        <Card style={[styles.monthlyConsumptionContainer]}>
           <BarChart data={monthly_consumption_data} />
-        </View>
-
-        <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
-          <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Text>
-          <FlatList
-            data={monthly_consumption_data.slice(7, 12)}
-            keyExtractor={(item) => item.id}
-            renderItem={renderMonthlyItem}
-            scrollEnabled={true}
-            style={styles.flatList}
-          />
-        </View>
+          <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
+            <Title style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Title>
+            <FlatList
+              data={monthly_consumption_data.slice(7, 12)}
+              keyExtractor={(item) => item.id}
+              renderItem={renderMonthlyItem}
+              scrollEnabled={true}
+              style={styles.flatList}
+            />
+          </View>
+        </Card>
       </LinearGradient>
     </ScrollView>
   );
@@ -156,7 +157,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   mainContentContainer: {
-    backgroundColor: 'linear-gradient(to bottom, #333E6C, #2D3142)',
+    // backgroundColor: 'linear-gradient(to bottom, #333E6C, #2D3142)',
+    backgroundColor: "#00A5FF"
   },
   whiteText: {
     color: '#f9f9f9',
@@ -182,8 +184,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   monthlyConsumptionContainer: {
-    borderTopEndRadius: 16,
-    borderTopStartRadius: 16,
     backgroundColor: '#f9f9f9',
     justifyContent: 'center',
     shadowColor: '#000',

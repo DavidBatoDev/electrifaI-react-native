@@ -1,6 +1,7 @@
 // HomeScreenCard.tsx
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -27,7 +28,7 @@ const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
   console.log('modalID', modalID, 'focused', focused);
 
   return (
-    <TouchableOpacity
+    <Card
       style={[styles.cardContainer, { backgroundColor: focused ? '#F9F9F9' : '#FFFFFF' }]}
       onPress={() => {
         switch (modalID) {
@@ -38,34 +39,25 @@ const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
         }
       }}
     >
-      <View style={styles.cardContent}>
-        <View>
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.cardValue}>{content}</Text>
-          <Text style={styles.cardSubContent}>{subContent}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+      <Card.Content>
+        <Title style={styles.cardTitle}>{title}</Title>
+        <Paragraph style={styles.cardValue}>{content}</Paragraph>
+        <Paragraph style={styles.cardSubContent}>{subContent}</Paragraph>
+      </Card.Content>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
     width: windowWidth - 40,
-    padding: 20,
-    backgroundColor: '#FFFFFF',
+    marginVertical: 10,
     borderRadius: 16,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    display: 'flex',
-  },
-  cardContent: {
-    justifyContent: 'space-between',
-    height: 120,
-    scaleX: 24,
   },
   cardTitle: {
     fontSize: 18,
@@ -76,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '500',
     color: '#000000', 
-    marginTop: 10,
+    paddingTop: 20,
   },
   cardSubContent: {
     fontSize: 15,
