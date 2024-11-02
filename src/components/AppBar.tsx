@@ -29,6 +29,7 @@ export default function AppBar() {
   );
 }
 
+
 const styles = StyleSheet.create({
   appBar: {
     flexDirection: 'row',
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
+    marginBottom: 20,
   },
   logo: {
     width: 100,  // Adjust size according to your needs

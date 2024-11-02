@@ -128,6 +128,9 @@ const HomeScreen = () => {
           </View>
         </View>
 
+        {/* Add text here using react-native paper */}
+        <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text>
+
         {/* <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text> */}
         <View style={[styles.monthlyConsumptionContainer]}>
           {/* ../components/BarChart.tsx */}
@@ -196,9 +199,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    marginBottom: 20,
-    borderBottomStartRadius: 16,
-    borderBottomEndRadius: 16,
+    // marginBottom: 20,
+    // borderBottomStartRadius: 16,
+    // borderBottomEndRadius: 16,
   },
   dot: {
     height: 8,

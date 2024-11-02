@@ -15,9 +15,11 @@ export default function HomeScreenCard({
 }) {
   const navigation = useNavigation();
 
+  console.log('modalID', modalID, 'focused', focused);
+
   return (
     <TouchableOpacity
-      style={styles.cardContainer}
+      style={[styles.cardContainer, { backgroundColor: focused ? '#F9F9F9' : '#FFFFFF' }]}
       onPress={() => {
         switch (modalID) {
           case '1':
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 120,
     scaleX: 24,
+   
   },
   cardTitle: {
     fontSize: 18,
