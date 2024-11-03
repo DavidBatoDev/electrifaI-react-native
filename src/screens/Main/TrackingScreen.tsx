@@ -12,8 +12,10 @@ const redLineChart = require('../../assets/images/sample-profile.png');
 const TrackingScreen = () => {
   const navigation = useNavigation();
   return (
-    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+    <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.linearGradient}>
+
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+
         {/* Leakage Notification Card */}
         <View style={styles.notificationCard}>
           <View style={styles.iconContainer}>
@@ -33,6 +35,7 @@ const TrackingScreen = () => {
         onPress={() => navigation.navigate('Track Consumption', {
           consumptionId: '1'
         })}
+
         style={styles.statCard}>
           <View style={styles.statHeader}>
             <Ionicons name="stats-chart-outline" size={28} color="#000" />
@@ -98,7 +101,9 @@ const styles = StyleSheet.create({
     flex: 1, // Ensures the gradient covers the whole screen
   },
   scrollViewContent: {
-    padding: 20, // Padding for ScrollView content
+    // padding: 10, // Padding for ScrollView content
+    paddingVertical: 30,
+    paddingHorizontal: 10,
     flexGrow: 1, // Ensures ScrollView stretches to fit content
   },
   notificationCard: {
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 16,
-    elevation: 4,
+    // elevation: 4,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 16,
-    elevation: 4,
+    // elevation: 4,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    elevation: 4,
+    // elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
