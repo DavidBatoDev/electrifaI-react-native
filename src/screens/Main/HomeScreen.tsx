@@ -85,15 +85,13 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.mainContentContainer}>
-      <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.mainContentContainer}>
+      {/* experimenting with white background */}
+      <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.mainContentContainer}> 
       <AppBar />
-        {/* <View style={[styles.headerTextContainer]}>
-          <Text style={[styles.regularText, styles.paddingHorizontalSmall, styles.whiteText]}>Hello, Juan! </Text>
-        </View> */}
         <View>
           <FlatList
             contentContainerStyle={{
-              padding: 10,
+              padding: 25,
               gap: 10,
             }}
             data={cardContents}
@@ -113,30 +111,22 @@ const HomeScreen = () => {
                   title={item.title}
                   // subtitle={item.subtitle}
                   subContent={item.subContent}
-                  subtitle={item.subtitle}
                   content={item.content}
                   modalID={item.id}
-                  focused={focusedItem === item.id}
                 />
               </View>
             )}
           />
           <View style={styles.carouselNav}>
             {cardContents.map((item) => (
-              <Dot key={item.id} active={focusedItem === item.id ? 'lightblue' : 'lightgrey'} />
+              <Dot key={item.id} active={focusedItem === item.id ? '#2D3142' : 'lightgrey'} />
             ))}
           </View>
         </View>
 
-        {/* <Text style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Text> */}
         <View style={[styles.monthlyConsumptionContainer]}>
-          {/* ../components/BarChart.tsx */}
-          <BarChart data={monthly_consumption_data} />
-        </View>
-
-        {/* Scrollable monthly consumption list */}
-        <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
           <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Text>
+          <BarChart data={monthly_consumption_data} />
           <FlatList
             data={monthly_consumption_data.slice(7, 12)}
             keyExtractor={(item) => item.id}
@@ -145,6 +135,7 @@ const HomeScreen = () => {
             style={styles.flatList}
           />
         </View>
+
       </LinearGradient>
     </ScrollView>
   );
@@ -153,9 +144,6 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  mainContentContainer: {
-    backgroundColor: 'linear-gradient(to bottom, #333E6C, #2D3142)',
-  },
   whiteText: {
     color: '#f9f9f9',
   },
@@ -180,25 +168,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   monthlyConsumptionContainer: {
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
     borderTopEndRadius: 16,
     borderTopStartRadius: 16,
-    backgroundColor: '#f9f9f9',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-  },
-  monthlyConsumptionContainerList: {
-    backgroundColor: '#f9f9f9',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    marginBottom: 20,
-    borderBottomStartRadius: 16,
     borderBottomEndRadius: 16,
+    borderBottomStartRadius: 16,
+    marginBottom: 20,
+    backgroundColor: 'white',
+    // backgroundColor: '#f9f9f9',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
   },
   dot: {
     height: 8,

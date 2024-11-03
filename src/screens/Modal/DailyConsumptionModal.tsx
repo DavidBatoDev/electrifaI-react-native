@@ -1,142 +1,93 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     Modal,
+    ScrollView,
     Text,
     View,
     StyleSheet,
     StatusBar,
     Dimensions,
 } from 'react-native';
-// importing progress bar component
 import ProgressBar from '../../components/ProgressBar';
+import PieChart from '../../components/PieChart';
+import { FlatList } from 'react-native-gesture-handler';
 
-
-const data = [
-    // mock data for visualization
-    {
-        name: 'Morning',
-        consumption: 1.28,
-        color: '#EB5353',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 12,
-    },
-    {
-        name: 'Afternoon',
-        consumption: 2.2,
-        color: '#F9D923',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 12,
-    },
-    {
-        name: 'Evening',
-        consumption: 0.88,
-        color: '#36AE7C',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 12,
-    },
-    {
-        name: 'Night',
-        consumption: 3.5,
-        color: '#187498',
-        legendFontColor: '#7F7F7F',
-        legendFontSize: 12,
-    },
-];
-
-
+const colorScale=["#00A4FF", "#0D82C4", "#0C6CA2", "#0A517A"] // color scale for the progress bars
+const data=[
+    { x: "30%", y: 30 },
+    { x: "35%", y: 35 },
+    { x: "25%", y: 25 },
+    { x: "10%", y: 10 },
+] // pie chart data x: label, y: value
 
 export default function DailyConsumptionModal () {
-    /*
-
-    */
 
     return (
+        <ScrollView>
            <View style={styles.mainCardContainer}>
 
-              <View style={styles.headerTextWrapper}>
-              {/* wrapper for the header texts of card */}
-                  <Text style={styles.mediumBoldText}>Average Daily Consumption</Text>
-                  <Text style={[styles.largeRegularText, styles.consumptionText]}>....... kWh</Text>
-                  <Text style={styles.smallText}>As of ......</Text>
-              </View>
+                <View style={styles.headerTextWrapper}>
+                {/* wrapper for the header texts of card */}
+                    <Text style={styles.mediumBoldText}>Average Daily Consumption</Text>
+                    <Text style={[styles.largeRegularText, styles.consumptionText]}>23.49 kWh</Text>
+                    <Text style={styles.smallText}>As of 11:29 PM</Text>
+                </View>
 
 
-              <View style={styles.chartWrapper}>
-                  {/* chart here! */}
-                  <Text>Insert Chart here...</Text>
-                  <Text>Insert Chart here...</Text>
-                  <Text>Insert Chart here...</Text>
-                  <Text>Insert Chart here...</Text>
-              </View>
-              <View style={styles.chartInfoWrapper}>
+                <View style={styles.chartWrapper}>
+                    {/* pie chart component */}
+                    <PieChart
+                    data={data}
+                    ></PieChart>
+                </View>
+                <View style={styles.chartInfoWrapper}>
 
-                  <View style={styles.textWrapper}>
-                      <Text style={[styles.regularTextBold]}>Throughout the day</Text>
-                      <Text style={[styles.regularText]}>You're consumption peaks during the night, and lowest in the evening.</Text>
-                  </View>
+                    <View style={styles.textWrapper}>
+                        <Text style={[styles.regularTextBold]}>Throughout the day</Text>
+                        <Text style={[styles.regularText]}>You're consumption peaks during the night, and lowest in the evening.</Text>
+                    </View>
 
 
-                  <View style={{rowGap: 8}}>
-                  {/* progress bars */}
-                      <ProgressBar
-                      percentage={0.2}
-                      progressColor={'#EB5353'}
-                       />
-                      <ProgressBar
-                      percentage={0.5}
-                      progressColor={'#F9D923'}
-                       />
-                      <ProgressBar
-                      percentage={0.1}
-                      progressColor={'#36AE7C'}
-                       />
-                      <ProgressBar
-                      progressColor={'#187498'}
-                      percentage={0.2}
-                       />
-                  </View>
+                    <View style={{rowGap: 8}}>
+                        {data.map((item, index) => {
+                            return (
+                                <ProgressBar
+                                    key={index}
+                                    percentage={item.y / 100}
+                                    progressColor={colorScale[index]}
+                                />
+                            );
+                        })}
 
-                  <View style={styles.textWrapper}>
-                      <Text style={styles.regularTextBold}>Did you know?</Text>
-                  <Text style={[styles.regularText]}>You are <Text style={ {fontWeight: 'bold', color: '#EB5353'}}>above average</Text> on daily consumption in Manila, Philippines.</Text>
+                    </View>
 
-                  </View>
+                    <View style={styles.textWrapper}>
+                        <Text style={styles.regularTextBold}>Did you know?</Text>
+                    <Text style={[styles.regularText]}>You are <Text style={ {fontWeight: 'bold', color: ''}}>above average</Text> on daily consumption in Manila, Philippines.</Text>
 
-              </View>
-          </View>
+                    </View>
+
+                </View>
+            </View>
+
+        </ScrollView>
 
     );
 }
 
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-        paddingTop: StatusBar.currentHeight + 10, // for responsive resizing of card
-        paddingBottom: StatusBar.currentHeight,
-        paddingHorizontal: 10,
-    },
     mainCardContainer:{
-        // main card that contains all info (chart, headertexts, chatinfo)
-        rowGap: 15,
-        paddingHorizontal: 25,
-        paddingVertical: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 20,
         alignItems: 'flex-start',
-        // occupy all of maincontainer
         height: '100%',
         width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: 'whitesmoke',
         flex: 1,
-        borderRadius: 12,
-        elevation: 3,
     },
     // text presets
     mediumBoldText: {
+        color: "#0D82C4",
         fontWeight: 'bold',
         fontSize: 18,
     },
@@ -145,9 +96,10 @@ const styles = StyleSheet.create({
     },
     smallText: {
       fontSize: 14,
-      color: 'lightgrey',
+      color: 'grey',
     },
     regularTextBold: {
+        color: "#0D82C4",
         fontWeight: 'bold',
         fontSize: 16,
     },
@@ -157,6 +109,7 @@ const styles = StyleSheet.create({
 
     headerTextWrapper: {
         rowGap: 5,
+        paddingHorizontal: 10,
     },
     // container for info wrapper (with the progress bars)
     chartInfoWrapper: {
@@ -165,12 +118,15 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 20,
         borderRadius: 12,
-        elevation: 3,
     },
     chartWrapper: {
-        marginVertical: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // container for the pie chart
+        marginTop: -20,
+        marginBottom: -10,
+        color: "#0D82C4",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
     },
 
     textWrapper: {

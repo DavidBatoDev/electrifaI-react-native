@@ -1,15 +1,15 @@
-// components/BarChart.js
 import React from 'react';
+import { Dimensions } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
 
 const BarChart = ({ data }) => {
+  const windowWidth = Dimensions.get('window').width;
   return (
     <VictoryChart
-      domainPadding={{ x: 20 }}
-      height={300} // Adjust height based on design
-      padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
+      domainPadding={{ x: 10 }}
+      width={windowWidth-20} // Adjust width based on design
       style={{
-        parent: { borderRadius: 16, backgroundColor: '#f9f9f9' },
+        // parent: { borderRadius: 16, backgroundColor: 'white' }, // Add border radius and background color (based sa figma)
       }}
     >
       {/* Bar chart data */}
@@ -20,8 +20,8 @@ const BarChart = ({ data }) => {
         y="kWh"
         style={{
           data: {
-            fill: '#4050E7',
-            width: 8,
+            fill: '#008FE0',
+            width: 10,
           },
         }}
         cornerRadius={{ top: 0 }}
@@ -36,7 +36,7 @@ const BarChart = ({ data }) => {
           tickLabels: {
             fontSize: 12,
             fill: '#28282C', // color ng text sa x-axis
-            padding: 5,
+            padding: 10,
           },
         }}
       />
@@ -50,7 +50,7 @@ const BarChart = ({ data }) => {
           tickLabels: {
             fontSize: 12,
             fill: '#828284', // color ng text sa y-axis
-            padding: 5,
+            padding: 20,
           },
         }}
       />

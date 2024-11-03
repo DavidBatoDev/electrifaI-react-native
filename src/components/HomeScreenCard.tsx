@@ -2,6 +2,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -10,31 +11,29 @@ export default function HomeScreenCard({
   content,
   subContent,
   modalID,
-  focused,
-  subtitle
 }) {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
-      style={styles.cardContainer}
-      onPress={() => {
-        switch (modalID) {
-          case '1':
-            navigation.navigate('Daily Consumption Modal');
-            break;
-          // Add more cases if needed
-        }
-      }}
-    >
-      <View style={styles.cardContent}>
-        <View>
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.cardValue}>{content}</Text>
-          <Text style={styles.cardSubContent}>{subContent}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <LinearGradient colors={["#00A4FF", "#0D82C4"]} style={styles.cardContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          switch (modalID) {
+            case '1':
+              navigation.navigate('Daily Consumption Modal');
+              break;
+            // Add more cases if needed
+          }
+        }}
+      >
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>{title}</Text>
+              <Text style={styles.cardValue}>{content}</Text>
+              <Text style={styles.cardSubContent}>{subContent}</Text>
+            </View>
+
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
@@ -42,9 +41,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: windowWidth - 40,
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#00A4FF',
     borderRadius: 16,
-    elevation: 4,
+    // elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -59,17 +58,17 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#333',
+    color: 'white',
   },
   cardValue: {
     fontSize: 32,
     fontWeight: '500',
-    color: '#000000', 
+    color: 'white', 
     marginTop: 10,
   },
   cardSubContent: {
     fontSize: 15,
-    color: '#666',
+    color: 'white',
     marginTop: 5,
   },
 });

@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     },
     progressBarContainer: {
         // container for progress bar, fills all of height max of 25
+        backgroundColor: 'whitesmoke',
         borderRadius: 10,
         flex: 1,
-        backgroundColor: 'white',
         height: "100%",
         maxHeight: 25,
         flexDirection: 'row',
