@@ -4,6 +4,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
+
 const windowWidth = Dimensions.get('window').width;
 
 interface HomeScreenCardProps {
