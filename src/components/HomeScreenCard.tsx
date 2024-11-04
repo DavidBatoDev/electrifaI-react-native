@@ -1,59 +1,63 @@
 // HomeScreenCard.tsx
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function HomeScreenCard({
+interface HomeScreenCardProps {
+  title: string;
+  content: string;
+  subContent: string;
+  modalID: string;
+  focused: boolean;
+  subtitle?: string;
+}
+
+const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
   title,
   content,
   subContent,
   modalID,
-}) {
-  const navigation = useNavigation();
+  focused,
+  subtitle
+}) => {
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  console.log('modalID', modalID, 'focused', focused);
 
   return (
-    <LinearGradient colors={["#00A4FF", "#0D82C4"]} style={styles.cardContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          switch (modalID) {
-            case '1':
-              navigation.navigate('Daily Consumption Modal');
-              break;
-            // Add more cases if needed
-          }
-        }}
-      >
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{title}</Text>
-              <Text style={styles.cardValue}>{content}</Text>
-              <Text style={styles.cardSubContent}>{subContent}</Text>
-            </View>
-
-      </TouchableOpacity>
-    </LinearGradient>
+    <Card
+      style={[styles.cardContainer, { backgroundColor: focused ? '#F9F9F9' : '#FFFFFF' }]}
+      onPress={() => {
+        switch (modalID) {
+          case '1':
+            navigation.navigate('Daily Consumption Modal');
+            break;
+          // Add more cases if needed
+        }
+      }}
+    >
+      <Card.Content>
+        <Title style={styles.cardTitle}>{title}</Title>
+        <Paragraph style={styles.cardValue}>{content}</Paragraph>
+        <Paragraph style={styles.cardSubContent}>{subContent}</Paragraph>
+      </Card.Content>
+    </Card>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContainer: {
     width: windowWidth - 40,
-    padding: 20,
-    backgroundColor: '#00A4FF',
+    marginVertical: 10,
     borderRadius: 16,
     // elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    display: 'flex',
-  },
-  cardContent: {
-    justifyContent: 'space-between',
-    height: 120,
-    scaleX: 24,
   },
   cardTitle: {
     fontSize: 18,
@@ -63,8 +67,8 @@ const styles = StyleSheet.create({
   cardValue: {
     fontSize: 32,
     fontWeight: '500',
-    color: 'white', 
-    marginTop: 10,
+    color: '#000000', 
+    paddingTop: 20,
   },
   cardSubContent: {
     fontSize: 15,
@@ -72,3 +76,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
+
+export default HomeScreenCard;
