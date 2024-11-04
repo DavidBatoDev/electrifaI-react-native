@@ -78,11 +78,7 @@ export default function ProfileScreen() {
   const profilePhoto = require('../../assets/images/sample-profile.png')
   
   return (
-<<<<<<< HEAD
     <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.linearGradient}>
-=======
-    <LinearGradient colors={['#0072FF', '#00A5FF', '#00C6FF']} style={styles.linearGradient}>
->>>>>>> dev-frontend
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.profileHeader}>
           <View style={styles.photoAndEditContainer}>
@@ -247,7 +243,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
 
-    color: "#fff",
+    color: "grey",
   },
   moreSubtitle: {
     color: "#fff",
