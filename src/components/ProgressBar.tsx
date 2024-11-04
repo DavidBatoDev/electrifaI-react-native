@@ -1,23 +1,28 @@
+import React from 'react';
 import {
     View,
     Text,
     StyleSheet,
-} from "react-native"
+} from "react-native";
 
-export default function ProgressBar ({percentage, progressColor})  {
+interface ProgressBarProps {
+    percentage: number;
+    progressColor: string;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ percentage, progressColor }) => {
     // this function renders a progress bar
     // percentage: int where n > 1
     // progress color: color of progress bar
     return (
         <View style={styles.progressBarWrapper}>
-            
-            <Text style={{fontWeight: 'bold'}}>{percentage * 100}%</Text>
-            <View style={[styles.progressBarContainer, ]}>
-                <View style={{backgroundColor: progressColor, flex: percentage, borderRadius: 10}}></View>
+            <Text style={{ fontWeight: 'bold' }}>{percentage * 100}%</Text>
+            <View style={styles.progressBarContainer}>
+                <View style={{ backgroundColor: progressColor, flex: percentage, borderRadius: 10 }}></View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     progressBarWrapper: {
@@ -34,5 +39,6 @@ const styles = StyleSheet.create({
         maxHeight: 25,
         flexDirection: 'row',
     },
-})
+});
 
+export default ProgressBar;

@@ -2,8 +2,11 @@
 
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+type RootStackParamList = {
+  PaymentDetails: { methodId: number };
+};
 
 const data = {
   payableAmount: '₱ 5,643.50',
@@ -24,7 +27,7 @@ const data = {
   ],
 };
 
-const PaymentsScreen = () => {
+const PaymentsScreen: React.FC = () => {
   const {
     payableAmount,
     month,
@@ -32,7 +35,7 @@ const PaymentsScreen = () => {
     history,
     paymentMethods,
   } = data;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -76,7 +79,7 @@ const PaymentsScreen = () => {
             </View>
             <TouchableOpacity
               style={styles.payButton}
-              onPress={() => navigation.navigate('_')}
+              onPress={() => navigation.navigate('PaymentDetails', { methodId: id })}
             >
               <Text style={styles.payButtonText}>PAY</Text>
             </TouchableOpacity>

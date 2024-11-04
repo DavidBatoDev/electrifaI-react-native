@@ -1,22 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import ConsumptionLineChart from '../../components/ConsumptionLineChart'; // Import the chart component
+import ConsumptionLineChart from '../../components/ConsumptionLineChart'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 
-const TrackConsumption = () => {
-    const route = useRoute();
-    const { consumptionId } = route.params; // eto yung id na pinasa natin para ma fetch yung scatter points, pasa nalang sa chart pag meron na
+type RouteParams = {
+  params: {
+    consumptionId: string;
+  };
+};
 
-    const data = [ // sample data for scatter points, since wala pa tayong api
-        { x: 1, y: 49 },
-        { x: 2, y: 55 },  
-        { x: 3, y: 60 },  
-        { x: 4, y: 69 },  
-        { x: 5, y: 70 }, 
-        { x: 6, y: 76 }, 
-      ];
-    
+const TrackConsumption: React.FC = () => {
+  const route = useRoute<RouteProp<RouteParams, 'params'>>();
+  const { consumptionId } = route.params; 
+
+  const data = [ 
+    { x: 1, y: 49 },
+    { x: 2, y: 55 },
+    { x: 3, y: 60 },
+    { x: 4, y: 69 },
+    { x: 5, y: 70 },
+    { x: 6, y: 76 },
+  ];
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
