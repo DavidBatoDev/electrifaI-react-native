@@ -1,6 +1,7 @@
 import React from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory-native';
-import { Card } from 'react-native-paper';
+// import { Card } from 'react-native-paper';
+import {  View, Dimensions } from 'react-native';
 
 interface BarChartProps {
   data: {
@@ -10,12 +11,14 @@ interface BarChartProps {
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data }) => {
+  const windowWidth = Dimensions.get('window').width;
   return (
-    <Card style={{ borderRadius: 16, backgroundColor: '#f9f9f9', padding: 10 }}>
+
+    <View style={{backgroundColor: ''}}>
       <VictoryChart
-        domainPadding={{ x: 20 }}
-        height={300}
-        padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
+        domainPadding={{ x: 5 }}
+        width = {windowWidth-10}
+        // padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
         containerComponent={<VictoryVoronoiContainer />}
       >
         <VictoryBar
@@ -65,7 +68,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
             tickLabels: {
               fontSize: 10,
               fill: '#828284',
-              padding: 0,
+              marginRight: 10,
             },
             grid: {
               stroke: '#E5E7EB',
@@ -74,7 +77,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
           }}
         />
       </VictoryChart>
-    </Card>
+    </View>
   );
 };
 

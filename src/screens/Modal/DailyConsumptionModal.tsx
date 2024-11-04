@@ -10,7 +10,9 @@ import {
 import ProgressBar from '../../components/ProgressBar';
 import PieChart from '../../components/PieChart';
 import { FlatList } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 
+const windowWidth = Dimensions.get('window').width;
 const colorScale=["#00A4FF", "#0D82C4", "#0C6CA2", "#0A517A"] // color scale for the progress bars
 const data=[
     { x: "30%", y: 30 },
@@ -23,14 +25,17 @@ export default function DailyConsumptionModal () {
 
     return (
         <ScrollView>
+            <StatusBar backgroundColor={"#00A4FF"}></StatusBar>
            <View style={styles.mainCardContainer}>
 
-                <View style={styles.headerTextWrapper}>
+                <LinearGradient colors={["#00A4FF", "#0D82C4"]} style={styles.headerTextCardContainer}>
                 {/* wrapper for the header texts of card */}
-                    <Text style={styles.mediumBoldText}>Average Daily Consumption</Text>
-                    <Text style={[styles.largeRegularText, styles.consumptionText]}>23.49 kWh</Text>
-                    <Text style={styles.smallText}>As of 11:29 PM</Text>
-                </View>
+                    <View style={styles.headerTextContentWrapper}>
+                        <Text style={[styles.mediumBoldText, {color: "white"}]}>Average Daily Consumption</Text>
+                        <Text style={[styles.largeRegularText, {color: "white"}]}>23.49 kWh</Text>
+                        <Text style={[styles.smallText, {color: "white"}]}>As of 11:29 PM</Text>
+                    </View>
+                </LinearGradient>
 
 
                 <View style={styles.chartWrapper}>
@@ -86,6 +91,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     // text presets
+    headerTextContentWrapper: {
+        rowGap: 10,
+
+    },
     mediumBoldText: {
         color: "#0D82C4",
         fontWeight: 'bold',
@@ -107,9 +116,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 
-    headerTextWrapper: {
+    headerTextCardContainer: {
+        width: "100%",
+        padding: 20,
+        // backgroundColor: '#00A4FF',
+        borderRadius: 16,
+        // elevation: 1,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        display: 'flex',
         rowGap: 5,
-        paddingHorizontal: 10,
+        // paddingHorizontal: 10,
     },
     // container for info wrapper (with the progress bars)
     chartInfoWrapper: {

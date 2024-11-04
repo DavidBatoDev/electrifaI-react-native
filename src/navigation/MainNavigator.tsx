@@ -18,7 +18,19 @@ const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
 
 const HomeStack = () => (
-  <MainStack.Navigator>
+  <MainStack.Navigator
+  screenOptions={{
+    headerTintColor: "white",
+    headerTitleAlign: "center",
+    headerStyle: {
+      backgroundColor: "#00A4FF"
+    },
+    headerTitleStyle: {
+        color: "white",
+        fontSize: 16,
+    }
+  }}
+  >
     <MainStack.Screen 
       name="HomeStack" 
       component={HomeScreen}
@@ -31,6 +43,9 @@ const HomeStack = () => (
     <MainStack.Screen 
       name="Daily Consumption Modal" 
       component={DailyConsumptionModal} 
+      options={{
+        headerTitle: "Daily Consumption",
+      }}
     />
     <MainStack.Screen 
       name="Track Consumption" 
@@ -67,6 +82,16 @@ const MainNavigator = () => {
         tabBarShowLabel: false, 
         tabBarActiveTintColor: '#000',
         tabBarInactiveTintColor: '#8e8e93', 
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#00A4FF"
+            
+            
+        },
+        headerTitleStyle: {
+            color: "white",
+            fontSize: 16,
+        }
       })}
     >
       <Tab.Screen 
@@ -79,9 +104,6 @@ const MainNavigator = () => {
       <Tab.Screen 
         name="Tracking" 
         component={TrackingScreen}
-        options={{
-          headerShown: false,
-        }}
       />
       <Tab.Screen 
         name="Payments" 
@@ -90,9 +112,6 @@ const MainNavigator = () => {
       <Tab.Screen 
         name="Profile" 
         component={ProfileScreen}
-        options={{
-          headerShown: false,
-        }}
       />
     </Tab.Navigator>
   );

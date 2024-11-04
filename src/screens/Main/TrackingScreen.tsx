@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
@@ -14,6 +14,7 @@ const TrackingScreen: React.FC = () => {
 
   return (
     <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.linearGradient}>
+      <StatusBar backgroundColor={"#00A4FF"}></StatusBar>
 
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
 
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     // padding: 10, // Padding for ScrollView content
     paddingVertical: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     flexGrow: 1, // Ensures ScrollView stretches to fit content
   },
   notificationCard: {

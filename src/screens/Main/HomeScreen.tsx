@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { StyleSheet, Dimensions, ScrollView, ListRenderItem } from 'react-native';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import BarChart from '../../components/BarChart';
@@ -93,9 +93,10 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <ScrollView style={styles.mainContentContainer}>
+    <ScrollView >
       {/* experimenting with white background */}
-      <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.mainContentContainer}> 
+      <StatusBar backgroundColor={"#00A4FF"}></StatusBar>
+      <LinearGradient colors={['whitesmoke', 'whitesmoke']}> 
       <AppBar />
         <View>
           <FlatList
@@ -132,16 +133,21 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        <View style={[styles.monthlyConsumptionContainer]}>
-          <Text style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Text>
-          <BarChart data={monthly_consumption_data} />
-          <FlatList
-            data={monthly_consumption_data.slice(7, 12)}
-            keyExtractor={(item) => item.id}
-            renderItem={renderMonthlyItem}
-            scrollEnabled={true}
-            style={styles.flatList}
-          />
+        <View style={styles.monthlyConsumptionContainer}>
+          <View style={styles.monthlyConsumptionHeaderTextWrapper}>
+            <Text style={[styles.mediumBoldText]}>Monthly Consumption</Text>
+          </View>
+          <View style={[styles.monthlyConsumptionChartContainer]}>
+            <BarChart data={monthly_consumption_data} />
+            <FlatList
+              data={monthly_consumption_data.slice(7, 12)}
+              keyExtractor={(item) => item.id}
+              renderItem={renderMonthlyItem}
+              scrollEnabled={true}
+              style={styles.flatList}
+            />
+          </View>
+
         </View>
 
       </LinearGradient>
@@ -168,24 +174,21 @@ const styles = StyleSheet.create({
   headerTextContainer: {
     marginTop: 20,
   },
-  monthlyConsumptionHeaderText: {
-    fontSize: 22,
-    marginLeft: 10,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 10,
+  monthlyConsumptionHeaderTextWrapper: {
+    paddingHorizontal: 20,
   },
   monthlyConsumptionContainer: {
-    marginHorizontal: 10,
+    // wrapper for the monthly consumption chart + title
+    rowGap: 10,
+    // marginHorizontal: 10,
+    // marginBottom: 10,
+  },
+  monthlyConsumptionChartContainer: {
+    paddingBottom: 20,
     paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderTopEndRadius: 16,
-    borderTopStartRadius: 16,
-    borderBottomEndRadius: 16,
-    borderBottomStartRadius: 16,
-    marginBottom: 20,
+    borderTopEndRadius: 26,
+    borderTopStartRadius: 26,
     backgroundColor: 'white',
-    // backgroundColor: '#f9f9f9',
     justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
