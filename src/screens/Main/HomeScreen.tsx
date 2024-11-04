@@ -87,20 +87,23 @@ const HomeScreen: React.FC = () => {
 
   const renderMonthlyItem: ListRenderItem<MonthlyConsumptionData> = ({ item }) => (
     <View style={styles.listItem}>
-      <Text style={styles.monthText}>{item.month}</Text>
-      <Text style={styles.consumptionText}>{item.consumption}</Text>
+      <Paragraph style={styles.monthText}>{item.month}</Paragraph>
+      <Paragraph style={styles.consumptionText}>{item.consumption}</Paragraph>
     </View>
   );
 
   return (
-    <ScrollView style={styles.mainContentContainer}>
-      {/* experimenting with white background */}
-      <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.mainContentContainer}> 
+    <ScrollView>
+      {/* experimenting with white blue gradient with white card */}
+      {/* <LinearGradient colors={['#00A5FF', '#0072FF', '#00C6FF']}> */}
+      {/* experimenting with white background with blue gradient card */}
+      {/* <LinearGradient colors={['whitesmoke', 'whitesmoke']}> */}
+      <LinearGradient colors={['whitesmoke', 'whitesmoke']}>
       <AppBar />
         <View>
           <FlatList
             contentContainerStyle={{
-              padding: 25,
+              padding: 15,
               gap: 10,
             }}
             data={cardContents}
@@ -121,6 +124,7 @@ const HomeScreen: React.FC = () => {
                   subContent={item.subContent}
                   content={item.content}
                   modalID={item.id}
+                  focused={focusedItem == item.id}
                 />
               </View>
             )}
@@ -132,11 +136,11 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        <Title style={[styles.monthlyConsumptionHeaderText, styles.whiteText]}>Monthly Consumption</Title>
+        <Title style={[styles.monthlyConsumptionHeaderText]}>Monthly Consumption</Title>
 
         <Card style={[styles.monthlyConsumptionContainer]}>
           <BarChart data={monthly_consumption_data} />
-          <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}>
+          {/* <View style={[styles.monthlyConsumptionContainerList, styles.paddingHorizontalSmall]}> */}
             <Title style={[styles.mediumBoldText, { paddingVertical: 10 }]}>Monthly Consumption</Title>
             <FlatList
               data={monthly_consumption_data.slice(7, 12)}
@@ -145,7 +149,7 @@ const HomeScreen: React.FC = () => {
               scrollEnabled={true}
               style={styles.flatList}
             />
-          </View>
+          {/* </View> */}
         </Card>
       </LinearGradient>
     </ScrollView>
@@ -175,16 +179,14 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginLeft: 10,
     fontWeight: '600',
-    color: '#333',
+    color: '#000000',
     marginBottom: 10,
   },
   monthlyConsumptionContainer: {
-    marginHorizontal: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderBottomEndRadius: 16,
-    borderBottomStartRadius: 16,
-    marginBottom: 20,
+    marginHorizontal: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    // marginBottom: 20,
     backgroundColor: 'white',
     // backgroundColor: '#f9f9f9',
     justifyContent: 'center',
@@ -192,6 +194,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
+    // borderTopRightRadius: 10,
+    // borderTopLeftRadius: 10,
+    // borderWidth: 0.2,
+    // borderTopColor: '#000000'
   },
   monthlyConsumptionContainerList: {
     backgroundColor: '#f9f9f9',
