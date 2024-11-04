@@ -1,18 +1,30 @@
 // HomeScreenCard.tsx
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function HomeScreenCard({
+interface HomeScreenCardProps {
+  title: string;
+  content: string;
+  subContent: string;
+  modalID: string;
+  focused: boolean;
+  subtitle?: string;
+}
+
+const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
   title,
   content,
   subContent,
   modalID,
-}) {
-  const navigation = useNavigation();
+  focused,
+  subtitle
+}) => {
+  const navigation = useNavigation<NavigationProp<any>>();
 
   return (
     <LinearGradient colors={["#00A4FF", "#0D82C4"]} style={styles.cardContainer}>
@@ -35,7 +47,7 @@ export default function HomeScreenCard({
       </TouchableOpacity>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -48,12 +60,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    display: 'flex',
-  },
-  cardContent: {
-    justifyContent: 'space-between',
-    height: 120,
-    scaleX: 24,
   },
   cardTitle: {
     fontSize: 18,
@@ -72,3 +78,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
+
+export default HomeScreenCard;

@@ -1,60 +1,80 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryVoronoiContainer } from 'victory-native';
+import { Card } from 'react-native-paper';
 
-const BarChart = ({ data }) => {
-  const windowWidth = Dimensions.get('window').width;
+interface BarChartProps {
+  data: {
+    month: string | number;
+    kWh: number;
+  }[];
+}
+
+const BarChart: React.FC<BarChartProps> = ({ data }) => {
   return (
-    <VictoryChart
-      domainPadding={{ x: 10 }}
-      width={windowWidth-20} // Adjust width based on design
-      style={{
-        // parent: { borderRadius: 16, backgroundColor: 'white' }, // Add border radius and background color (based sa figma)
-      }}
-    >
-      {/* Bar chart data */}
-      <VictoryBar
-        data={data}
-        x="month" // eto pag gusto natin by months name ang x-axis
-        // x="id" // Use the numeric month representation (based sa figma design)
-        y="kWh"
-        style={{
-          data: {
-            fill: '#008FE0',
-            width: 10,
-          },
-        }}
-        cornerRadius={{ top: 0 }}
-      />
-
-      {/* X Axis (months) with explicit tick values */}
-      <VictoryAxis
-        tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]} // kapag wala to, it will only show tick values based on the space
-        // tickFormat={(t) => `${t}`} // Convert numeric month to string para sa label 
-        style={{
-          axis: { stroke: 'transparent' }, // Remove axis line or set to 'transparent' (based sa figma)
-          tickLabels: {
-            fontSize: 12,
-            fill: '#28282C', // color ng text sa x-axis
-            padding: 10,
-          },
-        }}
-      />
-
-      {/* Y Axis (kWh) */}
-      <VictoryAxis
-        dependentAxis
-        tickFormat={(x) => `${x}`}
-        style={{
-          axis: { stroke: 'transparent' }, // No visible axis line
-          tickLabels: {
-            fontSize: 12,
-            fill: '#828284', // color ng text sa y-axis
-            padding: 20,
-          },
-        }}
-      />
-    </VictoryChart>
+    <Card style={{ borderRadius: 16, backgroundColor: '#f9f9f9', padding: 10 }}>
+      <VictoryChart
+        domainPadding={{ x: 20 }}
+        height={300}
+        padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
+        containerComponent={<VictoryVoronoiContainer />}
+      >
+        <VictoryBar
+          data={data}
+          x="month"
+          y="kWh"
+          labels={({ datum }) => `${datum.kWh} kWh`}
+          labelComponent={<VictoryTooltip />}
+          style={{
+            data: {
+              fill: '#00A5FF',
+              width: 12,
+              cursor: 'pointer',
+            },
+            labels: {
+              fontSize: 12,
+              fill: '#333',
+            },
+          }}
+          cornerRadius={{ top: 4 }}
+          animate={{
+            duration: 500,
+            onLoad: { duration: 1000 },
+          }}
+        />
+        <VictoryAxis
+          tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          tickFormat={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+          style={{
+            axis: { stroke: 'transparent' },
+            tickLabels: {
+              fontSize: 12,
+              fill: '#28282C',
+              padding: 5,
+            },
+            grid: {
+              stroke: '#E5E7EB',
+              strokeDasharray: '2,4',
+            },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          tickFormat={(x) => `${x + ' kWh'}`} 
+          style={{
+            axis: { stroke: 'transparent' },
+            tickLabels: {
+              fontSize: 10,
+              fill: '#828284',
+              padding: 0,
+            },
+            grid: {
+              stroke: '#E5E7EB',
+              strokeDasharray: '1,4',
+            },
+          }}
+        />
+      </VictoryChart>
+    </Card>
   );
 };
 
