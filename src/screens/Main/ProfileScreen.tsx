@@ -5,7 +5,7 @@ import { StyleSheet, Image, TouchableOpacity, View, Dimensions, Text } from "rea
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
-import { signOut } from '../../services/firebaseAuth';
+import { signOut } from '../../services/authService';
 import { Alert } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
