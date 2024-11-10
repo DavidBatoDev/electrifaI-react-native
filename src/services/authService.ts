@@ -6,6 +6,11 @@ export const isUserLoggedIn = () => {
   return !!auth().currentUser;
 };
 
+// 
+export const getUserCredential = () => {
+  return auth().currentUser;
+};
+
 // Sign outs the user, returns error code
 export const signOut = async (): Promise<string> => {
   try {

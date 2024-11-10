@@ -10,6 +10,8 @@ import { Alert } from 'react-native';
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 
+import { fetchUserProfile } from '../../services/userService';
+
 // Define an interface for user data
 interface User {
   name: string;
@@ -21,7 +23,7 @@ interface User {
 
 export default function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-
+  fetchUserProfile() // FOR TESTING
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {
