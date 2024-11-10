@@ -7,11 +7,11 @@ export const fetchUserProfile = async () => {
     return "Error has occurred."
   }
   try {
-    const userProfileDocument = await firestore()
+    const userProfileSnapshot = await firestore()
       .collection('users')
       .doc(userCredential.uid)
       .get();
-    const userProfileData = userProfileDocument.data();
+    const userProfileData = userProfileSnapshot.data();
     console.log("TEST", userProfileData);
     return userProfileData;
   }

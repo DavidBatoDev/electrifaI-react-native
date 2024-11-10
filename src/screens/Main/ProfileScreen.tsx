@@ -11,6 +11,7 @@ import { useNavigation, CommonActions } from "@react-navigation/native";
 import { RootStackNavigationProp } from "../types";
 
 import { fetchUserProfile } from '../../services/userService';
+import { createDummyConsumptions } from '../../utils/dummyDataUtils';
 
 // Define an interface for user data
 interface User {
@@ -23,7 +24,8 @@ interface User {
 
 export default function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  fetchUserProfile() // FOR TESTING
+  fetchUserProfile(); // FOR TESTING
+  // createDummyConsumptions(); // FOR TESTING
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {
