@@ -1,9 +1,11 @@
 import firestore from '@react-native-firebase/firestore';
 import { getUserCredential } from './authService';
 
-export const getAverageDailyConsumptions = async () => {
+export const getTotalConsumptionToday = async () => {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
+  const endOfDay = new Date();
+  endOfDay.setHours(23, 59, 59, 999);
 
   let userCredential = getUserCredential();
   if (!userCredential) {
@@ -11,29 +13,36 @@ export const getAverageDailyConsumptions = async () => {
   }
   try {
     const consumptionCollection = firestore().collection('consumptions');
-    // Query for testing dummy data, delete this
+    // // Query for testing dummy data, delete this
     const dailyConsumptionQuery = await consumptionCollection
       .where('userID', '==', 'WyL4DHk8VxdmMU3L0pxbrgZstjn2')
       .where('recordedAt', '>=', new Date('2024-11-10T16:00:00.000Z'))
+      .where('recordedAt', '<=', new Date('2024-11-11T15:59:59.999Z'))
       .get();
-    // // Query for actual data, do NOT delete this
-    // const dailyConsumptionQuery = await consumptionCollection
-    //   .where('userID', '==', userCredential.uid)
-    //   .where('recordedAt', '>=', startOfDay)
-    //   .get();
+      // // Query for actual data, do NOT delete this
+      // const dailyConsumptionQuery = await consumptionCollection
+      //   .where('userID', '==', userCredential.uid)
+      //   .where('recordedAt', '>=', startOfDay)
+      // .where('recordedAt', '<=', endOfDay)
+      // .get();
     
     const userConsumptionSnapshot = dailyConsumptionQuery;
-    let averageConsumptionToday = 0;
+    let totalConsumptionToday = 0;
+    let mostRecentReading = startOfDay;
     userConsumptionSnapshot.forEach(doc => {
       const data = doc.data();
-      averageConsumptionToday += data.kilowattHour;
+      totalConsumptionToday += data.kilowattHour;
+      const recordedAt = data.recordedAt.toDate();
+      mostRecentReading = mostRecentReading > recordedAt
+        ? mostRecentReading
+        : recordedAt;
     });
     const data = {
-      date: startOfDay.toLocaleString(),
-      averageConsumptionToday: averageConsumptionToday,
-    }
+      mostRecentReading: mostRecentReading,
+      totalConsumptionToday: totalConsumptionToday,
+    };
     console.log(data);
-    return data;
+    return {data: data, error: ''};
   }
   catch (error: any) {
     console.log(error.message);
