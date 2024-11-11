@@ -104,4 +104,5 @@ export const logIn = async (
 - login w other services (maybe phone, google, apple, fb)
 - verify email first?
 - forgot/reset password
+- always return {data, errors} for consistency
 */

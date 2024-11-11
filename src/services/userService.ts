@@ -12,7 +12,6 @@ export const fetchUserProfile = async () => {
       .doc(userCredential.uid)
       .get();
     const userProfileData = userProfileSnapshot.data();
-    console.log("TEST", userProfileData);
     return userProfileData;
   }
   catch {
@@ -20,3 +19,5 @@ export const fetchUserProfile = async () => {
     return "Error while fetching profile";
   }
 };
+
+// TODO: edit user profile
