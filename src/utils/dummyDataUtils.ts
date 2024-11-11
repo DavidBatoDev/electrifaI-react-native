@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 export const createDummyConsumptions = async () => {
   const randomKilowattHour = getRandomFloat(0.01, 0.9);
   const userID = 'WyL4DHk8VxdmMU3L0pxbrgZstjn2';
-  const randomMonth = getRandomInt(1, 12);
+  const randomMonth = getRandomInt(0, 11);
   const randomDay = getRandomInt(1, 31);
   const recordedAt = new Date(`2024-${randomMonth}-${randomDay}`);
 
