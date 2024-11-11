@@ -12,7 +12,7 @@ import { RootStackNavigationProp } from "../types";
 
 import { fetchUserProfile } from '../../services/userService';
 import { createDummyConsumptions } from '../../utils/dummyDataUtils';
-import { getTotalConsumptionThisMonth, getTotalConsumptionToday } from '../../services/consumptionService';
+import { getTotalConsumptionThisMonth, getTotalConsumptionThisYear, getTotalConsumptionToday } from '../../services/consumptionService';
 
 // Define an interface for user data
 interface User {
@@ -29,6 +29,7 @@ export default function ProfileScreen() {
   // createDummyConsumptions(); // FOR TESTING
   getTotalConsumptionToday(); // FOR TESTING
   getTotalConsumptionThisMonth(); // FOR TESTING
+  getTotalConsumptionThisYear(); // FOR TESTING
   const [user, setUser] = useState<User | null>(null); // User state
 
   const getUserData = async () => {

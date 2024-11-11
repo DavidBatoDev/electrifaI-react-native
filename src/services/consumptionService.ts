@@ -55,7 +55,6 @@ export const getTotalConsumptionThisMonth = async () => {
   const currentMonth = date.getMonth();
   const startOfMonth = new Date(currentYear, currentMonth, 1);
   const endOfMonth = new Date(currentYear, currentMonth+1, 0, 23, 59, 59, 999);
-  console.log(startOfMonth.toLocaleString(), endOfMonth.toLocaleString());
 
   let userCredential = getUserCredential();
   if (!userCredential) {
@@ -73,6 +72,48 @@ export const getTotalConsumptionThisMonth = async () => {
     let totalConsumption = 0;
     let mostRecentReading = startOfMonth;
     ConsumptionThisMonthQuery.forEach(doc => {
+      const data = doc.data();
+      totalConsumption+= data.kilowattHour;
+      const recordedAt = data.recordedAt.toDate();
+      mostRecentReading = mostRecentReading > recordedAt
+        ? mostRecentReading
+        : recordedAt;
+    });
+    const data = {
+      mostRecentReading: mostRecentReading,
+      totalConsumption: totalConsumption,
+    };
+    console.log(data);
+    return {data: data, error: ''};
+  }
+  catch {
+    return {data: null, error: "Error has occurred."};
+  }
+};
+
+export const getTotalConsumptionThisYear = async () => {
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const startOfYear = new Date(currentYear, 0, 1);
+  const endOfYear = new Date(currentYear, 12, 0, 23, 59, 59, 999);
+  console.log(startOfYear.toLocaleString(), endOfYear.toLocaleString());
+
+  let userCredential = getUserCredential();
+  if (!userCredential) {
+    return {data: null, error: "Error has occurred."};
+  }
+  try {
+    // Query for actual data, do NOT delete this
+    const consumptionCollection = firestore().collection('consumptions');
+    const ConsumptionThisYearQuery = await consumptionCollection
+      .where('userID', '==', userCredential.uid)
+      .where('recordedAt', '>=', startOfYear)
+      .where('recordedAt', '<=', endOfYear)
+      .get();
+  
+    let totalConsumption = 0;
+    let mostRecentReading = startOfYear;
+    ConsumptionThisYearQuery.forEach(doc => {
       const data = doc.data();
       totalConsumption+= data.kilowattHour;
       const recordedAt = data.recordedAt.toDate();
