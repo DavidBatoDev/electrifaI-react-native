@@ -132,3 +132,9 @@ export const getTotalConsumptionThisYear = async () => {
     return {data: null, error: "Error has occurred."};
   }
 };
+
+// TODO: 
+// refactor consumptions use one func and pass only conditionals for queries
+// consumption for monthly bar graph in Home Screen 
+// 
+
