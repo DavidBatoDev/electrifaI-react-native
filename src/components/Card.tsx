@@ -5,20 +5,28 @@ import { StyleSheet,
   TouchableOpacity
 } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function Card({
+interface CardProps {
+  title: string;
+  subtitle: string;
+  content: string;
+  subContent: string;
+  modalID: string;
+}
+
+const Card: React.FC<CardProps> = ({
   title,
   subtitle,
   content,
   subContent,
   modalID
-}) {
+}) => {
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<any>>();
   return (
 
     <TouchableOpacity style={styles.mainContainer}
@@ -27,8 +35,9 @@ export default function Card({
       switch(modalID) {
         case "1":
           console.log('true')
-          navigation.navigate('Daily Consumption Modal')
-          // add cases for more modal screens
+          navigation.navigate('Daily Consumption Modal');
+          break;
+        // add cases for more modal screens
       }
 
     }}
@@ -53,7 +62,6 @@ export default function Card({
   )
 }
 
-
 const styles = StyleSheet.create({
   mainContainer: {
     // main card container
@@ -61,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white",
     flex: 1,
-    width: windowWidth -40,
+    width: windowWidth - 40,
     height: 250,
     borderRadius: 10,
     overflow: "hidden",
@@ -69,7 +77,6 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     // wrapper for text elements inside card
-
     flex: 1,
     rowGap: 2,
   },
@@ -89,5 +96,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "lightgrey",
   }
-  
 })
+
+export default Card;

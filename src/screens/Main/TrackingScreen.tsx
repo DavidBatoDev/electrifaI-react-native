@@ -2,18 +2,21 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 
 const blueLineChart = require('../../assets/images/blueLineChart.png');
-const redLineChart = require('../../assets/images/sample-profile.png');
+const redLineChart = require('../../assets/images/redLineChart.png');
 
-const TrackingScreen = () => {
-  const navigation = useNavigation();
+const TrackingScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+
   return (
-    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+    <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.linearGradient}>
+
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+
         {/* Leakage Notification Card */}
         <View style={styles.notificationCard}>
           <View style={styles.iconContainer}>
@@ -29,11 +32,12 @@ const TrackingScreen = () => {
 
         {/* Anomaly Detection Card */}
         <TouchableOpacity 
-        activeOpacity={0.8} 
-        onPress={() => navigation.navigate('Track Consumption', {
-          consumptionId: '1'
-        })}
-        style={styles.statCard}>
+          activeOpacity={0.8} 
+          onPress={() => navigation.navigate('Track Consumption', {
+            consumptionId: '1'
+          })}
+          style={styles.statCard}
+        >
           <View style={styles.statHeader}>
             <Ionicons name="stats-chart-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -60,7 +64,8 @@ const TrackingScreen = () => {
           onPress={() => navigation.navigate('Track Consumption', {
             consumptionId: '1'
           })}
-        style={styles.statCard}>
+          style={styles.statCard}
+        >
           <View style={styles.statHeader}>
             <Ionicons name="battery-charging-outline" size={28} color="#000" />
             <View style={styles.statHeaderTitle}>
@@ -95,10 +100,12 @@ export default TrackingScreen;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1, // Ensures the gradient covers the whole screen
+    flex: 1, 
   },
   scrollViewContent: {
-    padding: 20, // Padding for ScrollView content
+    // padding: 10, // Padding for ScrollView content
+    paddingVertical: 30,
+    paddingHorizontal: 10,
     flexGrow: 1, // Ensures ScrollView stretches to fit content
   },
   notificationCard: {
@@ -106,12 +113,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 16,
-    elevation: 4,
+    elevation: 8,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
     shadowRadius: 6,
+    // borderWidth: 0.5,
+    // borderColor: '#000'
   },
   iconContainer: {
     marginRight: 12,
@@ -133,12 +142,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 16,
-    elevation: 4,
+    elevation: 8,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
     shadowRadius: 6,
+    // borderWidth: 0.5,
+    // borderColor: '#000'
   },
   statHeader: {
     flexDirection: 'row',
@@ -197,10 +208,10 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    elevation: 4,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    elevation: 8,
     shadowRadius: 6,
   },
   footerText: {

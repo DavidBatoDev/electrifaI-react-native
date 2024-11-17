@@ -2,7 +2,12 @@
 
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+
+type RootStackParamList = {
+  PaymentDetails: { methodId: number };
+};
 
 const data = {
   payableAmount: '₱ 5,643.50',
@@ -23,7 +28,7 @@ const data = {
   ],
 };
 
-const PaymentsScreen = () => {
+const PaymentsScreen: React.FC = () => {
   const {
     payableAmount,
     month,
@@ -31,16 +36,16 @@ const PaymentsScreen = () => {
     history,
     paymentMethods,
   } = data;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Payable Amount Section */}
-      <View style={styles.payableContainer}>
-        <Text style={styles.monthText}>{month}</Text>
-        <Text style={styles.amountText}>{payableAmount}</Text>
-        <Text style={styles.labelText}>Payable Amount</Text>
-      </View>
+      <LinearGradient colors={["#00A4FF", "#0D82C4"]}style={styles.payableContainer} >
+          <Text style={styles.monthText}>{month}</Text>
+          <Text style={styles.amountText}>{payableAmount}</Text>
+          <Text style={styles.labelText}>Payable Amount</Text>
+      </LinearGradient>
 
       {/* Current Rates Section */}
       <View style={styles.currentRatesContainer}>
@@ -75,7 +80,7 @@ const PaymentsScreen = () => {
             </View>
             <TouchableOpacity
               style={styles.payButton}
-              onPress={() => navigation.navigate('_')}
+              onPress={() => navigation.navigate('PaymentDetails', { methodId: id })}
             >
               <Text style={styles.payButtonText}>PAY</Text>
             </TouchableOpacity>
@@ -90,13 +95,15 @@ export default PaymentsScreen;
 
 const styles = StyleSheet.create({
   container: {
+    rowGap: 20,
     flexGrow: 1,
-    padding: 20,
-    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    backgroundColor: "whitesmoke",
   },
   payableContainer: {
     backgroundColor: '#4050E7',
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 20,
     alignItems: 'center',
   },
@@ -115,11 +122,10 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   currentRatesContainer: {
+    rowGap: 10,
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 15,
-    marginVertical: 10,
-    elevation: 2,
   },
   currentRatesTitle: {
     fontSize: 16,
@@ -129,28 +135,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginVertical: 5,
   },
   currentRatesChange: {
     fontSize: 14,
     color: '#4050E7',
   },
   historyContainer: {
+    rowGap: 10,
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 15,
-    marginVertical: 10,
-    elevation: 2,
   },
   historyTitle: {
+    color: "#0D82C4",
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   historyItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 5,
   },
   historyText: {
     fontSize: 16,
@@ -165,22 +168,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   paymentMethodsContainer: {
+    rowGap: 10,
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 12,
     padding: 15,
-    marginVertical: 10,
-    elevation: 2,
+    // elevation: 2,
   },
   paymentMethodsTitle: {
+    color: "#0D82C4",
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   paymentMethodItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
   },
   paymentMethodText: {
     fontSize: 16,
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00c853',
     paddingVertical: 5,
     paddingHorizontal: 15,
-    borderRadius: 5,
+    borderRadius: 12,
   },
   payButtonText: {
     color: '#fff',
