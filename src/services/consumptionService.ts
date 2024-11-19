@@ -1,6 +1,57 @@
 import firestore from '@react-native-firebase/firestore';
 import { getUserCredential } from './authService';
 
+type getTotalConsumptionProps = {
+  userID: string,
+  dateLowerBound: Date,
+  dateUpperBound: Date,
+};
+
+export const getTotalConsumption = async ({
+  userID,
+  dateLowerBound,
+  dateUpperBound,
+}: getTotalConsumptionProps) => {
+  console.log(userID, dateLowerBound, dateUpperBound);
+  try {
+    const consumptionCollection = firestore().collection('consumptions');
+    const consumptionQuery = await consumptionCollection
+    .where('userID', '==', userID)
+    .where('recordedAt', '>=', dateLowerBound)
+    .where('recordedAt', '<=', dateUpperBound)
+    .get();
+
+    let totalConsumption = 0;
+    let mostRecentReading = dateLowerBound;
+    consumptionQuery.forEach(doc => {
+      const data = doc.data();
+      totalConsumption += data.kilowattHour;
+      const recordedAt = data.recordedAt.toDate();
+      mostRecentReading = mostRecentReading > recordedAt
+        ? mostRecentReading
+        : recordedAt;
+    });
+    
+    const data = {
+      mostRecentReading: mostRecentReading,
+      totalConsumption: totalConsumption,
+    };
+    console.log(data);
+    return {data: data, error: ''};
+  }
+  catch (error: any) {
+      console.log(error.message);
+      error = {
+        date: null,
+        error: {
+          code: 913,
+          message: "Can't reach consumptions collections",
+        }
+      }
+      return error;
+  }
+};
+
 export const getTotalConsumptionToday = async () => {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
