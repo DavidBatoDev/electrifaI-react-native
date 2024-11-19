@@ -3,8 +3,14 @@ import { VictoryChart, VictoryLine, VictoryScatter, VictoryTheme, VictoryLegend,
 import { View, StyleSheet } from 'react-native';
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 
-const ConsumptionLineChart = ({data}) => {
+interface ConsumptionLineChartProps {
+  data: {
+    x: number | string;
+    y: number;
+  }[];
+}
 
+const ConsumptionLineChart: React.FC<ConsumptionLineChartProps> = ({ data }) => {
   return (
     <View style={styles.chartContainer}>
       <VictoryChart theme={VictoryTheme.material}>
@@ -27,7 +33,7 @@ const ConsumptionLineChart = ({data}) => {
           ]}
         />
 
-        {/* VictoryArea wth Gradient */}
+        {/* VictoryArea with Gradient */}
         <VictoryArea
           data={data}
           style={{
@@ -61,6 +67,6 @@ export default ConsumptionLineChart;
 
 const styles = StyleSheet.create({
   chartContainer: {
-    marginVertical: 0,  // Ajdust as per design requirements
+    marginVertical: 0,
   },
 });

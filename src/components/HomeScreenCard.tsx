@@ -1,23 +1,34 @@
 // HomeScreenCard.tsx
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Dimensions, TouchableOpacity, View } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function HomeScreenCard({
+interface HomeScreenCardProps {
+  title: string;
+  content: string;
+  subContent: string;
+  modalID: string;
+  focused: boolean;
+  subtitle?: string;
+}
+
+const HomeScreenCard: React.FC<HomeScreenCardProps> = ({
   title,
   content,
   subContent,
   modalID,
   focused,
   subtitle
-}) {
-  const navigation = useNavigation();
+}) => {
+  const navigation = useNavigation<NavigationProp<any>>();
 
   return (
-    <TouchableOpacity
-      style={styles.cardContainer}
+      <TouchableOpacity
+      activeOpacity={0.6}
       onPress={() => {
         switch (modalID) {
           case '1':
@@ -27,49 +38,49 @@ export default function HomeScreenCard({
         }
       }}
     >
-      <View style={styles.cardContent}>
-        <View>
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.cardValue}>{content}</Text>
-          <Text style={styles.cardSubContent}>{subContent}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+        <LinearGradient colors={["#00A4FF", "#0D82C4"]} style={styles.cardContainer}>
+
+                {/* <Card style={styles.cardContent}> */}
+                <View>
+                  <Paragraph style={styles.cardTitle}>{title}</Paragraph>
+                  <Paragraph style={styles.cardValue}>{content}</Paragraph>
+                  <Paragraph style={styles.cardSubContent}>{subContent}</Paragraph>
+                </View>
+
+        </LinearGradient>
+      </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContainer: {
     width: windowWidth - 40,
+    marginVertical: 10,
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#00A4FF',
     borderRadius: 16,
-    elevation: 4,
+    // elevation: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    display: 'flex',
-  },
-  cardContent: {
-    justifyContent: 'space-between',
-    height: 120,
-    scaleX: 24,
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#333',
+    color: 'white',
   },
   cardValue: {
     fontSize: 32,
     fontWeight: '500',
-    color: '#000000', 
-    marginTop: 10,
+    color: 'white', 
+    paddingTop: 25,
   },
   cardSubContent: {
     fontSize: 15,
-    color: '#666',
+    color: 'white',
     marginTop: 5,
   },
 });
+
+export default HomeScreenCard;

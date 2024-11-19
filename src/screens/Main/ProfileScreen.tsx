@@ -86,7 +86,7 @@ export default function ProfileScreen() {
   const profilePhoto = require('../../assets/images/sample-profile.png')
   
   return (
-    <LinearGradient colors={['#333E6C', '#2D3142']} style={styles.linearGradient}>
+    <LinearGradient colors={['whitesmoke', 'whitesmoke']} style={styles.linearGradient}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.profileHeader}>
           <View style={styles.photoAndEditContainer}>
@@ -187,14 +187,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   editButtonText: {
-    color: "#fff",
+    color: "grey",
     fontWeight: "bold",
     fontSize: 14,
   },
   profileName: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff",
+    // color: "#fff",
+    color: "#0D82C4",
     marginBottom: 20,
     marginLeft: 20,
     width: "60%",
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
     borderRadius: 15, 
   },
   editInfoButtonText: {
-    color: "#00f",
+    color: "grey",
     fontWeight: "bold",
   },
   moreContainer: {
