@@ -1,5 +1,4 @@
 import firestore from '@react-native-firebase/firestore';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { getUserCredential } from './authService';
 import { successResponse, errorResponse } from '../utils/responseUtils';
 
@@ -37,7 +36,7 @@ export const getTotalConsumption = async ({
       mostRecentReading: mostRecentReading,
       totalConsumption: totalConsumption,
     };
-    console.log(successResponse(data));
+    // console.log(successResponse(data));
     return successResponse(data);
   }
   catch (error: any) {
@@ -69,7 +68,6 @@ export const getTotalConsumptionToday = async () => {
     dateUpperBound: new Date('2024-11-11T15:59:59.999Z'),
   }
   // END OF TESTING DUMMY DATA
-  console.log(params);
   const response = await getTotalConsumption(params);
   return response;
 };
@@ -91,7 +89,6 @@ export const getTotalConsumptionThisMonth = async () => {
     dateUpperBound: endOfMonth,
   }
 
-  console.log(params);
   const response = await getTotalConsumption(params);
   return response;
 };
@@ -101,7 +98,6 @@ export const getTotalConsumptionThisYear = async () => {
   const currentYear = date.getFullYear();
   const startOfYear = new Date(currentYear, 0, 1);
   const endOfYear = new Date(currentYear, 12, 0, 23, 59, 59, 999);
-  console.log(startOfYear.toLocaleString(), endOfYear.toLocaleString());
 
   let userCredential = getUserCredential();
   if (!userCredential || !userCredential.uid) {
@@ -118,10 +114,36 @@ export const getTotalConsumptionThisYear = async () => {
   return response;
 };
 
-export const getConsumptionForAllMonths = async () => {
-  // TODO
+export const getConsumptionRecentMonths = async (numOfMonths = 12) => {
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth();
+  const finalData: Record<number, number> = {}
+
+  let userCredential = getUserCredential();
+  if (!userCredential || !userCredential.uid) {
+    return errorResponse(913, "Can't identify user.");
+  }
+  const userID = String(userCredential.uid);
+
+  for (let i = 0; i < numOfMonths; i++) {
+    const startOfMonth = new Date(currentYear, currentMonth - i, 1);
+    const endOfMonth = new Date(currentYear, currentMonth - i + 1, 0, 23, 59, 59, 999);
+    const params = {
+      userID: userID,
+      dateLowerBound: startOfMonth,
+      dateUpperBound: endOfMonth,
+    };
+    const {data, error, status} = await getTotalConsumption(params);
+    if (error) {
+      return errorResponse(913, "Can't identify monthly consumptions.");
+    }
+
+    const currMonth: number = startOfMonth.getMonth();
+    finalData[currMonth] = data.totalConsumption;
+  }
+  console.log(finalData);
+  return finalData;
 };
 
-// TODO: 
-// consumption for monthly bar graph in Home Screen 
-
+// TODO: ESLINT
