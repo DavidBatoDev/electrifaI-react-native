@@ -31,12 +31,11 @@ export const getTotalConsumption = async ({
         ? mostRecentReading
         : recordedAt;
     });
-    
+
     const data = {
       mostRecentReading: mostRecentReading,
       totalConsumption: totalConsumption,
     };
-    // console.log(successResponse(data));
     return successResponse(data);
   }
   catch (error: any) {
@@ -60,13 +59,13 @@ export const getTotalConsumptionToday = async () => {
     userID: String(userCredential.uid),
     dateLowerBound: startOfDay,
     dateUpperBound: endOfDay,
-  }
+  };
   // NOTE: Query for testing dummy data, delete this
   params = {
     userID: String(userCredential.uid),
     dateLowerBound: new Date('2024-11-10T16:00:00.000Z'),
     dateUpperBound: new Date('2024-11-11T15:59:59.999Z'),
-  }
+  };
   // END OF TESTING DUMMY DATA
   const response = await getTotalConsumption(params);
   return response;
@@ -77,7 +76,8 @@ export const getTotalConsumptionThisMonth = async () => {
   const currentYear = date.getFullYear();
   const currentMonth = date.getMonth();
   const startOfMonth = new Date(currentYear, currentMonth, 1);
-  const endOfMonth = new Date(currentYear, currentMonth+1, 0, 23, 59, 59, 999);
+  const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+  endOfMonth.setHours(23, 59, 59, 999);
 
   let userCredential = getUserCredential();
   if (!userCredential || !userCredential.uid) {
@@ -87,7 +87,7 @@ export const getTotalConsumptionThisMonth = async () => {
     userID: String(userCredential.uid),
     dateLowerBound: startOfMonth,
     dateUpperBound: endOfMonth,
-  }
+  };
 
   const response = await getTotalConsumption(params);
   return response;
@@ -97,7 +97,8 @@ export const getTotalConsumptionThisYear = async () => {
   const date = new Date();
   const currentYear = date.getFullYear();
   const startOfYear = new Date(currentYear, 0, 1);
-  const endOfYear = new Date(currentYear, 12, 0, 23, 59, 59, 999);
+  const endOfYear = new Date(currentYear, 12, 0);
+  endOfYear.setHours(23, 59, 59, 999);
 
   let userCredential = getUserCredential();
   if (!userCredential || !userCredential.uid) {
@@ -107,7 +108,7 @@ export const getTotalConsumptionThisYear = async () => {
     userID: String(userCredential.uid),
     dateLowerBound: startOfYear,
     dateUpperBound: endOfYear,
-  }
+  };
 
   console.log(params);
   const response = await getTotalConsumption(params);
@@ -118,7 +119,7 @@ export const getConsumptionRecentMonths = async (numOfMonths = 12) => {
   const date = new Date();
   const currentYear = date.getFullYear();
   const currentMonth = date.getMonth();
-  const finalData: Record<number, number> = {}
+  const finalData: Record<number, number> = {};
 
   let userCredential = getUserCredential();
   if (!userCredential || !userCredential.uid) {
@@ -128,13 +129,15 @@ export const getConsumptionRecentMonths = async (numOfMonths = 12) => {
 
   for (let i = 0; i < numOfMonths; i++) {
     const startOfMonth = new Date(currentYear, currentMonth - i, 1);
-    const endOfMonth = new Date(currentYear, currentMonth - i + 1, 0, 23, 59, 59, 999);
+    const endOfMonth = new Date(currentYear, currentMonth - i + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
     const params = {
       userID: userID,
       dateLowerBound: startOfMonth,
       dateUpperBound: endOfMonth,
     };
-    const {data, error, status} = await getTotalConsumption(params);
+    const {data, error} = await getTotalConsumption(params);
     if (error) {
       return errorResponse(913, "Can't identify monthly consumptions.");
     }
@@ -145,5 +148,3 @@ export const getConsumptionRecentMonths = async (numOfMonths = 12) => {
   console.log(finalData);
   return finalData;
 };
-
-// TODO: ESLINT
