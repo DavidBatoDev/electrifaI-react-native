@@ -1,8 +1,14 @@
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 // Checks if a user is signed in at the moment
 export const isUserLoggedIn = () => {
   return !!auth().currentUser;
+};
+
+// Get User Credential of the logged in user
+export const getUserCredential = () => {
+  return auth().currentUser;
 };
 
 // Sign outs the user, returns error code
@@ -28,7 +34,8 @@ export const signUp = async (
       createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
     const fullName = `${firstName} ${lastName}`;
-    const error: string = await addDisplayName(user, fullName);
+    let error: string = await addDisplayName(user, fullName);
+    error = await createAccount(user.uid, fullName);
     return error;
   }
   catch (error: any) {
@@ -55,6 +62,24 @@ const addDisplayName = async (
   }
 };
 
+// Add user account in Firestore, called on signUp, returns error code
+export const createAccount = async (id: string, name: string) => {
+  try {
+    await firestore().collection('users').doc(id).set({
+      name: name,
+      nickname: '',
+      location: '',
+      age: '',
+      occupation: '',
+      photoUrl: '',
+    });
+    return '';
+  }
+  catch (error: any) {
+    return error;
+  }
+};
+
 // Log in, return error code
 export const logIn = async (
   email: string,
@@ -74,8 +99,8 @@ export const logIn = async (
 - disable submit if there is still error
 - spinners
 - inform user account is created/ just logged in
-- create data on firestore connected to auth uid
 - login w other services (maybe phone, google, apple, fb)
 - verify email first?
 - forgot/reset password
+- always return {data, errors, status} for consistency
 */

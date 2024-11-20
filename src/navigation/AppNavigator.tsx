@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { isUserLoggedIn } from '../services/firebaseAuth';
+import { isUserLoggedIn } from '../services/authService';
 
 // Import the navigators
 import AuthNavigator from './AuthNavigator';
